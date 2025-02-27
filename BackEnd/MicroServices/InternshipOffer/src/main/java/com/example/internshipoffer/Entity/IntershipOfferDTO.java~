@@ -1,0 +1,23 @@
+package com.example.internshipoffer.Entity;
+
+
+import lombok.*;
+
+import java.util.List;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class IntershipOfferDTO {
+    private Long id_offer;
+    private String description;
+    private String competence;
+    private String duration;
+    private String type;
+    private String status;
+    private List<Long> companyIds; // Liste des IDs des entreprises
+    private List<Long> candidateIds; // Liste des IDs des candidats
+    private Long representantId;  // ID du représentant
+}
+
