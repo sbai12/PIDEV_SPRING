@@ -36,7 +36,7 @@ public class TrainingServiceImpl implements ITrainingService{
             training.setMaxCapacity(trainingDetails.getMaxCapacity());
             return trainingRepo.save(training);
 
-        }).orElseThrow(() -> new RuntimeException("User not found"));
+        }).orElseThrow(() -> new RuntimeException("Training not found with ID: " + id));
     }
 
     @Override
