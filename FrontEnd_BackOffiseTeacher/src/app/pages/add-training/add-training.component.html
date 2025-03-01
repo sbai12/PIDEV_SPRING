@@ -17,8 +17,13 @@
     </div>
 
     <div class="form-group">
-      <label for="maxCapacity">Students Max Capacity:</label>
-      <input type="number" id="maxCapacity" [(ngModel)]="training.maxCapacity" name="maxCapacity" required class="form-control">
+      <label for="studentsMaxCapacity">Students Max Capacity:</label>
+      <input type="number" id="studentsMaxCapacity" [(ngModel)]="training.maxCapacity" name="studentsMaxCapacity" required class="form-control">
+    </div>
+
+    <!-- Affichage de l'erreur si la formation existe déjà -->
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
     </div>
 
     <button type="submit" class="btn btn-primary">Add Training</button>

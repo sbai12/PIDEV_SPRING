@@ -17,9 +17,24 @@ public class TrainingServiceImpl implements ITrainingService{
     @Autowired
     TrainingRepo trainingRepo;
 
+
+    //public Training SaveTraining(Training training) {
+    //    return trainingRepo.save(training);
+    //}
+
+
     @Override
     public Training SaveTraining(Training training) {
+        // Vérifier si la formation existe déjà par son nom
+        if (trainingRepo.existsByName(training.getName())) {
+            throw new RuntimeException("Formation existe déjà.");
+        }
         return trainingRepo.save(training);
+    }
+
+    // Méthode pour vérifier si la formation existe
+    public boolean existsByName(String name) {
+        return trainingRepo.existsByName(name);
     }
 
     @Override
