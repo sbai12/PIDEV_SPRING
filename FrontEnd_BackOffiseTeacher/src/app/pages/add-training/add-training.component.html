@@ -1,0 +1,19 @@
+<div class="container">
+    <h2>Add a New Training</h2>
+    <form (submit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Training Name:</label>
+        <input type="text" id="name" [(ngModel)]="training.name" name="name" required class="form-control">
+      </div>
+  
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea id="description" [(ngModel)]="training.description" name="description" required class="form-control"></textarea>
+      </div>
+  
+   
+  
+      <button type="submit" class="btn btn-primary">Add Training</button>
+    </form>
+  </div>
+  
