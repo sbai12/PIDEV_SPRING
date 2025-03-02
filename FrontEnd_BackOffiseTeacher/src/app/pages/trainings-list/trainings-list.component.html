@@ -1,31 +1,55 @@
 <!-- Trainings Section -->
 <section id="trainings" class="trainings section">
-    <div class="container" data-aos="fade-up">
-      <h2 class="text-center mb-4">Trainings List</h2>
-  
-      <div class="row">
-        <div class="col-md-6 d-flex align-items-stretch" *ngFor="let training of trainings">
-          <div class="card">
-            <div class="card-img">
-              <img src="assets/img/events-item-1.jpg" alt="Training Image">
+  <div class="container" data-aos="fade-up">
+    <h2 class="text-center mb-4">Trainings List</h2>
+
+    <div class="row">
+      <div class="col-md-6 d-flex align-items-stretch" *ngFor="let training of trainings">
+        <div class="card">
+          <div class="card-img">
+            <img src="assets/img/events-item-1.jpg" alt="Training Image">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">
+              <a href="#">{{ training.name }}</a>  <!-- Utilisation de la propriété 'name' -->
+            </h5>
+            <p class="fst-italic text-center">Date: {{ training.date }}</p>  <!-- Utilisation de la propriété 'date' -->
+            <p class="card-text">{{ training.description }}</p>  <!-- Utilisation de la propriété 'description' -->
+
+            <!-- Buttons for Edit & Delete -->
+            <div class="text-center">
+              <button class="btn btn-primary me-2" (click)="editTraining(training)">Modifier Formation</button>
+              <button class="btn btn-danger" (click)="deleteTraining(training.idForm)">Supprimer Formation</button>
             </div>
-            <div class="card-body">
-              <h5 class="card-title">
-                <a href="#">{{ training.name }}</a>
-              </h5>
-              <p class="fst-italic text-center">Date: {{ training.date }}</p>
-              <p class="card-text">{{ training.description }}</p>
-  
-              <!-- Buttons for Edit & Delete -->
-              <div class="text-center">
-                <button class="btn btn-primary me-2" (click)="editTraining(training)">Modifier Formation</button>
-                <button class="btn btn-danger" (click)="deleteTraining(training.id)">Supprimer Formation</button>
-              </div>
-  
-            </div>
+
           </div>
         </div>
       </div>
     </div>
-  </section>
-  
+  </div>
+
+  <!-- Formulaire de modification -->
+  <div *ngIf="currentTraining">
+    <h3>Modifier la formation</h3>
+    <form (ngSubmit)="updateTraining()">
+      <div class="form-group">
+        <label for="name">Nom de la formation :</label>
+        <input type="text" [(ngModel)]="currentTraining.name" name="name" required class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="description">Description :</label>
+        <textarea [(ngModel)]="currentTraining.description" name="description" required class="form-control"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="duration">Durée :</label>
+        <input type="number" [(ngModel)]="currentTraining.duration" name="duration" required class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="maxCapacity">Capacité maximale :</label>
+        <input type="number" [(ngModel)]="currentTraining.maxCapacity" name="maxCapacity" required class="form-control">
+      </div>
+      <button type="submit" class="btn btn-primary">Mettre à jour</button>
+    </form>
+  </div>
+
+</section>

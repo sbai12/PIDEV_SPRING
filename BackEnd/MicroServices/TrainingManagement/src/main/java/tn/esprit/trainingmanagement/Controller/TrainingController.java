@@ -21,6 +21,12 @@ public class TrainingController {
         boolean exists = serviceImpl.existsByName(name);
         return ResponseEntity.ok(Map.of("exists", exists));
     }
+    // Récupère toutes les formations
+    @GetMapping
+    public List<Training> getAllTrainings() {
+        return serviceImpl.getAllTrainings();  // Retourne la liste de toutes les formations
+    }
+
 
     @PostMapping
     public Training SaveTraining(@RequestBody Training training) {
@@ -30,6 +36,7 @@ public class TrainingController {
     public Training updateTraining(@PathVariable Long id, @RequestBody Training trainingDetails){
         return serviceImpl.updateTraining(id, trainingDetails);
     }
+
     @DeleteMapping("/{id}")
     public void deleteTraining(@PathVariable Long id){
         serviceImpl.deleteTraining(id);

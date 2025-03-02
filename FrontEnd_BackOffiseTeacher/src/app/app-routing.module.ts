@@ -10,6 +10,7 @@ import { TrainersComponent } from './components/trainers/trainers.component';
 import { PostComponent } from './components/post/post.component';
 import { AddTrainingComponent } from './pages/add-training/add-training.component';
 import { TrainingsListComponent } from './pages/trainings-list/trainings-list.component';
+import { EventsComponent } from './components/events/events.component';  // Assurez-vous que le chemin est correct
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,6 +23,8 @@ const routes: Routes = [
   { path: 'post', component: PostComponent },
   { path: 'add-training', component: AddTrainingComponent },
   { path: 'trainings-list', component: TrainingsListComponent },
+  { path: 'events', component: EventsComponent },
+  { path: '', redirectTo: '/trainings', pathMatch: 'full' }  ,
 
 ];
 

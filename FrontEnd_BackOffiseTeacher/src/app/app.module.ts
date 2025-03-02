@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AddTrainingComponent } from './pages/add-training/add-training.component';
 import { TrainingsListComponent } from './pages/trainings-list/trainings-list.component';
+import { EventsComponent } from './components/events/events.component';
 
 
 @NgModule({
@@ -28,7 +29,9 @@ import { TrainingsListComponent } from './pages/trainings-list/trainings-list.co
     ContactComponent,
     PostComponent,
     AddTrainingComponent,
-    TrainingsListComponent
+    TrainingsListComponent,
+    EventsComponent
+    
   ],
   imports: [
     BrowserModule,
