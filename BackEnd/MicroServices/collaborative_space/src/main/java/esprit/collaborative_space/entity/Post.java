@@ -16,7 +16,8 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-
+@Getter
+@Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Post {
     @Id

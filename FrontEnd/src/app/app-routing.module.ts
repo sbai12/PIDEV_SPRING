@@ -8,7 +8,10 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { EventsComponent } from './components/events/events.component';
 import { PricingComponent } from './components/pricing/pricing.component';
 import { TrainersComponent } from './components/trainers/trainers.component';
-import { PostComponent } from './components/post/post.component';
+import { CreatePostComponent } from './components/create-post/create-post.component';
+import { EditPostComponent } from './components/edit-post/edit-post.component';
+import { ViewAllComponent } from './components/view-all/view-all.component';
+import { ViewPostComponent } from './components/view-post/view-post.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,9 +22,12 @@ const routes: Routes = [
   { path: 'Events', component: EventsComponent },
   { path: 'pricing', component: PricingComponent },
   { path: 'Trainers', component: TrainersComponent },
-  { path: 'post', component: PostComponent }
+  { path: 'createpost', component: CreatePostComponent },
+  { path: 'editpost/:id', component: EditPostComponent },
+  { path: 'viewall', component: ViewAllComponent },
+  { path: 'viewpost/:id', component: ViewPostComponent },
 
-];
+  ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

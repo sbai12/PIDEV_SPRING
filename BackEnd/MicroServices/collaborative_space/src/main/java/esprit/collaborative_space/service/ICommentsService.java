@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface ICommentsService {
 
+    void deleteComment(Long commentId);
 
     Comment createComment(Long postId, String postedBy, String content);
 

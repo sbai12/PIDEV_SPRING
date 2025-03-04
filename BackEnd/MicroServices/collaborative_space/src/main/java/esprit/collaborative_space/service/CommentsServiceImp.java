@@ -24,7 +24,12 @@ public class CommentsServiceImp implements ICommentsService{
     @Autowired
     private IPostRepository postRepository;
 
-
+    @Override
+    public void deleteComment(Long commentId) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new EntityNotFoundException("Commentaire non trouvé"));
+        commentRepository.delete(comment);
+    }
     public Comment createComment(Long postId, String postedBy, String content) {
         Optional<Post> optionalPost = postRepository.findById(postId);
         if(optionalPost.isPresent()) {

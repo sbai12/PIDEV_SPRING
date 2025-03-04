@@ -10,9 +10,13 @@ import { EventsComponent } from './components/events/events.component';
 import { PricingComponent } from './components/pricing/pricing.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { ContactComponent } from './components/contact/contact.component';
-import { PostComponent } from './components/post/post.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { CreatePostComponent } from './components/create-post/create-post.component';
+import { EditPostComponent } from './components/edit-post/edit-post.component';
+import { ViewAllComponent } from './components/view-all/view-all.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { ViewPostComponent } from './components/view-post/view-post.component';
 
 
 @NgModule({
@@ -26,13 +30,18 @@ import { HttpClientModule } from '@angular/common/http';
     PricingComponent,
     DropdownComponent,
     ContactComponent,
-    PostComponent
+    CreatePostComponent,
+    EditPostComponent,
+    ViewAllComponent,
+    ViewPostComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,3 +1,4 @@
+<!-- Navigation -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,66 +61,98 @@
     </section><!-- /Hero Section -->
 
     <!-- About Section -->
-    <section id="about" class="about section">
 
-      <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="100">
-            <img src="assets/img/about.jpg" class="img-fluid" alt="">
-          </div>
-          <div class="col-lg-6 order-2 order-lg-1 content" data-aos="fade-up" data-aos-delay="200">
-
-            
-            <app-create-post></app-create-post>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section><!-- /About Section -->
 
     <!-- Counts Section -->
     <section id="counts" class="section counts light-background">
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="1232" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Students</p>
+      <div *ngIf="postData" class="card-container">
+        <!-- Post Card -->
+        <div class="post-card">
+          <!-- Header -->
+          <div class="post-card-header">
+            <div class="profile-picture"></div>
+            <div>
+              <h2 class="post-title">{{ postData.name }}</h2>
+              <p class="post-subtitle">
+                Posté par: {{ postData.postedBy }} | {{ postData.date | date: 'medium' }}
+              </p>
             </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="64" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Courses</p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="42" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Events</p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="24" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Trainers</p>
-            </div>
-          </div><!-- End Stats Item -->
-
+          </div>
+      
+          <!-- Image -->
+          <img
+            [src]="postData.img ? postData.img : 'assets/default-image.jpg'"
+            class="post-img"
+            alt="Image du post"
+          />
+      
+          <!-- Content -->
+          <div class="post-content">
+            <p class="post-text">{{ postData.content }}</p>
+          </div>
+      
+          <!-- Tags -->
+          <div *ngIf="postData.tags?.length" class="chip-set">
+            <span *ngFor="let tag of postData.tags" class="tag-chip">{{ tag }}</span>
+          </div>
+      
+          <!-- Actions -->
+          <div class="post-actions">
+            <button class="like-button" (click)="likePost()">
+              {{ postData.likeCount }} ❤️
+            </button>
+            <button class="view-button">
+              {{ postData.viewCount }} 👁️
+            </button>
+          </div>
         </div>
-
+      
+        <!-- Comment Form Card -->
+        <div class="comment-card">
+          <div class="comment-card-content">
+            <h3>Publier un commentaire</h3>
+            <form [formGroup]="commentForm" class="comment-form" (ngSubmit)="publishComment()">
+              <div class="form-field">
+                <label for="content">Contenu</label>
+                <textarea id="content" formControlName="content"></textarea>
+              </div>
+              <div class="form-field">
+                <label for="postedBy">Posté par</label>
+                <input type="text" id="postedBy" formControlName="postedBy">
+              </div>
+              <button type="submit" [disabled]="!commentForm.valid">
+                Publier
+              </button>
+            </form>
+          </div>
+        </div>
+      
+        <!-- Comment List -->
+        <div class="comment-section">
+          <h3>Commentaires</h3>
+          <div class="comment-card" *ngFor="let comment of comments">
+            <div class="comment-card-header">
+              <div class="comment-avatar"></div>
+              <h4>{{ comment.postedBy }}</h4>
+              <p class="comment-date">{{ comment.createdAt | date: 'medium' }}</p>
+            </div>
+            <div class="comment-card-content">
+              <p>{{ comment.content }}</p>
+              <button class="delete-comment-button" (click)="deleteComment(comment.id)">
+                Supprimer
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
+      
+      <!-- Loading message if post data is not yet available -->
+      <div *ngIf="!postData">
+        <p>Chargement du post...</p>
+      </div>
+      
+      
 
     </section><!-- /Counts Section -->
 
@@ -526,3 +559,4 @@
 </body>
 
 </html>
+

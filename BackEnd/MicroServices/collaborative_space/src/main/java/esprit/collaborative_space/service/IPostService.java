@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface IPostService {
 
-
+    void deletePost(Long postId);
+    String generateSummary(String content);
+    Post updatePost(Long postId, Post postDetails);
 
     Post savePost(Post post);
     List<Post> getAllPosts();

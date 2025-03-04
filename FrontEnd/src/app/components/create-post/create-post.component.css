@@ -1,0 +1,128 @@
+/* Container for the entire form */
+.create-post-container {
+    max-width: 700px;
+    margin: 40px auto; /* Center horizontally with margin */
+    padding: 20px;
+    background-color: #fff; 
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .create-post-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.8rem;
+    color: #333;
+  }
+  
+  /* Form layout */
+  .create-post-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Spacing between form groups */
+  }
+  
+  /* Each form group (label + input/textarea) */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #555;
+  }
+  
+  /* Inputs and textareas */
+  .form-group input[type="text"],
+  .form-group textarea {
+    padding: 0.7rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.2s;
+  }
+  
+  .form-group input[type="text"]:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #66afe9;
+  }
+  
+  /* Tag input area */
+  .tag-input {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .tag-input input[type="text"] {
+    flex: 1; /* Let the tag input grow */
+  }
+  
+  /* Tags list */
+  .tags-list {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .tag {
+    background-color: #f2f2f2;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .tag button {
+    margin-left: 0.5rem;
+    background: none;
+    border: none;
+    color: #e53935; /* Red for the remove "x" */
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  /* Submit button */
+  button[type="submit"] {
+    align-self: flex-start; /* Align the button to the left */
+    padding: 0.6rem 1.5rem;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #218838;
+  }
+  
+  /* Disabled button state */
+  button[type="submit"]:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Example styling for the "Add Tag" button */
+  .tag-input button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+  }
+  
+  .tag-input button:hover {
+    background-color: #0069d9;
+  }
+  

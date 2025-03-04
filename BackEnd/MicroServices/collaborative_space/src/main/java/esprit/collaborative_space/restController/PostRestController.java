@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/posts")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin("*")
 public class PostRestController {
 
     @Autowired
@@ -61,6 +61,42 @@ public class PostRestController {
             postService.likePost(postId);
             return ResponseEntity.ok(new String[]{"Post liked sucessfully."});
         }catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<?> deletePost(@PathVariable Long postId) {
+        try {
+            postService.deletePost(postId);
+            return ResponseEntity.ok("Post supprimé avec succès");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Post non trouvé");
+        } catch (Exception e) {
+            // Loguer l'exception pour avoir des informations sur l'erreur
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur interne lors de la suppression");
+        }
+    }
+
+    @GetMapping("/{postId}/summary")
+    public ResponseEntity<?> getSummary(@PathVariable Long postId) {
+        try {
+            Post post = postService.getPostById(postId);
+            String summary = postService.generateSummary(post.getContent());
+
+            System.out.println("Résumé généré : " + summary); // Debugging
+
+            return ResponseEntity.ok(summary);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Post non trouvé");
+        }
+    }
+    @PutMapping("/{postId}")
+    public ResponseEntity<?> updatePost(@PathVariable Long postId, @RequestBody Post postDetails) {
+        try {
+            Post updatedPost = postService.updatePost(postId, postDetails);
+            return ResponseEntity.ok(updatedPost);
+        } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }

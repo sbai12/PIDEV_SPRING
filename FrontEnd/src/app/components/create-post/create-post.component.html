@@ -1,0 +1,52 @@
+<div class="create-post-container">
+    <h2>Create New Post</h2>
+    <form [formGroup]="postForm" (ngSubmit)="createPost()">
+      <!-- Post Name -->
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" formControlName="name">
+      </div>
+      
+      <!-- Image URL -->
+      <div class="form-group">
+        <label for="img">Image URL:</label>
+        <input type="text" id="img" formControlName="img">
+      </div>
+      
+      <!-- Content -->
+      <div class="form-group">
+        <label for="content">Content:</label>
+        <textarea id="content" rows="5" formControlName="content"></textarea>
+      </div>
+      
+      <!-- Posted By -->
+      <div class="form-group">
+        <label for="postedBy">Posted By:</label>
+        <input type="text" id="postedBy" formControlName="postedBy">
+      </div>
+      
+      <!-- Tags -->
+      <div class="form-group">
+        <label>Tags:</label>
+        <div class="tag-input">
+          <input type="text" 
+                 [(ngModel)]="newTag" 
+                 name="newTag" 
+                 placeholder="Enter tag" 
+                 (keyup.enter)="addTag()">
+          <button type="button" (click)="addTag()">Add Tag</button>
+        </div>
+        <div class="tags-list">
+          <span *ngFor="let tag of tags" class="tag">
+            {{ tag }} <button type="button" (click)="removeTag(tag)">x</button>
+          </span>
+        </div>
+      </div>
+      
+      <!-- Submit Button -->
+      <div class="form-group">
+        <button type="submit" [disabled]="postForm.invalid">Create New Post</button>
+      </div>
+    </form>
+  </div>
+  
