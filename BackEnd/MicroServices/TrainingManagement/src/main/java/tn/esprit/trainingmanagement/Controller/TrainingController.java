@@ -10,6 +10,10 @@ import tn.esprit.trainingmanagement.Services.TrainingServiceImpl;
 
 import java.util.List;
 import java.util.Map;
+import java.time.LocalDateTime;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/trainings")
@@ -42,4 +46,22 @@ public class TrainingController {
         serviceImpl.deleteTraining(id);
     }
 
+
+    @PostMapping("/generate-meeting-link")
+    public ResponseEntity<String> generateMeetingLink(@RequestParam Long idForm, @RequestParam String dateSession) {
+        LocalDateTime date = LocalDateTime.parse(dateSession); // Format ISO (ex. 2025-03-10T10:00:00)
+        String link = serviceImpl.genererLienReunion(idForm, date);
+        return ResponseEntity.ok(link);
+    }
+
+    @PostMapping("/send-invitations")
+    public ResponseEntity<Void> sendInvitations(
+            @RequestParam Long idForm,
+            @RequestBody List<Long> idEtudiants,
+            @RequestParam String dateSession) {
+        LocalDateTime date = LocalDateTime.parse(dateSession);
+        serviceImpl.envoyerInvitations(idForm, idEtudiants, date);
+        return ResponseEntity.ok().build();
+    }
 }
+

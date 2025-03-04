@@ -24,4 +24,6 @@ public class Training {
     @ManyToMany
     List<Student> enrolledStudents;
 
+    private String meetingLink; //pour le lien de réunion
+
 }
