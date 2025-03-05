@@ -11,9 +11,20 @@ export class CommentService {
   private apiUrl = 'http://localhost:8089/api/comments';
 
   constructor(private http: HttpClient) {}
+  filterInappropriateWords(content: string): string {
+    const inappropriateWords = ['badword1', 'badword2', 'badword3']; // Liste des mots inappropriés
+    let filteredContent = content;
+    inappropriateWords.forEach(word => {
+      const regex = new RegExp(`\\b${word}\\b`, 'gi');  // Mot complet et insensible à la casse
+      filteredContent = filteredContent.replace(regex, '*****');  // Remplacer par des astérisques
+    });
+
+    return filteredContent;
+  }
 
   // Create a new comment for a given post
   createComment(postId: number, postedBy: string, content: string): Observable<Comment> {
+    const filteredContent = this.filterInappropriateWords(content);  // Filtrer avant l'envoi
     const params = new HttpParams()
       .set('postId', postId.toString())
       .set('postedBy', postedBy);

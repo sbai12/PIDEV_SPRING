@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +24,15 @@ public class CommentsServiceImp implements ICommentsService{
     private ICommentRepository commentRepository;
     @Autowired
     private IPostRepository postRepository;
+    private final List<String> inappropriateWords = Arrays.asList("badword1", "badword2", "badword3");
 
+    private String filterInappropriateWords(String content) {
+        String filteredContent = content;
+        for (String word : inappropriateWords) {
+            filteredContent = filteredContent.replaceAll("(?i)\\b" + word + "\\b", "*****");
+        }
+        return filteredContent;
+    }
     @Override
     public void deleteComment(Long commentId) {
         Comment comment = commentRepository.findById(commentId)
@@ -35,7 +44,7 @@ public class CommentsServiceImp implements ICommentsService{
         if(optionalPost.isPresent()) {
             Comment comment = new Comment();
             comment.setPost(optionalPost.get());
-            comment.setContent(content);
+            comment.setContent(filterInappropriateWords(content));
             comment.setPostedBy(postedBy);
             comment.setCreatedAt(new Date());
             return commentRepository.save(comment);
@@ -43,9 +52,15 @@ public class CommentsServiceImp implements ICommentsService{
         throw new EntityNotFoundException("Post not found");
 
     }
-
+    @Override
+    public long getTotalComments() {
+        return commentRepository.count();
+    }
     public List<Comment> getCommentsByPostId(Long postId){
         return commentRepository.findByPostId(postId);
     }
-
+    @Override
+    public List<Object[]> getCommentsPerPost() {
+        return commentRepository.getCommentsPerPost();
+    }
 }

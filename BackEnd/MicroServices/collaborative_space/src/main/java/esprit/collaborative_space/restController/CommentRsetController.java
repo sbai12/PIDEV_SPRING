@@ -53,4 +53,9 @@ public class CommentRsetController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong.");
         }
     }
+
+    @GetMapping("/comments-per-post")
+    public List<Object[]> getCommentsPerPost() {
+        return commentsService.getCommentsPerPost();
+    }
 }

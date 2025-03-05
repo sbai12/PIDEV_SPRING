@@ -1,6 +1,6 @@
 /* Container for the entire form */
 .create-post-container {
-    max-width: 700px;
+    max-width: 400px;
     margin: 40px auto; /* Center horizontally with margin */
     padding: 20px;
     background-color: #fff; 

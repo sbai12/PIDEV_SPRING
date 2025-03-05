@@ -1,52 +1,75 @@
 <div class="create-post-container">
-    <h2>Create New Post</h2>
-    <form [formGroup]="postForm" (ngSubmit)="createPost()">
-      <!-- Post Name -->
-      <div class="form-group">
-        <label for="name">Name:</label>
-        <input type="text" id="name" formControlName="name">
+  <h2>Create New Post</h2>
+  <form [formGroup]="postForm" (ngSubmit)="createPost()">
+    <!-- Post Name -->
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" formControlName="name">
+      <div class="error" *ngIf="postForm.get('name')?.touched && postForm.get('name')?.invalid">
+        <small *ngIf="postForm.get('name')?.errors?.['required']">Le nom est requis.</small>
+        <small *ngIf="postForm.get('name')?.errors?.['minlength']">
+          Le nom doit contenir au moins 3 caractères.
+        </small>
       </div>
-      
-      <!-- Image URL -->
-      <div class="form-group">
-        <label for="img">Image URL:</label>
-        <input type="text" id="img" formControlName="img">
+    </div>
+    
+    <!-- Image URL -->
+    <div class="form-group">
+      <label for="img">Image URL:</label>
+      <input type="text" id="img" formControlName="img">
+      <div class="error" *ngIf="postForm.get('img')?.touched && postForm.get('img')?.invalid">
+        <small *ngIf="postForm.get('img')?.errors?.['required']">L'URL de l'image est requise.</small>
       </div>
-      
-      <!-- Content -->
-      <div class="form-group">
-        <label for="content">Content:</label>
-        <textarea id="content" rows="5" formControlName="content"></textarea>
+    </div>
+    
+    <!-- Content -->
+    <div class="form-group">
+      <label for="content">Content:</label>
+      <textarea id="content" rows="5" formControlName="content"></textarea>
+      <div class="error" *ngIf="postForm.get('content')?.touched && postForm.get('content')?.invalid">
+        <small *ngIf="postForm.get('content')?.errors?.['required']">Le contenu est requis.</small>
+        <small *ngIf="postForm.get('content')?.errors?.['minlength']">
+          Le contenu doit contenir au moins 5 caractères.
+        </small>
+        <small *ngIf="postForm.get('content')?.errors?.['maxlength']">
+          Le contenu ne peut pas dépasser 5000 caractères.
+        </small>
       </div>
-      
-      <!-- Posted By -->
-      <div class="form-group">
-        <label for="postedBy">Posted By:</label>
-        <input type="text" id="postedBy" formControlName="postedBy">
+    </div>
+    
+    <!-- Posted By -->
+    <div class="form-group">
+      <label for="postedBy">Posted By:</label>
+      <input type="text" id="postedBy" formControlName="postedBy">
+      <div class="error" *ngIf="postForm.get('postedBy')?.touched && postForm.get('postedBy')?.invalid">
+        <small *ngIf="postForm.get('postedBy')?.errors?.['required']">Le nom est requis.</small>
+        <small *ngIf="postForm.get('postedBy')?.errors?.['pattern']">
+          Le nom ne doit contenir que des lettres et des espaces.
+        </small>
       </div>
-      
-      <!-- Tags -->
-      <div class="form-group">
-        <label>Tags:</label>
-        <div class="tag-input">
-          <input type="text" 
-                 [(ngModel)]="newTag" 
-                 name="newTag" 
-                 placeholder="Enter tag" 
-                 (keyup.enter)="addTag()">
-          <button type="button" (click)="addTag()">Add Tag</button>
-        </div>
-        <div class="tags-list">
-          <span *ngFor="let tag of tags" class="tag">
-            {{ tag }} <button type="button" (click)="removeTag(tag)">x</button>
-          </span>
-        </div>
+    </div>
+    
+    <!-- Tags -->
+    <div class="form-group">
+      <label>Tags:</label>
+      <div class="tag-input">
+        <input type="text" 
+               [(ngModel)]="newTag" 
+               name="newTag" 
+               placeholder="Enter tag" 
+               (keyup.enter)="addTag()">
+        <button type="button" (click)="addTag()">Add Tag</button>
       </div>
-      
-      <!-- Submit Button -->
-      <div class="form-group">
-        <button type="submit" [disabled]="postForm.invalid">Create New Post</button>
+      <div class="tags-list">
+        <span *ngFor="let tag of tags" class="tag">
+          {{ tag }} <button type="button" (click)="removeTag(tag)">x</button>
+        </span>
       </div>
-    </form>
-  </div>
-  
+    </div>
+    
+    <!-- Submit Button -->
+    <div class="form-group">
+      <button type="submit" [disabled]="postForm.invalid">Create New Post</button>
+    </div>
+  </form>
+</div>

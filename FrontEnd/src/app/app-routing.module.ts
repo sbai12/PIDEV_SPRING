@@ -12,6 +12,10 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
 import { EditPostComponent } from './components/edit-post/edit-post.component';
 import { ViewAllComponent } from './components/view-all/view-all.component';
 import { ViewPostComponent } from './components/view-post/view-post.component';
+import { AdminStatisticsComponent } from './components/admin-statistics/admin-statistics.component';
+import { AdminViewComponent } from './components/admin-view/admin-view.component';
+import { PostDetailComponent } from './components/post-detail/post-detail.component';
+import { NavadminComponent } from './components/navadmin/navadmin.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -26,6 +30,18 @@ const routes: Routes = [
   { path: 'editpost/:id', component: EditPostComponent },
   { path: 'viewall', component: ViewAllComponent },
   { path: 'viewpost/:id', component: ViewPostComponent },
+  {
+    path: 'admin',
+    component: NavadminComponent,  // Parent layout for admin pages
+    children: [
+      { path: 'statistic', component: AdminStatisticsComponent },
+      { path: 'view', component: AdminViewComponent },
+      { path: 'post/:id', component: PostDetailComponent },
+      { path: '', redirectTo: 'view', pathMatch: 'full' }
+    ]
+  },
+
+
 
   ];
 

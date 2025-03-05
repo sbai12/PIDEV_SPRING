@@ -71,38 +71,75 @@
           </div>
           <div class="col-lg-6 order-2 order-lg-1 content" data-aos="fade-up" data-aos-delay="200">
 
-            
             <div class="edit-post-container">
               <h2>Edit Post</h2>
               <form [formGroup]="editForm" (ngSubmit)="updatePost()">
+                <!-- Titre (Name) -->
                 <div class="form-group">
                   <label for="name">Titre:</label>
                   <input type="text" id="name" formControlName="name">
+                  <div class="error" *ngIf="editForm.get('name')?.touched && editForm.get('name')?.invalid">
+                    <small *ngIf="editForm.get('name')?.errors?.['required']">
+                      Le nom est requis.
+                    </small>
+                    <small *ngIf="editForm.get('name')?.errors?.['minlength']">
+                      Le nom doit contenir au moins 3 caractères.
+                    </small>
+                  </div>
                 </div>
                 
+                <!-- Contenu (Content) -->
                 <div class="form-group">
                   <label for="content">Contenu:</label>
                   <textarea id="content" formControlName="content"></textarea>
+                  <div class="error" *ngIf="editForm.get('content')?.touched && editForm.get('content')?.invalid">
+                    <small *ngIf="editForm.get('content')?.errors?.['required']">
+                      Le contenu est requis.
+                    </small>
+                    <small *ngIf="editForm.get('content')?.errors?.['minlength']">
+                      Le contenu doit contenir au moins 5 caractères.
+                    </small>
+                    <small *ngIf="editForm.get('content')?.errors?.['maxlength']">
+                      Le contenu ne peut pas dépasser 5000 caractères.
+                    </small>
+                  </div>
                 </div>
                 
+                <!-- Auteur (Posted By) -->
                 <div class="form-group">
                   <label for="postedBy">Auteur:</label>
                   <input type="text" id="postedBy" formControlName="postedBy">
+                  <div class="error" *ngIf="editForm.get('postedBy')?.touched && editForm.get('postedBy')?.invalid">
+                    <small *ngIf="editForm.get('postedBy')?.errors?.['required']">
+                      Le nom est requis.
+                    </small>
+                    <small *ngIf="editForm.get('postedBy')?.errors?.['pattern']">
+                      Le nom ne doit contenir que des lettres et des espaces.
+                    </small>
+                  </div>
                 </div>
                 
+                <!-- Image URL -->
                 <div class="form-group">
                   <label for="img">Image URL:</label>
                   <input type="text" id="img" formControlName="img">
+                  <div class="error" *ngIf="editForm.get('img')?.touched && editForm.get('img')?.invalid">
+                    <small *ngIf="editForm.get('img')?.errors?.['required']">
+                      L'URL de l'image est requise.
+                    </small>
+                  </div>
                 </div>
                 
+                <!-- Button Group -->
                 <div class="button-group">
-                  <button type="submit" class="update-button">Update Post</button>
+                  <button type="submit" class="update-button" [disabled]="editForm.invalid">Update Post</button>
                   <button type="button" class="cancel-button" (click)="router.navigate(['/viewall'])">
                     Annuler
                   </button>
                 </div>
               </form>
             </div>
+            
             
 
 

@@ -1,0 +1,141 @@
+/* Main Content Wrapper */
+.main-content {
+    background-color: #f8f9fa;
+    padding: 20px;
+    min-height: 100vh; /* Ensure full viewport height */
+  }
+  
+  .admin-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  
+  /* Header Row (Title + Buttons) */
+  .admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .admin-title {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+  }
+  .stat-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .stat-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Notification Icon */
+  .notification-container {
+    position: relative;
+    cursor: pointer;
+    margin-left: 20px;
+  }
+  .notification-icon {
+    font-size: 1.4rem;
+    color: #555;
+  }
+  .notification-badge {
+    position: absolute;
+    top: -6px;
+    right: -10px;
+    background-color: #dc3545;
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 2px 5px;
+    border-radius: 50%;
+  }
+  
+  /* Search Bar */
+  .search-section {
+    margin-bottom: 20px;
+    text-align: right; /* Right-align or center as you prefer */
+  }
+  .search-input {
+    width: 100%;
+    max-width: 300px; /* Limit width so it doesn't stretch too wide */
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+  }
+  .search-input:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+  
+  /* Table Styles */
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+  }
+  .admin-table thead tr {
+    background-color: #f2f2f2;
+  }
+  .admin-table th,
+  .admin-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+    vertical-align: middle;
+  }
+  .admin-table th {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  /* Actions */
+  .button-container {
+    display: flex;
+    gap: 8px;
+  }
+  .view-button,
+  .delete-button {
+    border: none;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.2s;
+  }
+  .view-button {
+    background-color: #28a745;
+    color: #fff;
+  }
+  .view-button:hover {
+    background-color: #218838;
+  }
+  .delete-button {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  .delete-button:hover {
+    background-color: #c82333;
+  }
+
+  

@@ -116,10 +116,28 @@
               <div class="form-field">
                 <label for="content">Contenu</label>
                 <textarea id="content" formControlName="content"></textarea>
+                <!-- Error messages for "Contenu" -->
+                <div class="error" *ngIf="commentForm.get('content')?.touched && commentForm.get('content')?.invalid">
+                  <small *ngIf="commentForm.get('content')?.errors?.['required']">
+                    Le contenu est requis.
+                  </small>
+                  <small *ngIf="commentForm.get('content')?.errors?.['minlength']">
+                    Le contenu doit contenir au moins 5 caractères.
+                  </small>
+                </div>
               </div>
               <div class="form-field">
                 <label for="postedBy">Posté par</label>
                 <input type="text" id="postedBy" formControlName="postedBy">
+                <!-- Error messages for "Posté par" -->
+                <div class="error" *ngIf="commentForm.get('postedBy')?.touched && commentForm.get('postedBy')?.invalid">
+                  <small *ngIf="commentForm.get('postedBy')?.errors?.['required']">
+                    Le nom est requis.
+                  </small>
+                  <small *ngIf="commentForm.get('postedBy')?.errors?.['pattern']">
+                    Le nom ne doit contenir que des lettres et des espaces.
+                  </small>
+                </div>
               </div>
               <button type="submit" [disabled]="!commentForm.valid">
                 Publier
@@ -127,6 +145,7 @@
             </form>
           </div>
         </div>
+        
       
         <!-- Comment List -->
         <div class="comment-section">

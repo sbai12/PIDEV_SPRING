@@ -31,13 +31,18 @@ export class ViewPostComponent implements OnInit {
     console.log("Post ID:", this.postId);
     this.getPostById();
 
+    // Updated form validation: "content" min 5 characters, "postedBy" only letters and spaces
     this.commentForm = this.fb.group({
-      postedBy: [null, Validators.required],
-      content: [null, Validators.required]
+      content: [null, [Validators.required, Validators.minLength(5)]],
+      postedBy: [null, [Validators.required, Validators.pattern('^[A-Za-zÀ-ÖØ-öø-ÿ\\s]+$')]]
     });
   }
 
   publishComment(): void {
+    if (this.commentForm.invalid) {
+      // You can also display an error message here if needed
+      return;
+    }
     const postedBy = this.commentForm.get('postedBy')?.value;
     const content = this.commentForm.get('content')?.value;
 

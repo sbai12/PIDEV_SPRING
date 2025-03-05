@@ -1,0 +1,54 @@
+<main class="main-content">
+    <div class="admin-container">
+      <!-- Header Row -->
+      <div class="admin-header">
+        <h1 class="admin-title">Posts</h1>
+        <button class="stat-button" (click)="goToStatistics()">
+          <i class="fas fa-chart-line"></i> Statistique
+        </button>
+  
+        <!-- Notification Icon -->
+        <div class="notification-container" (click)="clearNotifications()">
+          <i class="notification-icon fas fa-bell"></i>
+          <span *ngIf="unreadCount > 0" class="notification-badge">{{ unreadCount }}</span>
+        </div>
+      </div>
+  
+      <!-- Search Bar -->
+      <div class="search-section">
+        <input
+          type="text"
+          [(ngModel)]="searchTerm"
+          (input)="filterPosts()"
+          placeholder="Rechercher un post..."
+          class="search-input"
+        />
+      </div>
+  
+      <!-- Posts Table -->
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Contenu</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let post of filteredPosts">
+            <td>{{ post.content }}</td>
+            <td>
+              <div class="button-container">
+                <button routerLink="/admin/post/{{ post.id }}" class="view-button">
+                  <i class="fas fa-eye"></i> Voir Post
+                </button>
+                <button (click)="deletePost(post.id)" class="delete-button">
+                  <i class="fas fa-trash-alt"></i> Supprimer
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  

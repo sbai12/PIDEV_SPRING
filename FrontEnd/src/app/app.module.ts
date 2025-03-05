@@ -17,6 +17,11 @@ import { EditPostComponent } from './components/edit-post/edit-post.component';
 import { ViewAllComponent } from './components/view-all/view-all.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ViewPostComponent } from './components/view-post/view-post.component';
+import { AdminStatisticsComponent } from './components/admin-statistics/admin-statistics.component';
+import { AdminViewComponent } from './components/admin-view/admin-view.component';
+import { PostDetailComponent } from './components/post-detail/post-detail.component';
+import { NavadminComponent } from './components/navadmin/navadmin.component';
+import { AdminFooterComponent } from './components/admin-footer/admin-footer.component';
 
 
 @NgModule({
@@ -33,7 +38,12 @@ import { ViewPostComponent } from './components/view-post/view-post.component';
     CreatePostComponent,
     EditPostComponent,
     ViewAllComponent,
-    ViewPostComponent
+    ViewPostComponent,
+    AdminStatisticsComponent,
+    AdminViewComponent,
+    PostDetailComponent,
+    NavadminComponent,
+    AdminFooterComponent
   ],
   imports: [
     BrowserModule,

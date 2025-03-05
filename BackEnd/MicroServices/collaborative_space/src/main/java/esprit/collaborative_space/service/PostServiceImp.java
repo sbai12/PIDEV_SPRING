@@ -127,4 +127,8 @@ public class PostServiceImp implements IPostService{
     public List<Post> searchByName(String name) {
         return postRepository.findAllByNameContaining(name);
     }
+
+    public long getTotalPosts() {
+        return postRepository.count();  // Compte le nombre total d'articles
+    }
 }
