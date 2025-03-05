@@ -29,4 +29,13 @@ export class TrainingService {
   addTraining(training: any): Observable<any> {
     return this.http.post(`${this.apiUrl}`, training);
   }
+
+
+  // Méthode pour inscrire un étudiant à une formation
+  registerStudentToTraining(trainingId: number, studentId: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register?trainingId=${trainingId}&studentId=${studentId}`, {});
+  }
+ 
+  
+
 }

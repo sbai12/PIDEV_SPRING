@@ -63,6 +63,22 @@ public class TrainingServiceImpl implements ITrainingService{
 
     }
 
+    @Override
+    public boolean registerStudent(Long trainingId, Long studentId) {
+        Training training = trainingRepo.findById(trainingId).orElse(null);  // Trouve la formation par son ID
+        Student student = studentRepo.findById(studentId).orElse(null);  // Trouve l'étudiant par son ID
+
+        if (training != null && student != null) {
+            // Vérifie si la capacité n'est pas atteinte
+            if (training.getEnrolledStudents().size() < training.getMaxCapacity()) {
+                training.getEnrolledStudents().add(student);  // Ajoute l'étudiant à la formation
+                trainingRepo.save(training);  // Sauvegarde la mise à jour dans la base de données
+                return true;  // Inscription réussie
+            }
+        }
+        return false;  // Retourne false si la formation ou l'étudiant est introuvable, ou si la capacité est atteinte
+    }
+
     public String genererLienReunion(Long idForm, LocalDateTime dateSession) {
         Training training = trainingRepo.findById(idForm)
                 .orElseThrow(() -> new RuntimeException("Formation non trouvée"));

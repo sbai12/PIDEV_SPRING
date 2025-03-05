@@ -2,6 +2,7 @@ package tn.esprit.trainingmanagement.Controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.trainingmanagement.Entity.Training;
@@ -63,5 +64,17 @@ public class TrainingController {
         serviceImpl.envoyerInvitations(idForm, idEtudiants, date);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/register")
+    public ResponseEntity<String> registerStudentToTraining(@RequestParam Long trainingId, @RequestParam Long studentId) {
+        boolean isRegistered = serviceImpl.registerStudent(trainingId, studentId);
+        if (isRegistered) {
+            return ResponseEntity.ok("Student successfully registered to the training.");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Registration failed. Please try again.");
+        }
+    }
+
+
 }
 

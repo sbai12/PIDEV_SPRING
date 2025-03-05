@@ -1,0 +1,26 @@
+<div class="container">
+    <h2>Available Trainings</h2>
+  
+    <!-- Affichage de la liste des formations -->
+    <div *ngIf="trainings.length > 0; else noTrainings">
+      <div class="row">
+        <div class="col-md-4" *ngFor="let training of trainings">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ training.name }}</h5>
+              <p class="card-text">{{ training.description }}</p>
+              <button (click)="selectTraining(training.idForm, training.name)" class="btn btn-primary">
+                Register
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Message si aucune formation n'est disponible -->
+    <ng-template #noTrainings>
+      <p>No trainings available at the moment.</p>
+    </ng-template>
+  </div>
+  

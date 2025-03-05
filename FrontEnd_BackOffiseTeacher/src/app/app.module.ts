@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddTrainingComponent } from './pages/add-training/add-training.component';
 import { TrainingsListComponent } from './pages/trainings-list/trainings-list.component';
 import { EventsComponent } from './components/events/events.component';
+import { TrainingsAvailableComponent } from './pages/trainings-available/trainings-available.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { EventsComponent } from './components/events/events.component';
     PostComponent,
     AddTrainingComponent,
     TrainingsListComponent,
-    EventsComponent
+    EventsComponent,
+    TrainingsAvailableComponent
     
   ],
   imports: [
