@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.trainingmanagement.Entity.Training;
 import tn.esprit.trainingmanagement.Repository.TrainingRepo;
+import tn.esprit.trainingmanagement.Services.EmailService;
 import tn.esprit.trainingmanagement.Services.TrainingServiceImpl;
 
 import java.util.List;
@@ -21,6 +22,9 @@ import java.util.Map;
 public class TrainingController {
     @Autowired
     TrainingServiceImpl serviceImpl;
+    @Autowired
+    EmailService emailService;
+
     @GetMapping("/exists/{name}")
     public ResponseEntity<Map<String, Boolean>> checkIfTrainingExists(@PathVariable String name) {
         boolean exists = serviceImpl.existsByName(name);
@@ -77,6 +81,11 @@ public class TrainingController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
+    }
+    @PostMapping("/test-email")
+    public ResponseEntity<String> testEmail() {
+        emailService.sendEmail("test@example.com", "Test Email", "Ceci est un test.");
+        return ResponseEntity.ok("Email envoyé");
     }
 
 

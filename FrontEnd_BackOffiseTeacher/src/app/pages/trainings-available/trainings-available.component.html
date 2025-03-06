@@ -24,7 +24,7 @@
   </ng-template>
 
   <!-- Formulaire d'inscription qui s'affiche quand une formation est sélectionnée -->
-  <div *ngIf="showForm" class="mt-4">
+  <div *ngIf="selectedTrainingId" class="mt-4">
     <h3>Fill your details to register</h3>
     <form (submit)="registerStudent()">
       <div class="form-group">

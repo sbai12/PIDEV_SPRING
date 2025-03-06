@@ -71,31 +71,13 @@
             <optional>true</optional>
         </dependency>
 
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>javax.mail-api</artifactId>
-            <version>1.6.2</version> <!-- ou une version plus récente -->
-        </dependency>
-
-        <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>javax.mail</artifactId>
-            <version>1.6.2</version> <!-- ou une version plus récente -->
-        </dependency>
-
-        <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>jakarta.mail</artifactId>
-            <version>2.0.1</version> <!-- Vérifie la dernière version sur Maven Central -->
-        </dependency>
-
+        <!-- Suppression des dépendances manuelles email, utilisation de spring-boot-starter-mail -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
     </dependencies>
-
 
     <build>
         <plugins>

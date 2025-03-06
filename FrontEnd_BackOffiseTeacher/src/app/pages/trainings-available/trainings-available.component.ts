@@ -47,9 +47,7 @@ export class TrainingsAvailableComponent implements OnInit {
 
   // Inscription de l'étudiant et ajout dans la base de données
   registerStudent(): void {
-    // Vérifier que l'ID de la formation est valide et que les champs sont remplis
     if (this.selectedTrainingId !== null && this.student.firstName && this.student.lastName && this.student.cardNumber) {
-      // Appeler le service pour enregistrer l'étudiant
       this.trainingService.registerStudentToTraining(this.selectedTrainingId, this.student).subscribe(
         (response) => {
           alert('You are successfully registered to the training!');
@@ -57,6 +55,8 @@ export class TrainingsAvailableComponent implements OnInit {
           this.getTrainings();  // Rafraîchir la liste des formations
         },
         (error) => {
+          // Log l'erreur et montre un message spécifique
+          console.error('Registration failed:', error);
           alert('Registration failed. You may already be enrolled in this course.');
         }
       );
