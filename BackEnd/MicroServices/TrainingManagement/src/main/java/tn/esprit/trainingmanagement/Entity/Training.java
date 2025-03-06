@@ -10,8 +10,8 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Training {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long idForm;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  // La valeur de l'ID est gérée par la base de données
+     Long id;
     String name;
     String description;
     int duration;
