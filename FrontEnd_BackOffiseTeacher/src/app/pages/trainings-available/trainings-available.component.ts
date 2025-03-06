@@ -11,7 +11,8 @@ import { Router } from '@angular/router'; // Pour rediriger après l'inscription
 export class TrainingsAvailableComponent implements OnInit {
   trainings: any[] = []; // Liste des formations
   selectedTrainingId: number | null = null; // ID de la formation sélectionnée
-  student = { firstName: '', lastName: '', id: 1 }; // Simuler un ID étudiant (à récupérer dynamiquement dans une vraie application)
+  showForm: boolean = false; // Contrôle l'affichage du formulaire
+  student = { firstName: '', lastName: '', cardNumber: '' }; // Données de l'étudiant
 
   constructor(
     private trainingService: TrainingService,
@@ -35,28 +36,32 @@ export class TrainingsAvailableComponent implements OnInit {
   }
 
   // Sélectionne la formation pour l'inscription
-selectTraining(trainingId: number): void {
-  this.selectedTrainingId = trainingId;
-  console.log('Selected Training ID:', this.selectedTrainingId);
-}
+  selectTraining(trainingId: number): void {
+    if (trainingId) { // Vérifie si un ID de formation est sélectionné
+      this.selectedTrainingId = trainingId;
+      this.showForm = true;  // Affiche le formulaire d'inscription
+    } else {
+      alert('Please select a valid training.');
+    }
+  }
 
-
-  // Inscription de l'étudiant
+  // Inscription de l'étudiant et ajout dans la base de données
   registerStudent(): void {
-    if (this.selectedTrainingId && this.student.id) {
-      // Appel du service pour inscrire l'étudiant avec son ID
-      this.trainingService.registerStudentToTraining(this.selectedTrainingId, this.student.id).subscribe(
+    // Vérifier que l'ID de la formation est valide et que les champs sont remplis
+    if (this.selectedTrainingId !== null && this.student.firstName && this.student.lastName && this.student.cardNumber) {
+      // Appeler le service pour enregistrer l'étudiant
+      this.trainingService.registerStudentToTraining(this.selectedTrainingId, this.student).subscribe(
         (response) => {
           alert('You are successfully registered to the training!');
-          // Rafraîchir la liste des formations après inscription
-          this.getTrainings();
+          this.showForm = false;  // Cacher le formulaire après inscription
+          this.getTrainings();  // Rafraîchir la liste des formations
         },
         (error) => {
           alert('Registration failed. You may already be enrolled in this course.');
         }
       );
     } else {
-      alert('Please fill in all fields before registering.');
+      alert('Please fill in all fields before registering or select a valid training.');
     }
   }
 }

@@ -9,37 +9,38 @@
           <div class="card-body">
             <h5 class="card-title">{{ training.name }}</h5>
             <p class="card-text">{{ training.description }}</p>
-           <!-- trainings-available.component.html -->
-              <button (click)="selectTraining(training.idForm)" class="btn btn-primary">
-                Register
-              </button>
-
+            <button (click)="selectTraining(training.idForm)" class="btn btn-primary">
+              Register
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Formulaire pour l'inscription -->
-  <div *ngIf="selectedTrainingId !== null" class="mt-4">
-    <h3>Register for Training</h3>
-    <form (submit)="registerStudent()">
-      <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input type="text" id="firstName" [(ngModel)]="student.firstName" name="firstName" required class="form-control">
-      </div>
-
-      <div class="form-group">
-        <label for="lastName">Last Name</label>
-        <input type="text" id="lastName" [(ngModel)]="student.lastName" name="lastName" required class="form-control">
-      </div>
-
-      <button type="submit" class="btn btn-success mt-3">Pay and Register</button>
-    </form>
-  </div>
-
   <!-- Message si aucune formation n'est disponible -->
   <ng-template #noTrainings>
     <p>No trainings available at the moment.</p>
   </ng-template>
+
+  <!-- Formulaire d'inscription qui s'affiche quand une formation est sélectionnée -->
+  <div *ngIf="showForm" class="mt-4">
+    <h3>Fill your details to register</h3>
+    <form (submit)="registerStudent()">
+      <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" [(ngModel)]="student.firstName" name="firstName" required class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" [(ngModel)]="student.lastName" name="lastName" required class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="cardNumber">Card Number:</label>
+        <input type="text" id="cardNumber" [(ngModel)]="student.cardNumber" name="cardNumber" required class="form-control">
+      </div>
+
+      <button type="submit" class="btn btn-success mt-3">Pay & Register</button>
+    </form>
+  </div>
 </div>

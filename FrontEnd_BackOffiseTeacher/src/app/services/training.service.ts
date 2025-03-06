@@ -32,9 +32,10 @@ export class TrainingService {
 
 
   // Méthode pour inscrire un étudiant à une formation
-registerStudentToTraining(trainingId: number, studentId: number): Observable<any> {
-  return this.http.post(`${this.apiUrl}/register?trainingId=${trainingId}&studentId=${studentId}`, {});
-}
+  registerStudentToTraining(trainingId: number, student: any): Observable<any> {
+    // Ici on suppose que le backend accepte un objet étudiant
+    return this.http.post(`${this.apiUrl}/register`, { trainingId, student });
+  }
 
   
 

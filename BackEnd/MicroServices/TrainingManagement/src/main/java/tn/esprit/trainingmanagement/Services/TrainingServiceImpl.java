@@ -66,11 +66,11 @@ public class TrainingServiceImpl implements ITrainingService{
 
     @Override
     public void registerStudentToTraining(Long trainingId, String firstName, String lastName) {
-        // 1. Récupérer la formation par son ID
+        // 1. Trouver la formation par son ID
         Training training = trainingRepo.findById(trainingId)
                 .orElseThrow(() -> new RuntimeException("Formation non trouvée"));
 
-        // 2. Récupérer l'étudiant en fonction du prénom et du nom
+        // 2. Trouver l'étudiant en fonction du prénom et du nom
         Optional<Student> studentOpt = studentRepo.findByFirstNameAndLastName(firstName, lastName);
 
         // Vérifier si l'étudiant existe, sinon lever une exception
@@ -80,7 +80,7 @@ public class TrainingServiceImpl implements ITrainingService{
 
         Student student = studentOpt.get(); // Récupérer l'étudiant de l'Optional
 
-        // 3. Vérifier si l'étudiant est déjà inscrit
+        // 3. Vérifier si l'étudiant est déjà inscrit à la formation
         if (training.getEnrolledStudents().contains(student)) {
             throw new RuntimeException("Vous êtes déjà inscrit à cette formation");
         }
@@ -91,6 +91,7 @@ public class TrainingServiceImpl implements ITrainingService{
         // 5. Sauvegarder les changements dans la base de données
         trainingRepo.save(training);
     }
+
     public String genererLienReunion(Long idForm, LocalDateTime dateSession) {
         Training training = trainingRepo.findById(idForm)
                 .orElseThrow(() -> new RuntimeException("Formation non trouvée"));
