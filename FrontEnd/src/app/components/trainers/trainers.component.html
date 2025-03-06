@@ -16,6 +16,8 @@
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
       <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="assets/img/logo.png" alt=""> -->
         <h1 class="sitename">Mentor</h1>
       </a>
 
@@ -23,8 +25,29 @@
         <ul>
           <li><a routerLink="/" routerLinkActive="active" href="index.html">Home<br></a></li>
           <li><a routerLink="/about" routerLinkActive="active" href="about.html" class="active">About</a></li>
-          <li><a routerLink="/courses" routerLinkActive="active" href="courses.html">Courses</a></li>
-          <li><a routerLink="/Trainers" routerLinkActive="active"  href="trainers.html">Trainers</a></li>
+          <li class="dropdown">
+            <a routerLink="/courses" routerLinkActive="active">
+              <span>Courses</span> <i class="bi bi-chevron-down toggle-dropdown"></i>
+            </a>
+            <ul>
+              <li class="dropdown">
+                <a href="#"><span>Teacher</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                <ul>
+                  <li><a routerLink="/add-course" routerLinkActive="active">Add Course</a></li>
+                  <li><a routerLink="/courses-details" routerLinkActive="active">Courses Details</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#"><span>Candidate</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                <ul>
+                  <li><a routerLink="/courses" routerLinkActive="active">Courses</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          
+          
+          <li><a routerLink="/Trainers" routerLinkActive="active" href="trainers.html">Trainers</a></li>
           <li><a routerLink="/Events" routerLinkActive="active" href="events.html">Events</a></li>
           <li><a routerLink="/pricing" routerLinkActive="active" href="pricing.html">Pricing</a></li>
           <li class="dropdown"><a routerLink="/Dropdown" routerLinkActive="active" href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
@@ -48,6 +71,7 @@
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
+    
 
       <a class="btn-getstarted" href="courses.html">Get Started</a>
 

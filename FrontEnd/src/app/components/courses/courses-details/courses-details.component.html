@@ -1,0 +1,39 @@
+<header id="header" class="header d-flex align-items-center sticky-top">
+  <div class="container-fluid container-xl position-relative d-flex align-items-center">
+    <a href="index.html" class="logo d-flex align-items-center me-auto">
+      <h1 class="sitename">Mentor</h1>
+    </a>
+    <nav id="navmenu" class="navmenu">
+      <ul>
+        <li><a routerLink="/" routerLinkActive="active" href="index.html">Home</a></li>
+        <li><a routerLink="/about" routerLinkActive="active" href="about.html">About</a></li>
+        <li><a routerLink="/courses" routerLinkActive="active" href="courses.html">Courses</a></li>
+        <li><a routerLink="/Trainers" routerLinkActive="active" href="trainers.html">Trainers</a></li>
+        <li><a routerLink="/Events" routerLinkActive="active" href="events.html">Events</a></li>
+        <li><a routerLink="/pricing" routerLinkActive="active" href="pricing.html">Pricing</a></li>
+        <li><a routerLink="/Contact" routerLinkActive="active" href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="btn-getstarted" href="courses.html">Get Started</a>
+  </div>
+</header>
+
+<div *ngIf="course">
+  <h2>{{ course?.title }}</h2>
+  <p>{{ course?.description }}</p>
+  <p>Durée: {{ course?.duration }} heures</p>
+
+  <!-- Affichage du lien de téléchargement du fichier -->
+  <a *ngIf="course.fileUrl" [href]="course?.fileUrl" download>Télécharger le fichier</a>
+
+  <!-- Optionnel: Si tu veux afficher le fichier directement si c'est un PDF -->
+  <iframe *ngIf="course.fileUrl && course.fileUrl.endsWith('.pdf')" [src]="course?.fileUrl" width="100%" height="500px"></iframe>
+
+  <!-- Formulaire d'ajout de fichier -->
+  <input type="file" (change)="onAddFile($event)" accept="*">
+  <button *ngIf="selectedFile" (click)="uploadFile()">Uploader le fichier</button>
+
+  <!-- Boutons de modification et suppression -->
+  <button (click)="goToEditCourse()" class="btn btn-primary">Update Course</button>
+  <button (click)="onDeleteCourse()">Supprimer le cours</button>
+</div>

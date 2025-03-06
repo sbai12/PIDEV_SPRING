@@ -30,7 +30,7 @@ public class User {
             joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_course")
     )
-    Set<Course> CourseSet;
+    private Set<Course> teacherCourses;  // Renommé pour éviter toute confusion
 
     @ManyToMany
     @JoinTable(
@@ -38,7 +38,6 @@ public class User {
             joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_course")
     )
-    Set<Course> courses;
-
+    private Set<Course> courses; // Garde ce nom, c'est ce qui cause l'erreur actuelle
 
 }

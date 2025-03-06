@@ -6,6 +6,18 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CoursesService {
+  deleteCourse(id: number) {
+    throw new Error('Method not implemented.');
+  }
+  getAllCourses() {
+    throw new Error('Method not implemented.');
+  }
+  getCourseById(courseId: number) {
+    throw new Error('Method not implemented.');
+  }
+  addCourseWithFile(formData: FormData) {
+    throw new Error('Method not implemented.');
+  }
   private apiUrl = 'http://localhost:8082/courses/add-course';  // Assurez-vous que l'URL est correcte
 
   constructor(private http: HttpClient) {}

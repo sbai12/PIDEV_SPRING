@@ -9,6 +9,10 @@ import { EventsComponent } from './components/events/events.component';
 import { PricingComponent } from './components/pricing/pricing.component';
 import { TrainersComponent } from './components/trainers/trainers.component';
 import { PostComponent } from './components/post/post.component';
+import { CourseContentComponent } from './components/courses/course-content/course-content.component';
+import { EditCourseComponent } from './components/courses/edit-course/edit-course.component';
+import { AddCourseComponent } from './components/courses/add-course/add-course.component';
+import { CourseDetailsComponent } from './components/courses/courses-details/courses-details.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,7 +23,12 @@ const routes: Routes = [
   { path: 'Events', component: EventsComponent },
   { path: 'pricing', component: PricingComponent },
   { path: 'Trainers', component: TrainersComponent },
-  { path: 'post', component: PostComponent }
+  { path: 'post', component: PostComponent },
+  { path: 'course-content/:id', component: CourseContentComponent },  
+  { path: 'edit-course/:id', component: EditCourseComponent },
+  { path: 'add-course', component: AddCourseComponent },
+  { path: 'courses-details', component: CourseDetailsComponent  },
+
 
 ];
 

@@ -13,7 +13,10 @@ import { ContactComponent } from './components/contact/contact.component';
 import { PostComponent } from './components/post/post.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { AddCourseComponent } from './components/courses/add-course/add-course.component';
+import { EditCourseComponent } from './components/courses/edit-course/edit-course.component';
+import { CourseContentComponent } from './components/courses/course-content/course-content.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,13 +29,18 @@ import { HttpClientModule } from '@angular/common/http';
     PricingComponent,
     DropdownComponent,
     ContactComponent,
-    PostComponent
+    PostComponent,
+    AddCourseComponent,
+    EditCourseComponent,
+    CoursesComponent,
+    CourseContentComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

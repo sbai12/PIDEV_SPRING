@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,7 +27,28 @@
         <ul>
           <li><a routerLink="/" routerLinkActive="active" href="index.html">Home<br></a></li>
           <li><a routerLink="/about" routerLinkActive="active" href="about.html" class="active">About</a></li>
-          <li><a routerLink="/courses" routerLinkActive="active" href="courses.html">Courses</a></li>
+          <li class="dropdown">
+            <a routerLink="/courses" routerLinkActive="active">
+              <span>Courses</span> <i class="bi bi-chevron-down toggle-dropdown"></i>
+            </a>
+            <ul>
+              <li class="dropdown">
+                <a href="#"><span>Teacher</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                <ul>
+                  <li><a routerLink="/add-course" routerLinkActive="active">Add Course</a></li>
+                  <li><a routerLink="/courses-details" routerLinkActive="active">Courses Details</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#"><span>Candidate</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                <ul>
+                  <li><a routerLink="/courses" routerLinkActive="active">Courses</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          
+          
           <li><a routerLink="/Trainers" routerLinkActive="active" href="trainers.html">Trainers</a></li>
           <li><a routerLink="/Events" routerLinkActive="active" href="events.html">Events</a></li>
           <li><a routerLink="/pricing" routerLinkActive="active" href="pricing.html">Pricing</a></li>
@@ -62,118 +82,46 @@
 
   <main class="main">
 
-    <!-- Page Title -->
-    <div class="page-title" data-aos="fade">
-      <div class="heading">
-        <div class="container">
-          <div class="row d-flex justify-content-center text-center">
-            <div class="col-lg-8">
-              <h1>Courses</h1>
-              <p class="mb-0">Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem.</p>
+  <!-- Section Title -->
+<div class="container section-title" data-aos="fade-up">
+  <h2>Courses</h2>
+  <p>Popular Courses</p>
+</div><!-- End Section Title -->
+
+<div class="container">
+  <div class="row">
+    <div *ngFor="let course of courses" class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+      <div class="course-item">
+        <!-- Image du cours, si elle est présente -->
+        <img *ngIf="course.imageUrl" [src]="course.imageUrl" class="img-fluid" alt="...">
+        
+        <div class="course-content">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <p class="category">{{ course.category }}</p>
+            <p class="price">{{ course.price | currency:'USD' }}</p>
+          </div>
+
+          <h3><a [routerLink]="['/course-content', course.id]">{{ course.title }}</a></h3>
+          <p class="description">{{ course.description }}</p>
+          <div class="trainer d-flex justify-content-between align-items-center">
+            <div class="trainer-profile d-flex align-items-center">
+              <!-- Image de l'enseignant -->
+              <img *ngIf="course.teacherImage" [src]="course.teacherImage" class="img-fluid" alt="">
+              <a href="" class="trainer-link">{{ course.teacherName }}</a>
+            </div>
+            <div class="trainer-rank d-flex align-items-center">
+              <i class="bi bi-person user-icon"></i>&nbsp;{{ course.studentsEnrolled }}
+              &nbsp;&nbsp;
+              <i class="bi bi-heart heart-icon"></i>&nbsp;{{ course.likes }}
             </div>
           </div>
         </div>
       </div>
-      <nav class="breadcrumbs">
-        <div class="container">
-          <ol>
-            <li><a href="index.html">Home</a></li>
-            <li class="current">Courses</li>
-          </ol>
-        </div>
-      </nav>
-    </div><!-- End Page Title -->
+    </div><!-- End Course Item -->
+  </div>
+</div>
 
-    <!-- Courses Section -->
-    <section id="courses" class="courses section">
-
-      <div class="container">
-
-        <div class="row">
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-            <div class="course-item">
-              <img src="assets/img/course-1.jpg" class="img-fluid" alt="...">
-              <div class="course-content">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <p class="category">Web Development</p>
-                  <p class="price">$169</p>
-                </div>
-
-                <h3><a href="course-details.html">Website Design</a></h3>
-                <p class="description">Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.</p>
-                <div class="trainer d-flex justify-content-between align-items-center">
-                  <div class="trainer-profile d-flex align-items-center">
-                    <img src="assets/img/trainers/trainer-1-2.jpg" class="img-fluid" alt="">
-                    <a href="" class="trainer-link">Antonio</a>
-                  </div>
-                  <div class="trainer-rank d-flex align-items-center">
-                    <i class="bi bi-person user-icon"></i>&nbsp;50
-                    &nbsp;&nbsp;
-                    <i class="bi bi-heart heart-icon"></i>&nbsp;65
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> <!-- End Course Item-->
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
-            <div class="course-item">
-              <img src="assets/img/course-2.jpg" class="img-fluid" alt="...">
-              <div class="course-content">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <p class="category">Marketing</p>
-                  <p class="price">$250</p>
-                </div>
-
-                <h3><a href="course-details.html">Search Engine Optimization</a></h3>
-                <p class="description">Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.</p>
-                <div class="trainer d-flex justify-content-between align-items-center">
-                  <div class="trainer-profile d-flex align-items-center">
-                    <img src="assets/img/trainers/trainer-2-2.jpg" class="img-fluid" alt="">
-                    <a href="" class="trainer-link">Lana</a>
-                  </div>
-                  <div class="trainer-rank d-flex align-items-center">
-                    <i class="bi bi-person user-icon"></i>&nbsp;35
-                    &nbsp;&nbsp;
-                    <i class="bi bi-heart heart-icon"></i>&nbsp;42
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> <!-- End Course Item-->
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
-            <div class="course-item">
-              <img src="assets/img/course-3.jpg" class="img-fluid" alt="...">
-              <div class="course-content">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <p class="category">Content</p>
-                  <p class="price">$180</p>
-                </div>
-
-                <h3><a href="course-details.html">Copywriting</a></h3>
-                <p class="description">Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.</p>
-                <div class="trainer d-flex justify-content-between align-items-center">
-                  <div class="trainer-profile d-flex align-items-center">
-                    <img src="assets/img/trainers/trainer-3-2.jpg" class="img-fluid" alt="">
-                    <a href="" class="trainer-link">Brandon</a>
-                  </div>
-                  <div class="trainer-rank d-flex align-items-center">
-                    <i class="bi bi-person user-icon"></i>&nbsp;20
-                    &nbsp;&nbsp;
-                    <i class="bi bi-heart heart-icon"></i>&nbsp;85
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> <!-- End Course Item-->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Courses Section -->
+    
 
   </main>
 
@@ -259,3 +207,5 @@
 </body>
 
 </html>
+
+  

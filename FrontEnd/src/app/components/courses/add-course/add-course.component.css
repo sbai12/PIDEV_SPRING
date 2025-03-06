@@ -1,0 +1,79 @@
+/* Ajout de styles globaux pour le formulaire */
+form {
+    max-width: 700px; /* Augmenter la largeur du formulaire */
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #f4f7fc;
+    border-radius: 12px; /* Bordure plus arrondie pour le formulaire */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Ombre autour du formulaire */
+  }
+  
+  /* Style du titre "Ajout Cours" */
+  h2 {
+    text-align: center;
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 30px; /* Plus d'espace autour du titre */
+    font-weight: 600;
+  }
+  
+  /* Style des champs du formulaire */
+  input, select, textarea {
+    width: 100%;
+    padding: 12px; /* Augmenter le padding pour un meilleur confort */
+    margin: 15px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px; /* Bordure arrondie pour les champs */
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+  
+  input:focus, select:focus, textarea:focus {
+    border-color: #4CAF50; /* Change la couleur de la bordure quand un champ est focus */
+    outline: none;
+  }
+  
+  /* Style pour les étiquettes */
+  label {
+    font-size: 18px;
+    margin-bottom: 10px;
+    display: inline-block;
+    color: #555;
+  }
+  
+  /* Style pour le bouton Ajouter */
+  button {
+    width: 100%;
+    padding: 14px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 10px; /* Bordure arrondie pour le bouton */
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #45a049; /* Changer la couleur au survol */
+  }
+  
+  /* Style pour le bouton Ajouter fichier (avec une couleur différente) */
+  button#add-file-btn {
+    background-color: #007bff; /* Couleur bleue pour le bouton ajouter fichier */
+    margin-top: 10px;
+  }
+  
+  button#add-file-btn:hover {
+    background-color: #0056b3; /* Couleur au survol du bouton ajouter fichier */
+  }
+  
+  /* Message d'erreur pour les champs invalides */
+  input.ng-invalid, select.ng-invalid, textarea.ng-invalid {
+    border-color: #f44336; /* Rouge pour les champs invalides */
+  }
+  
+  input.ng-valid, select.ng-valid, textarea.ng-valid {
+    border-color: #4CAF50; /* Vert pour les champs valides */
+  }
+  
