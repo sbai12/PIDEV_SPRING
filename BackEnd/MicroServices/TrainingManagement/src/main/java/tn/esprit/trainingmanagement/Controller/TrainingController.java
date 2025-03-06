@@ -64,16 +64,21 @@ public class TrainingController {
         serviceImpl.envoyerInvitations(idForm, idEtudiants, date);
         return ResponseEntity.ok().build();
     }
-
     @PostMapping("/register")
-    public ResponseEntity<String> registerStudentToTraining(@RequestParam Long trainingId, @RequestParam Long studentId) {
-        boolean isRegistered = serviceImpl.registerStudent(trainingId, studentId);
-        if (isRegistered) {
-            return ResponseEntity.ok("Student successfully registered to the training.");
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Registration failed. Please try again.");
+    public ResponseEntity<String> registerStudent(
+            @RequestParam Long trainingId,
+            @RequestParam String firstName,
+            @RequestParam String lastName) {
+
+        try {
+            // Appel à la méthode pour inscrire l'étudiant à la formation
+            serviceImpl.registerStudentToTraining(trainingId, firstName, lastName);
+            return ResponseEntity.ok("Inscription réussie!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
 
 
 }

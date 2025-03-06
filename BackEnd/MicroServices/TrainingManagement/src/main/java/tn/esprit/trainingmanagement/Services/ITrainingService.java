@@ -11,6 +11,5 @@ public interface ITrainingService {
     List<Training> getAllTrainings();
     Training updateTraining(Long id, Training trainingDetails);
     void deleteTraining(Long id);
-    boolean registerStudent(Long trainingId, Long studentId);
-
+     void registerStudentToTraining(Long trainingId, String firstName, String lastName);
 }

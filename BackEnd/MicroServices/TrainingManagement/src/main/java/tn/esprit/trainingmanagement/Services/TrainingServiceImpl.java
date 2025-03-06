@@ -11,6 +11,7 @@ import tn.esprit.trainingmanagement.Repository.TrainingRepo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -64,21 +65,32 @@ public class TrainingServiceImpl implements ITrainingService{
     }
 
     @Override
-    public boolean registerStudent(Long trainingId, Long studentId) {
-        Training training = trainingRepo.findById(trainingId).orElse(null);  // Trouve la formation par son ID
-        Student student = studentRepo.findById(studentId).orElse(null);  // Trouve l'étudiant par son ID
+    public void registerStudentToTraining(Long trainingId, String firstName, String lastName) {
+        // 1. Récupérer la formation par son ID
+        Training training = trainingRepo.findById(trainingId)
+                .orElseThrow(() -> new RuntimeException("Formation non trouvée"));
 
-        if (training != null && student != null) {
-            // Vérifie si la capacité n'est pas atteinte
-            if (training.getEnrolledStudents().size() < training.getMaxCapacity()) {
-                training.getEnrolledStudents().add(student);  // Ajoute l'étudiant à la formation
-                trainingRepo.save(training);  // Sauvegarde la mise à jour dans la base de données
-                return true;  // Inscription réussie
-            }
+        // 2. Récupérer l'étudiant en fonction du prénom et du nom
+        Optional<Student> studentOpt = studentRepo.findByFirstNameAndLastName(firstName, lastName);
+
+        // Vérifier si l'étudiant existe, sinon lever une exception
+        if (!studentOpt.isPresent()) {
+            throw new RuntimeException("Étudiant non trouvé");
         }
-        return false;  // Retourne false si la formation ou l'étudiant est introuvable, ou si la capacité est atteinte
-    }
 
+        Student student = studentOpt.get(); // Récupérer l'étudiant de l'Optional
+
+        // 3. Vérifier si l'étudiant est déjà inscrit
+        if (training.getEnrolledStudents().contains(student)) {
+            throw new RuntimeException("Vous êtes déjà inscrit à cette formation");
+        }
+
+        // 4. Ajouter l'étudiant à la liste des étudiants inscrits
+        training.getEnrolledStudents().add(student);
+
+        // 5. Sauvegarder les changements dans la base de données
+        trainingRepo.save(training);
+    }
     public String genererLienReunion(Long idForm, LocalDateTime dateSession) {
         Training training = trainingRepo.findById(idForm)
                 .orElseThrow(() -> new RuntimeException("Formation non trouvée"));

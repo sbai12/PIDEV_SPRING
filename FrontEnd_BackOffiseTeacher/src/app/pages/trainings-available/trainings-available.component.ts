@@ -9,61 +9,54 @@ import { Router } from '@angular/router'; // Pour rediriger après l'inscription
   styleUrls: ['./trainings-available.component.css']
 })
 export class TrainingsAvailableComponent implements OnInit {
-   // Variable pour stocker les formations récupérées
-   trainings: any[] = [];  // Définit correctement trainings ici
-   selectedTrainingId: number | null = null;
-   selectedTrainingName: string = '';
-   payment = {
-     cardNumber: '',
-     expiryDate: '',
-     cvv: ''
-   };
- 
-   constructor(
-     private trainingService: TrainingService,
-     private router: Router
-   ) {}
- 
-   ngOnInit(): void {
-     // Appel à la méthode pour récupérer les formations
-     this.getTrainings();
-   }
- 
-   // Méthode pour récupérer toutes les formations disponibles
-   getTrainings(): void {
-     this.trainingService.getAllTrainings().subscribe(
-       (trainings) => {
-         this.trainings = trainings;  // Met à jour la variable trainings avec les données récupérées
-       },
-       (error) => {
-         console.error('Error fetching trainings:', error); // Affiche une erreur en cas de problème avec l'API
-       }
-     );
-   }
- 
-   // Méthode pour sélectionner une formation et préparer l'inscription
-   selectTraining(trainingId: number, trainingName: string): void {
-     this.selectedTrainingId = trainingId;
-     this.selectedTrainingName = trainingName;
-   }
- 
-   // Méthode pour simuler le paiement et inscrire l'étudiant
-   processPayment(): void {
-     if (this.payment.cardNumber && this.payment.expiryDate && this.payment.cvv) {
-       console.log('Payment processed successfully!');
-       if (this.selectedTrainingId) {
-         this.trainingService.registerStudentToTraining(this.selectedTrainingId, 1).subscribe(
-           (response) => {
-             alert('You are successfully registered to the training!');
-             this.router.navigate(['/trainings']); // Redirige vers la page des formations après l'inscription
-           },
-           (error) => {
-             alert('Registration failed. Please try again later.');
-           }
-         );
-       }
-     } else {
-       alert('Please fill in all payment details.');
-     }
-   }
- }
+  trainings: any[] = []; // Liste des formations
+  selectedTrainingId: number | null = null; // ID de la formation sélectionnée
+  student = { firstName: '', lastName: '', id: 1 }; // Simuler un ID étudiant (à récupérer dynamiquement dans une vraie application)
+
+  constructor(
+    private trainingService: TrainingService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.getTrainings(); // Charger les formations au démarrage
+  }
+
+  // Récupère toutes les formations
+  getTrainings(): void {
+    this.trainingService.getAllTrainings().subscribe(
+      (trainings) => {
+        this.trainings = trainings;
+      },
+      (error) => {
+        console.error('Error fetching trainings:', error);
+      }
+    );
+  }
+
+  // Sélectionne la formation pour l'inscription
+selectTraining(trainingId: number): void {
+  this.selectedTrainingId = trainingId;
+  console.log('Selected Training ID:', this.selectedTrainingId);
+}
+
+
+  // Inscription de l'étudiant
+  registerStudent(): void {
+    if (this.selectedTrainingId && this.student.id) {
+      // Appel du service pour inscrire l'étudiant avec son ID
+      this.trainingService.registerStudentToTraining(this.selectedTrainingId, this.student.id).subscribe(
+        (response) => {
+          alert('You are successfully registered to the training!');
+          // Rafraîchir la liste des formations après inscription
+          this.getTrainings();
+        },
+        (error) => {
+          alert('Registration failed. You may already be enrolled in this course.');
+        }
+      );
+    } else {
+      alert('Please fill in all fields before registering.');
+    }
+  }
+}

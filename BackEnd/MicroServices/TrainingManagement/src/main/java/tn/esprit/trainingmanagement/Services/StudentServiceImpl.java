@@ -28,7 +28,8 @@ public class StudentServiceImpl implements IStudentService{
     @Override
     public Student updateStudent(Long id, Student studentDetails) {
         return studentRepo.findById(id).map(student -> {
-            student.setName(studentDetails.getName());
+            student.setFirstName(studentDetails.getFirstName());
+            student.setLastName(studentDetails.getLastName());
             student.setEmail(studentDetails.getEmail());
             student.setPassword(studentDetails.getPassword());
             student.setTestResult(studentDetails.getTestResult());

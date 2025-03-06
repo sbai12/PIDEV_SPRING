@@ -22,6 +22,12 @@ public class Training {
     Professor professor;
 
     @ManyToMany
+
+    @JoinTable(
+            name = "training_student",
+            joinColumns = @JoinColumn(name = "training_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id")
+    )
     List<Student> enrolledStudents;
 
     private String meetingLink; //pour le lien de réunion
