@@ -2,6 +2,7 @@ package tn.esprit.trainingmanagement.Services;
 
 import tn.esprit.trainingmanagement.Entity.Training;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ITrainingService {
@@ -10,5 +11,4 @@ public interface ITrainingService {
     List<Training> getAllTrainings();
     Training updateTraining(Long id, Training trainingDetails);
     void deleteTraining(Long id);
-
 }

@@ -1,9 +1,6 @@
 package tn.esprit.trainingmanagement.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
@@ -14,7 +11,11 @@ import java.util.List;
 public class Student extends User {
     String testResult;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Certificate> certificates;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TrainingEnrollment> enrollments;
+
 }
 

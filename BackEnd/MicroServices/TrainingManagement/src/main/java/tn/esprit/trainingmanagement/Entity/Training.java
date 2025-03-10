@@ -21,7 +21,10 @@ public class Training {
     @JoinColumn(name = "professor_id")
     Professor professor;
 
-    @ManyToMany
-    List<Student> enrolledStudents;
+
+    @OneToMany(mappedBy = "training", cascade = CascadeType.ALL , orphanRemoval = true)
+     List<TrainingEnrollment> enrollments;
+
+     String meetingLink; //pour le lien de réunion
 
 }

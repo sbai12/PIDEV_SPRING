@@ -3,10 +3,15 @@ package tn.esprit.trainingmanagement.Services;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tn.esprit.trainingmanagement.Entity.Student;
 import tn.esprit.trainingmanagement.Entity.Training;
+import tn.esprit.trainingmanagement.Repository.StudentRepo;
 import tn.esprit.trainingmanagement.Repository.TrainingRepo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -16,10 +21,24 @@ public class TrainingServiceImpl implements ITrainingService{
 
     @Autowired
     TrainingRepo trainingRepo;
+    @Autowired
+    EmailService emailService;
+
+    @Autowired
+    StudentRepo studentRepo;
 
     @Override
     public Training SaveTraining(Training training) {
+        // Vérifier si la formation existe déjà par son nom
+        if (trainingRepo.existsByName(training.getName())) {
+            throw new RuntimeException("Formation existe déjà.");
+        }
         return trainingRepo.save(training);
+    }
+
+    // Méthode pour vérifier si la formation existe
+    public boolean existsByName(String name) {
+        return trainingRepo.existsByName(name);
     }
 
     @Override
@@ -36,7 +55,7 @@ public class TrainingServiceImpl implements ITrainingService{
             training.setMaxCapacity(trainingDetails.getMaxCapacity());
             return trainingRepo.save(training);
 
-        }).orElseThrow(() -> new RuntimeException("User not found"));
+        }).orElseThrow(() -> new RuntimeException("Training not found with ID: " + id));
     }
 
     @Override
@@ -44,4 +63,13 @@ public class TrainingServiceImpl implements ITrainingService{
         trainingRepo.deleteById(id);
 
     }
-}
+
+    public String genererLienReunion(Long idForm, LocalDateTime dateSession) {
+        Training training = trainingRepo.findById(idForm)
+                .orElseThrow(() -> new RuntimeException("Formation non trouvée"));
+        String baseLink = "https://meet.example.com/join?meeting=" + idForm + "-" + System.currentTimeMillis();
+        training.setMeetingLink(baseLink);
+        trainingRepo.save(training);
+        return baseLink;
+    }
+    }

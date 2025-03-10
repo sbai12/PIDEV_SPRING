@@ -1,0 +1,46 @@
+<div class="container">
+  <h2>Available Trainings</h2>
+
+  <!-- Affichage de la liste des formations -->
+  <div *ngIf="trainings.length > 0; else noTrainings">
+    <div class="row">
+      <div class="col-md-4" *ngFor="let training of trainings">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ training.name }}</h5>
+            <p class="card-text">{{ training.description }}</p>
+            <button (click)="selectTraining(training.idForm)" class="btn btn-primary">
+              Register
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Message si aucune formation n'est disponible -->
+  <ng-template #noTrainings>
+    <p>No trainings available at the moment.</p>
+  </ng-template>
+
+  <!-- Formulaire d'inscription qui s'affiche quand une formation est sélectionnée -->
+  <div *ngIf="showForm" class="mt-4">
+    <h3>Fill your details to register</h3>
+    <form (submit)="registerStudent()">
+      <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" [(ngModel)]="student.firstName" name="firstName" required class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" [(ngModel)]="student.lastName" name="lastName" required class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="cardNumber">Card Number:</label>
+        <input type="text" id="cardNumber" [(ngModel)]="student.cardNumber" name="cardNumber" required class="form-control">
+      </div>
+
+      <button type="submit" class="btn btn-success mt-3">Pay & Register</button>
+    </form>
+  </div>
+</div>

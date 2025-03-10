@@ -1,0 +1,67 @@
+<!-- Trainings Section -->
+<section id="trainings" class="trainings section">
+  <div class="container" data-aos="fade-up">
+    <h2 class="text-center mb-4">Trainings List</h2>
+
+    <div class="row">
+      <div class="col-md-6 d-flex align-items-stretch" *ngFor="let training of trainings">
+        <div class="card">
+          <div class="card-img">
+            <img src="assets/img/events-item-1.jpg" alt="Training Image">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">
+              <a href="#">{{ training.name }}</a> <!-- Utilisation de la propriété 'name' -->
+            </h5>
+            <p class="fst-italic text-center">Date: {{ training.date || 'Non définie' }}</p> <!-- Gestion si 'date' est absent -->
+            <p class="card-text">{{ training.description }}</p> <!-- Utilisation de la propriété 'description' -->
+            <p>Capacité : {{ training.maxCapacity }}, Inscrits : {{ training.enrolledStudents?.length || 0 }}</p>
+
+            <!-- Buttons for Actions -->
+            <div class="text-center">
+              <button class="btn btn-primary me-2" (click)="selectedTrainingId = training.idForm">Sélectionner</button>
+              <button class="btn btn-success me-2" (click)="generateMeetingLink()" [disabled]="!checkCapacity(training)">Générer Lien</button>
+              <button class="btn btn-info me-2" (click)="sendInvitations()" [disabled]="!checkCapacity(training)">Envoyer Invitations</button>
+              <button class="btn btn-primary me-2" (click)="editTraining(training)">Modifier Formation</button>
+              <button class="btn btn-danger" (click)="deleteTraining(training.idForm)">Supprimer Formation</button>
+            </div>
+
+            <!-- Affichage du lien de réunion s'il existe -->
+            <p *ngIf="training.meetingLink">Lien de réunion : <a href="{{ training.meetingLink }}" target="_blank">{{ training.meetingLink }}</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulaire de modification -->
+    <div *ngIf="currentTraining" class="mt-4">
+      <h3>Modifier la formation</h3>
+      <form (ngSubmit)="updateTraining()">
+        <div class="form-group">
+          <label for="name">Nom de la formation :</label>
+          <input type="text" [(ngModel)]="currentTraining.name" name="name" required class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="description">Description :</label>
+          <textarea [(ngModel)]="currentTraining.description" name="description" required class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="duration">Durée :</label>
+          <input type="number" [(ngModel)]="currentTraining.duration" name="duration" required class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="maxCapacity">Capacité maximale :</label>
+          <input type="number" [(ngModel)]="currentTraining.maxCapacity" name="maxCapacity" required class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Mettre à jour</button>
+        <button type="button" class="btn btn-secondary" (click)="currentTraining = null">Annuler</button>
+      </form>
+    </div>
+
+    <!-- Champ pour sélectionner la date de la session -->
+    <div class="mt-4">
+      <label for="dateSession">Choisir une date de session :</label>
+      <input type="datetime-local" [(ngModel)]="dateSession" id="dateSession" class="form-control" required>
+    </div>
+  </div>
+</section>

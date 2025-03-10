@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Post - Mentor Bootstrap Template</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+</head>
+
+<body class="index-page">
+
+  <!-- Header -->
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <h1 class="sitename">Mentor</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a routerLink="/" routerLinkActive="active" href="index.html">Home</a></li>
+          <li><a routerLink="/about" routerLinkActive="active" href="about.html">About</a></li>
+          <li><a routerLink="/courses" routerLinkActive="active" href="courses.html">Courses</a></li>
+          <li><a routerLink="/trainers" routerLinkActive="active" href="trainers.html">Trainers</a></li>
+          <li><a routerLink="/events" routerLinkActive="active" href="events.html">Events</a></li>
+          <li><a routerLink="/pricing" routerLinkActive="active" href="pricing.html">Pricing</a></li>
+          <li><a routerLink="/post" routerLinkActive="active" href="post.html" class="active">Post</a></li>
+          <li><a routerLink="/contact" routerLinkActive="active" href="contact.html">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="courses.html">Get Started</a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main">
+
+    <!-- Post Section -->
+    <section id="post" class="post section dark-background">
+      <div class="container">
+        <h2 data-aos="fade-up" data-aos-delay="100">Create a New Post</h2>
+
+        <!-- Post Form -->
+        <form (ngSubmit)="createPost()">
+          <div class="mb-3">
+            <label for="name" class="form-label">Post Name</label>
+            <input type="text" id="name" class="form-control" [(ngModel)]="post.name" name="name" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="content" class="form-label">Content</label>
+            <textarea id="content" class="form-control" [(ngModel)]="post.content" name="content" required></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label for="postedBy" class="form-label">Posted By</label>
+            <input type="text" id="postedBy" class="form-control" [(ngModel)]="post.postedBy" name="postedBy" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="img" class="form-label">Image URL</label>
+            <input type="text" id="img" class="form-control" [(ngModel)]="post.img" name="img">
+          </div>
+
+          <button type="submit" class="btn btn-primary">Create Post</button>
+        </form>
+      </div>
+    </section><!-- /Post Section -->
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="100">
+            <img src="assets/img/about.jpg" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-6 order-2 order-lg-1 content" data-aos="fade-up" data-aos-delay="200">
+            <h3>Voluptatem dignissimos provident quasi corporis</h3>
+            <p class="fst-italic">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+              magna aliqua.
+            </p>
+            <ul>
+              <li><i class="bi bi-check-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
+              <li><i class="bi bi-check-circle"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span></li>
+              <li><i class="bi bi-check-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
+            </ul>
+            <a href="#" class="read-more"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </section><!-- /About Section -->
+
+  </main><!-- /Main Content -->
+
+</body>
+
+</html>

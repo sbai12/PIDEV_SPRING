@@ -1,9 +1,6 @@
 package tn.esprit.trainingmanagement.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
@@ -14,7 +11,7 @@ import java.util.List;
 public class Professor extends User {
     String specialization;
 
-    @OneToMany(mappedBy = "professor")
+    @OneToMany(mappedBy = "professor" , cascade = CascadeType.ALL, orphanRemoval = true)
     List<Training> trainings;
 }
 
