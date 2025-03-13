@@ -1,6 +1,7 @@
 package esprit.tn.coursesspace.RestController;
 
 
+import esprit.tn.coursesspace.Entity.Course;
 import esprit.tn.coursesspace.Entity.User;
 import esprit.tn.coursesspace.Service.IUserService;
 import jakarta.persistence.EntityNotFoundException;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+
 @RestController
 @RequestMapping("/api/formations")
 @AllArgsConstructor
@@ -60,4 +63,5 @@ public class UserRestController {
       }
 
     }
+
 }

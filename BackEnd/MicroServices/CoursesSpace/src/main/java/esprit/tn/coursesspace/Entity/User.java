@@ -21,14 +21,14 @@ public class User {
     String username;
     String email;
     String password;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     Role role;
 
     @ManyToMany
     @JoinTable(
             name = "course_teacher",
             joinColumns = @JoinColumn(name = "id_user"),
-            inverseJoinColumns = @JoinColumn(name = "id_course")
+            inverseJoinColumns = @JoinColumn(name = "idCourse")
     )
     private Set<Course> teacherCourses;  // Renommé pour éviter toute confusion
 
@@ -36,7 +36,7 @@ public class User {
     @JoinTable(
             name = "course_candidate",
             joinColumns = @JoinColumn(name = "id_user"),
-            inverseJoinColumns = @JoinColumn(name = "id_course")
+            inverseJoinColumns = @JoinColumn(name = "idCourse")
     )
     private Set<Course> courses; // Garde ce nom, c'est ce qui cause l'erreur actuelle
 

@@ -1,6 +1,7 @@
 package esprit.tn.coursesspace.Service;
 
 
+import esprit.tn.coursesspace.Entity.Course;
 import esprit.tn.coursesspace.Entity.User;
 import esprit.tn.coursesspace.Repository.ICourseRepository;
 import esprit.tn.coursesspace.Repository.IUserRepository;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+
 @Service
 @AllArgsConstructor
 
@@ -56,6 +59,7 @@ public class UserServiceImpl implements IUserService {
                 .orElseThrow(() -> new EntityNotFoundException("Utilisateur non trouvé avec l'ID : " + user.getId_user()));
 
     }
+
 
 }
 

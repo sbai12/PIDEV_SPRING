@@ -19,16 +19,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/courses/add-course").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .csrf(csrf -> csrf.disable());
 
         return http.build();
     }
-
-
     @Bean
     public JwtDecoder jwtDecoder() {
         return NimbusJwtDecoder.withJwkSetUri("http://localhost:8080/realms/authentification/protocol/openid-connect/certs")
@@ -58,4 +56,5 @@ public class SecurityConfig {
             }
         };
     }
+
 }

@@ -1,12 +1,12 @@
 package esprit.tn.coursesspace.Entity;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+        import jakarta.persistence.*;
+        import lombok.AllArgsConstructor;
+        import lombok.Getter;
+        import lombok.NoArgsConstructor;
+        import lombok.Setter;
 
-import java.util.Set;
+        import java.util.Set;
 
 @Entity
 @Getter
@@ -19,40 +19,36 @@ public class Course {
     private Long idCourse;
 
     private String title;
-    private String category;
-    private int duration;
     private String description;
-
+    private int duration;
     @Lob
-    private byte[] contentFile;
-
-    private String filePath;
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] fileData;
 
     @Enumerated(EnumType.STRING)
-    private ContentType contentType;
+    ContentType contentType;
+    private String fileName;
+
 
     @ManyToOne
-    @JoinColumn(name = "course_module_id")
-    private CourseModule courseModule;
+    @JoinColumn(name = "id_module")
+    CourseModule courseModule;
+
 
     @OneToMany(mappedBy = "course")
-    private Set<Quiz> quizzes;
+    Set<Quiz> quizzes;
 
     @ManyToMany(mappedBy = "teacherCourses")
-    private Set<User> teachers;
+    Set<User> teachers;
 
-    @ManyToMany(mappedBy = "courses") // Correspond exactement au nom dans User
-    private Set<User> candidates;
+    @ManyToMany(mappedBy = "courses")
+    Set<User> candidates;
 
-
-    public Course(String title, String description, int duration, String contentType) {
+    public Course(String title, String description, int duration, ContentType contentType, byte[] fileData) {
         this.title = title;
         this.description = description;
         this.duration = duration;
-        this.contentType = contentType != null ? ContentType.valueOf(contentType) : null;
-    }
-
-    public void setContentFile(byte[] contentFile) {
-        this.contentFile = contentFile;
+        this.contentType = contentType;
+        this.fileData = fileData;
     }
 }

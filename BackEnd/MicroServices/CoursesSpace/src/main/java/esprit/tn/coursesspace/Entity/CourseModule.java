@@ -19,8 +19,8 @@ public class CourseModule {
      Long id_module;
      String moduleTitle;
 
-    @OneToMany(mappedBy = "courseModule")
-    private List<Course> moduleCourses;
-
+    @ManyToOne
+    @JoinColumn(name = "idCourse")
+    private CourseModule courseModule;
 
 }
