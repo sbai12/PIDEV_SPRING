@@ -1,7 +1,6 @@
-import { Component,OnInit  } from '@angular/core';
-import { TrainingService } from '../../services/training.service'; // Assurez-vous de bien importer le service
+import { Component, OnInit } from '@angular/core';
+import { TrainingService } from '../../services/training.service'; // Assurez-vous que ce service est bien créé et configuré
 import { Router } from '@angular/router'; // Pour rediriger après l'inscription
-
 
 @Component({
   selector: 'app-trainings-available',
@@ -31,15 +30,16 @@ export class TrainingsAvailableComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching trainings:', error);
+        alert('Failed to load trainings. Please try again later.');
       }
     );
   }
 
   // Sélectionne la formation pour l'inscription
   selectTraining(trainingId: number): void {
-    if (trainingId) { // Vérifie si un ID de formation est sélectionné
+    if (trainingId) {
       this.selectedTrainingId = trainingId;
-      this.showForm = true;  // Affiche le formulaire d'inscription
+      this.showForm = true; // Affiche le formulaire d'inscription
     } else {
       alert('Please select a valid training.');
     }
@@ -47,25 +47,17 @@ export class TrainingsAvailableComponent implements OnInit {
 
   // Inscription de l'étudiant et ajout dans la base de données
   registerStudent(): void {
-<<<<<<< HEAD
-    // Vérifier que l'ID de la formation est valide et que les champs sont remplis
     if (this.selectedTrainingId !== null && this.student.firstName && this.student.lastName && this.student.cardNumber) {
-      // Appeler le service pour enregistrer l'étudiant
-=======
-    if (this.selectedTrainingId !== null && this.student.firstName && this.student.lastName && this.student.cardNumber) {
->>>>>>> a189679c9ed711be13e7a6ab470afec97b9f5332
       this.trainingService.registerStudentToTraining(this.selectedTrainingId, this.student).subscribe(
         (response) => {
+          console.log('Registration successful:', response);
           alert('You are successfully registered to the training!');
-          this.showForm = false;  // Cacher le formulaire après inscription
-          this.getTrainings();  // Rafraîchir la liste des formations
+          this.showForm = false; // Cacher le formulaire après inscription
+          this.selectedTrainingId = null;
+          this.getTrainings(); // Rafraîchir la liste des formations
         },
         (error) => {
-<<<<<<< HEAD
-=======
-          // Log l'erreur et montre un message spécifique
           console.error('Registration failed:', error);
->>>>>>> a189679c9ed711be13e7a6ab470afec97b9f5332
           alert('Registration failed. You may already be enrolled in this course.');
         }
       );

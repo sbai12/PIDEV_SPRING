@@ -5,10 +5,13 @@ import { AboutComponent } from './components/about/about.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
-import { EventsComponent } from './components/events/events.component';
 import { PricingComponent } from './components/pricing/pricing.component';
 import { TrainersComponent } from './components/trainers/trainers.component';
 import { PostComponent } from './components/post/post.component';
+import { AddTrainingComponent } from './pages/add-training/add-training.component';
+import { TrainingsListComponent } from './pages/trainings-list/trainings-list.component';
+import { EventsComponent } from './components/events/events.component';  
+import { TrainingsAvailableComponent } from './pages/trainings-available/trainings-available.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,10 +19,14 @@ const routes: Routes = [
   { path: 'courses', component: CoursesComponent },
   { path: 'Contact', component: ContactComponent },
   { path: 'dropdown', component: DropdownComponent },
-  { path: 'Events', component: EventsComponent },
   { path: 'pricing', component: PricingComponent },
   { path: 'Trainers', component: TrainersComponent },
-  { path: 'post', component: PostComponent }
+  { path: 'post', component: PostComponent },
+  { path: 'add-training', component: AddTrainingComponent },
+  { path: 'trainings-list', component: TrainingsListComponent },
+  { path: 'events', component: EventsComponent },
+  { path: 'trainings-available', component: TrainingsAvailableComponent },
+  { path: '', redirectTo: '/trainings', pathMatch: 'full' }  ,
 
 ];
 
