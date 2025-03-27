@@ -1,17 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { AboutComponent } from './components/about/about.component';
-import { CoursesComponent } from './components/courses/courses.component';
-import { ContactComponent } from './components/contact/contact.component';
-import { DropdownComponent } from './components/dropdown/dropdown.component';
-import { PricingComponent } from './components/pricing/pricing.component';
-import { TrainersComponent } from './components/trainers/trainers.component';
-import { PostComponent } from './components/post/post.component';
-import { AddTrainingComponent } from './pages/add-training/add-training.component';
-import { TrainingsListComponent } from './pages/trainings-list/trainings-list.component';
-import { EventsComponent } from './components/events/events.component';  
-import { TrainingsAvailableComponent } from './pages/trainings-available/trainings-available.component';
+
+import { HomeComponent } from './FrontOfficie/components/home/home.component';
+import { AboutComponent } from './FrontOfficie/components/about/about.component';
+
+import { CoursesComponent } from './FrontOfficie/components/courses/courses.component';
+import { ContactComponent } from './FrontOfficie/components/contact/contact.component'; 
+import { DropdownComponent } from './FrontOfficie/components/dropdown/dropdown.component'; 
+import { PricingComponent } from './FrontOfficie/components/pricing/pricing.component'; 
+import { TrainersComponent } from './FrontOfficie/components/trainers/trainers.component'; 
+import { PostComponent } from './FrontOfficie/components/post/post.component'; 
+import { AddTrainingComponent } from './FrontOfficie/pages/add-training/add-training.component'; 
+import { TrainingsListComponent } from './FrontOfficie/pages/trainings-list/trainings-list.component'; 
+import { EventsComponent } from './FrontOfficie/components/events/events.component'; 
+import { TrainingsAvailableComponent } from './FrontOfficie/pages/trainings-available/trainings-available.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },

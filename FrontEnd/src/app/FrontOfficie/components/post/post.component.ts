@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { PostService } from 'src/app/services/post.service';  
-import { Post } from 'src/app/models/post.model'; 
+import { PostService } from '../../services/post.service'; 
+import { Post } from '../../models/post.model'; 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
