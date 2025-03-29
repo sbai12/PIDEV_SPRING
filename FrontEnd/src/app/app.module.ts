@@ -2,20 +2,28 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './FrontOfficie/components/home/home.component';
-import { AboutComponent } from './FrontOfficie/components/about/about.component'; 
-import { CoursesComponent } from './FrontOfficie/components/courses/courses.component';
-import { TrainersComponent } from './FrontOfficie/components/trainers/trainers.component'; 
-import { PricingComponent } from './FrontOfficie/components/pricing/pricing.component'; 
-import { DropdownComponent } from './FrontOfficie/components/dropdown/dropdown.component'; 
-import { ContactComponent } from './FrontOfficie/components/contact/contact.component'; 
-import { PostComponent } from './FrontOfficie/components/post/post.component'; 
-import { FormsModule } from '@angular/forms'; 
-import { HttpClientModule } from '@angular/common/http'; 
-import { AddTrainingComponent } from './FrontOfficie/pages/add-training/add-training.component';
-import { TrainingsListComponent } from './FrontOfficie/pages/trainings-list/trainings-list.component'; 
-import { EventsComponent } from './FrontOfficie/components/events/events.component'; 
-import { TrainingsAvailableComponent } from './FrontOfficie/pages/trainings-available/trainings-available.component'; 
+import { HomeComponent } from './components/home/home.component';
+import { AboutComponent } from './components/about/about.component';
+import { CoursesComponent } from './components/courses/courses.component';
+import { TrainersComponent } from './components/trainers/trainers.component';
+import { EventsComponent } from './components/events/events.component';
+import { PricingComponent } from './components/pricing/pricing.component';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { CreatePostComponent } from './components/create-post/create-post.component';
+import { EditPostComponent } from './components/edit-post/edit-post.component';
+import { ViewAllComponent } from './components/view-all/view-all.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { ViewPostComponent } from './components/view-post/view-post.component';
+import { AdminStatisticsComponent } from './components/admin-statistics/admin-statistics.component';
+import { AdminViewComponent } from './components/admin-view/admin-view.component';
+import { PostDetailComponent } from './components/post-detail/post-detail.component';
+import { NavadminComponent } from './components/navadmin/navadmin.component';
+import { AdminFooterComponent } from './components/admin-footer/admin-footer.component';
+import { TrainingListComponent } from './admin/training-list/training-list.component';
+import { AddTrainingComponent } from './admin/add-training/add-training.component';
 
 
 @NgModule({
@@ -25,21 +33,29 @@ import { TrainingsAvailableComponent } from './FrontOfficie/pages/trainings-avai
     AboutComponent,
     CoursesComponent,
     TrainersComponent,
+    EventsComponent,
     PricingComponent,
     DropdownComponent,
     ContactComponent,
-    PostComponent,
-    AddTrainingComponent,
-    TrainingsListComponent,
-    EventsComponent,
-    TrainingsAvailableComponent
-    
+    CreatePostComponent,
+    EditPostComponent,
+    ViewAllComponent,
+    ViewPostComponent,
+    AdminStatisticsComponent,
+    AdminViewComponent,
+    PostDetailComponent,
+    NavadminComponent,
+    AdminFooterComponent,
+    TrainingListComponent,
+    AddTrainingComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

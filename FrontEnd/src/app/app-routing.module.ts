@@ -1,19 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-import { HomeComponent } from './FrontOfficie/components/home/home.component';
-import { AboutComponent } from './FrontOfficie/components/about/about.component';
-
-import { CoursesComponent } from './FrontOfficie/components/courses/courses.component';
-import { ContactComponent } from './FrontOfficie/components/contact/contact.component'; 
-import { DropdownComponent } from './FrontOfficie/components/dropdown/dropdown.component'; 
-import { PricingComponent } from './FrontOfficie/components/pricing/pricing.component'; 
-import { TrainersComponent } from './FrontOfficie/components/trainers/trainers.component'; 
-import { PostComponent } from './FrontOfficie/components/post/post.component'; 
-import { AddTrainingComponent } from './FrontOfficie/pages/add-training/add-training.component'; 
-import { TrainingsListComponent } from './FrontOfficie/pages/trainings-list/trainings-list.component'; 
-import { EventsComponent } from './FrontOfficie/components/events/events.component'; 
-import { TrainingsAvailableComponent } from './FrontOfficie/pages/trainings-available/trainings-available.component';
+import { HomeComponent } from './components/home/home.component';
+import { AboutComponent } from './components/about/about.component';
+import { CoursesComponent } from './components/courses/courses.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { EventsComponent } from './components/events/events.component';
+import { PricingComponent } from './components/pricing/pricing.component';
+import { TrainersComponent } from './components/trainers/trainers.component';
+import { CreatePostComponent } from './components/create-post/create-post.component';
+import { EditPostComponent } from './components/edit-post/edit-post.component';
+import { ViewAllComponent } from './components/view-all/view-all.component';
+import { ViewPostComponent } from './components/view-post/view-post.component';
+import { AdminStatisticsComponent } from './components/admin-statistics/admin-statistics.component';
+import { AdminViewComponent } from './components/admin-view/admin-view.component';
+import { PostDetailComponent } from './components/post-detail/post-detail.component';
+import { NavadminComponent } from './components/navadmin/navadmin.component';
+import { AddTrainingComponent } from './admin/add-training/add-training.component';
+import { TrainingListComponent } from './admin/training-list/training-list.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,16 +25,36 @@ const routes: Routes = [
   { path: 'courses', component: CoursesComponent },
   { path: 'Contact', component: ContactComponent },
   { path: 'dropdown', component: DropdownComponent },
+  { path: 'Events', component: EventsComponent },
   { path: 'pricing', component: PricingComponent },
   { path: 'Trainers', component: TrainersComponent },
-  { path: 'post', component: PostComponent },
-  { path: 'add-training', component: AddTrainingComponent },
-  { path: 'trainings-list', component: TrainingsListComponent },
-  { path: 'events', component: EventsComponent },
-  { path: 'trainings-available', component: TrainingsAvailableComponent },
-  { path: '', redirectTo: '/trainings', pathMatch: 'full' }  ,
+  { path: 'createpost', component: CreatePostComponent },
+  { path: 'editpost/:id', component: EditPostComponent },
+  { path: 'viewall', component: ViewAllComponent },
+  { path: 'viewpost/:id', component: ViewPostComponent },
+  {
+    path: 'admin',
+    component: NavadminComponent,  // Parent layout pour l'administration
+    children: [
+      { path: '', redirectTo: 'view', pathMatch: 'full' }, // ✅ Redirige vers /admin/view si vide
+      { path: 'statistic', component: AdminStatisticsComponent },
+      { path: 'view', component: AdminViewComponent },
+      { path: 'post/:id', component: PostDetailComponent },
+      
+      // Nouvelle route pour afficher la liste des formations
+      { path: 'trainings', component: TrainingListComponent },
+      
+      // Nouvelle route pour ajouter une formation
+      { path: 'trainings/add', component: AddTrainingComponent },
+      
+      
+      { path: '**', redirectTo: 'view', pathMatch: 'full' } // ✅ Gestion des routes inconnues sous /admin
+    ]
+  },  
 
-];
+
+
+  ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

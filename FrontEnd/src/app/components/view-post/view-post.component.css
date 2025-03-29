@@ -1,0 +1,182 @@
+/* Container to hold the entire layout */
+.card-container {
+    max-width: 600px;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  /* Post Card */
+  .post-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Post Header */
+  .post-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .profile-picture {
+    width: 60px;
+    height: 60px;
+    background-color: #ccc;
+    border-radius: 50%;
+  }
+  .post-title {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+  .post-subtitle {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.2rem;
+  }
+  
+  /* Post Image */
+  .post-img {
+    width: 100%;
+    height: auto;
+    margin: 1rem 0;
+    border-radius: 4px;
+    object-fit: cover;
+  }
+  
+  /* Post Content */
+  .post-content {
+    margin-bottom: 1rem;
+  }
+  .post-text {
+    line-height: 1.5;
+    color: #333;
+  }
+  
+  /* Tags */
+  .chip-set {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .tag-chip {
+    background-color: #e7f3ff;
+    color: #007bff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+  }
+  
+  /* Post Actions */
+  .post-actions {
+    display: flex;
+    gap: 1rem;
+  }
+  .like-button,
+  .view-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  .like-button:hover,
+  .view-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Comment Form Card */
+  .comment-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .comment-card-content h3 {
+    margin-top: 0;
+  }
+  .comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .form-field label {
+    font-weight: 600;
+  }
+  .form-field input[type="text"],
+  .form-field textarea {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.5rem;
+  }
+  .comment-form button[type="submit"] {
+    align-self: flex-start;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  .comment-form button[type="submit"]:hover {
+    background-color: #218838;
+  }
+  
+  /* Comment List */
+  .comment-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .comment-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .comment-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #ccc;
+    border-radius: 50%;
+  }
+  .comment-date {
+    font-size: 0.8rem;
+    color: #777;
+  }
+  .delete-comment-button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: background-color 0.2s;
+  }
+  .delete-comment-button:hover {
+    background-color: #c82333;
+  }
+  
+  /* Loading Message */
+  .card-container + div p {
+    text-align: center;
+    color: #555;
+    font-style: italic;
+  }
+  
