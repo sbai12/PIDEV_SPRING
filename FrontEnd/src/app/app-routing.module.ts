@@ -48,6 +48,7 @@ const routes: Routes = [
       { path: 'trainings/add', component: AddTrainingComponent },
       
       
+      
       { path: '**', redirectTo: 'view', pathMatch: 'full' } // ✅ Gestion des routes inconnues sous /admin
     ]
   },  

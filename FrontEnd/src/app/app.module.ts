@@ -24,6 +24,7 @@ import { NavadminComponent } from './components/navadmin/navadmin.component';
 import { AdminFooterComponent } from './components/admin-footer/admin-footer.component';
 import { TrainingListComponent } from './admin/training-list/training-list.component';
 import { AddTrainingComponent } from './admin/add-training/add-training.component';
+import { EditTrainingComponent } from './admin/edit-training/edit-training.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { AddTrainingComponent } from './admin/add-training/add-training.componen
     NavadminComponent,
     AdminFooterComponent,
     TrainingListComponent,
-    AddTrainingComponent
+    AddTrainingComponent,
+    EditTrainingComponent
   ],
   imports: [
     BrowserModule,
