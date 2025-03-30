@@ -64,6 +64,14 @@ public class TrainingServiceImpl implements ITrainingService{
 
     }
 
+    @Override
+    public Training getTrainingById(Long id) {
+        return trainingRepo.findById(id).orElse(null);  // Renvoie le training ou null s'il n'est pas trouvé
+    }
+
+
+
+
     public String genererLienReunion(Long idForm, LocalDateTime dateSession) {
         Training training = trainingRepo.findById(idForm)
                 .orElseThrow(() -> new RuntimeException("Formation non trouvée"));

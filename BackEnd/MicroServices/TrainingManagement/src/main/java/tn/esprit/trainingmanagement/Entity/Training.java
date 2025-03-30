@@ -16,6 +16,8 @@ public class Training {
     String description;
     int duration;
     int maxCapacity;
+     String status;
+
 
     @ManyToOne
     @JoinColumn(name = "professor_id")

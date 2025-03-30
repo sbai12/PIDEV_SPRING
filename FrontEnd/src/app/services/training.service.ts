@@ -18,17 +18,21 @@ export class TrainingService {
   }
 
  // Méthode pour récupérer toutes les formations
-  getTrainings(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
-  }
+ getTrainings(): Observable<Training[]> {
+  return this.http.get<Training[]>(this.apiUrl); // L'URL de ton backend
+}
+
+
   
  // Méthode pour supprimer une formation
  deleteTraining(id: number): Observable<void> {
   return this.http.delete<void>(`${this.apiUrl}/${id}`); // Envoie une requête DELETE pour supprimer une formation
 }
+getTrainingById(id: number): Observable<Training> {
+  return this.http.get<Training>(`${this.apiUrl}/${id}`);
+}
 
-// Méthode pour mettre à jour une formation
-updateTraining(id: number, training: Training): Observable<Training> {
-  return this.http.put<Training>(`${this.apiUrl}/${id}`, training); // Envoie une requête PUT pour mettre à jour une formation
-} 
+updateTraining(id: number, training: Partial<Training>): Observable<Training> {
+  return this.http.put<Training>(`${this.apiUrl}/${id}`, training);
+}
 }

@@ -1,6 +1,6 @@
 import { Component , OnInit } from '@angular/core';
 import { TrainingService } from 'src/app/services/training.service'; 
-import { Router } from '@angular/router';
+import { Router , ActivatedRoute} from '@angular/router';
 import { Training } from 'src/app/models/training.model';
 
 
@@ -13,8 +13,12 @@ import { Training } from 'src/app/models/training.model';
 export class TrainingListComponent implements OnInit {
   trainings: Training[] = [];
 
-  constructor(private trainingService: TrainingService, private router: Router) {}
-
+  constructor(
+    private trainingService: TrainingService,
+    private router: Router,
+    private route: ActivatedRoute // ← Ajouté ici
+  ) {}
+  
   ngOnInit(): void {
     this.loadTrainings();
   }
@@ -22,9 +26,11 @@ export class TrainingListComponent implements OnInit {
   // Charger la liste des formations
   loadTrainings(): void {
     this.trainingService.getTrainings().subscribe((trainings: Training[]) => {
+      console.log('Trainings:', trainings); // Vérifiez dans la console si les données sont bien récupérées
       this.trainings = trainings;
     });
   }
+  
 
   // Supprimer une formation
   deleteTraining(id: number): void {
@@ -34,7 +40,10 @@ export class TrainingListComponent implements OnInit {
   }
 
   // Rediriger vers la page d'édition d'une formation
-  editTraining(id: number): void {
-    this.router.navigate(['/edit-training', id]);  // Rediriger vers la page d'édition avec l'ID de la formation
+  editTraining(trainingId: number): void {
+    this.router.navigate(['edit', trainingId], { relativeTo: this.route });
+    
   }
+  
+  
 }

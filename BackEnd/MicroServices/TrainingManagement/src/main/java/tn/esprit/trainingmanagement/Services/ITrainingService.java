@@ -11,4 +11,6 @@ public interface ITrainingService {
     List<Training> getAllTrainings();
     Training updateTraining(Long id, Training trainingDetails);
     void deleteTraining(Long id);
+     Training getTrainingById(Long id) ;
+
 }

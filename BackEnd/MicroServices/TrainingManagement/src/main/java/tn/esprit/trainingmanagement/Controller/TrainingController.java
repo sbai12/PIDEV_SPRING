@@ -33,10 +33,25 @@ public class TrainingController {
     }
 
 
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Training> getTrainingById(@PathVariable Long id) {
+        Training training = serviceImpl.getTrainingById(id); // Appel du service pour récupérer le training
+        if (training == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Si le training n'est pas trouvé
+        }
+        return new ResponseEntity<>(training, HttpStatus.OK); // Si trouvé, renvoyer les données
+    }
+
+
+
     @PostMapping
     public Training SaveTraining(@RequestBody Training training) {
         return serviceImpl.SaveTraining(training);
     }
+
+
+
     @PutMapping("/{id}")
     public Training updateTraining(@PathVariable Long id, @RequestBody Training trainingDetails){
         return serviceImpl.updateTraining(id, trainingDetails);
@@ -45,5 +60,10 @@ public class TrainingController {
     @DeleteMapping("/{id}")
     public void deleteTraining(@PathVariable Long id){
         serviceImpl.deleteTraining(id);
-    }}
+    }
+
+
+
+
+}
 

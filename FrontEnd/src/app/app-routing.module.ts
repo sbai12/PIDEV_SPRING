@@ -18,6 +18,7 @@ import { PostDetailComponent } from './components/post-detail/post-detail.compon
 import { NavadminComponent } from './components/navadmin/navadmin.component';
 import { AddTrainingComponent } from './admin/add-training/add-training.component';
 import { TrainingListComponent } from './admin/training-list/training-list.component';
+import { EditTrainingComponent } from './admin/edit-training/edit-training.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -47,7 +48,8 @@ const routes: Routes = [
       // Nouvelle route pour ajouter une formation
       { path: 'trainings/add', component: AddTrainingComponent },
       
-      
+      { path: 'trainings/edit/:id', component: EditTrainingComponent }, // Route pour l'édition
+
       
       { path: '**', redirectTo: 'view', pathMatch: 'full' } // ✅ Gestion des routes inconnues sous /admin
     ]

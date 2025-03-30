@@ -1,15 +1,25 @@
-<div *ngFor="let training of trainings">
-    <div>
-      <h3>{{ training.name }}</h3>
-      <p>{{ training.description }}</p>
-      <p>Max Capacity: {{ training.maxCapacity }}</p>
-      <p>Duration: {{ training.duration }} hours</p>
-      <p>Professor: {{ training.professor.name }}</p>
-      <p>Status: {{ training.status }}</p>
-  
-      <!-- Boutons de suppression et édition -->
-      <button (click)="deleteTraining(training.idForm)">Delete</button>
-      <button (click)="editTraining(training.idForm)">Edit</button>
-    </div>
+<!-- Titre de la page -->
+<h2 class="page-title">Training List</h2>
+
+<!-- Message s'il n'y a pas de formations -->
+<div *ngIf="trainings.length === 0" class="no-trainings-message">
+  No trainings available
+</div>
+
+<!-- Liste des formations -->
+<div *ngFor="let training of trainings" class="training-card">
+  <h3 class="training-title">{{ training.name }}</h3>
+  <p class="training-description">{{ training.description }}</p>
+  <div class="training-info">
+    <p><strong>Max Capacity:</strong> {{ training.maxCapacity }}</p>
+    <p><strong>Duration:</strong> {{ training.duration }} hours</p>
+    <p *ngIf="training.professor"><strong>Professor:</strong> {{ training.professor.name }}</p>
+    <p><strong>Status:</strong> {{ training.status }}</p>
   </div>
   
+  <!-- Boutons pour supprimer et éditer -->
+  <div class="training-buttons">
+    <button class="delete-btn" (click)="deleteTraining(training.idForm)">Delete</button>
+    <button class="edit-btn" (click)="editTraining(training.idForm)">Edit</button>
+  </div>
+</div>

@@ -1,29 +1,23 @@
-<form (ngSubmit)="onSubmit()" #trainingForm="ngForm">
-    <div>
-      <label for="name">Title</label>
-      <input type="text" id="name" [(ngModel)]="training.name" name="name" required />
-    </div>
-  
-    <div>
-      <label for="description">Description</label>
-      <textarea id="description" [(ngModel)]="training.description" name="description" required></textarea>
-    </div>
-  
-    <div>
-      <label for="duration">Duration (in hours)</label>
-      <input type="number" id="duration" [(ngModel)]="training.duration" name="duration" required />
-    </div>
-  
-    <div>
-      <label for="maxCapacity">Max Capacity</label>
-      <input type="number" id="maxCapacity" [(ngModel)]="training.maxCapacity" name="maxCapacity" required />
-    </div>
-  
-    <div>
-      <label for="meetingLink">Meeting Link</label>
-      <input type="text" id="meetingLink" [(ngModel)]="training.meetingLink" name="meetingLink" required />
-    </div>
-  
-    <button type="submit" [disabled]="!trainingForm.form.valid">Save Changes</button>
-  </form>
-  
+<form (ngSubmit)="onSubmit()" #trainingForm="ngForm" class="edit-form">
+  <div class="form-group">
+    <label for="name">Title</label>
+    <input type="text" id="name" [(ngModel)]="training.name" name="name" class="form-control" required />
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea id="description" [(ngModel)]="training.description" name="description" class="form-control" required></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="duration">Duration (in hours)</label>
+    <input type="number" id="duration" [(ngModel)]="training.duration" name="duration" class="form-control" required />
+  </div>
+
+  <div class="form-group">
+    <label for="maxCapacity">Max Capacity</label>
+    <input type="number" id="maxCapacity" [(ngModel)]="training.maxCapacity" name="maxCapacity" class="form-control" required />
+  </div>
+
+  <button type="submit" class="submit-btn" [disabled]="!trainingForm.form.valid">Save Changes</button>
+</form>
