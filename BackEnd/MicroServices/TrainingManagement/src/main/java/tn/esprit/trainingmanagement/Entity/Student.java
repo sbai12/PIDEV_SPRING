@@ -1,5 +1,6 @@
 package tn.esprit.trainingmanagement.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,7 +16,8 @@ public class Student extends User {
     List<Certificate> certificates;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TrainingEnrollment> enrollments;
+    @JsonManagedReference
+    List<TrainingEnrollment> enrollments;
 
 }
 

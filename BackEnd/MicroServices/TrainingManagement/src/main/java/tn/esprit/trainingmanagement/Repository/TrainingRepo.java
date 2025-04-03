@@ -8,4 +8,5 @@ import tn.esprit.trainingmanagement.Entity.Training;
     public interface TrainingRepo extends JpaRepository<Training, Long> {
     boolean existsByName(String name);
 
+
 }

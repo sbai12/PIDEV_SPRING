@@ -1,5 +1,6 @@
 package tn.esprit.trainingmanagement.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -12,6 +13,7 @@ public class TrainingEnrollment {
 
     @ManyToOne
     @JoinColumn(name = "student_id")
+    @JsonBackReference
      Student student;
 
     @ManyToOne
@@ -19,7 +21,6 @@ public class TrainingEnrollment {
      Training training;
 
     @Enumerated(EnumType.STRING)
-     EnrollmentStatus status = EnrollmentStatus.PENDING; // Par défaut, l'inscription est en attente
-
+    public EnrollmentStatus status;
 
 }
