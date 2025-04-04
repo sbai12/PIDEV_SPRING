@@ -25,7 +25,6 @@ import { AdminFooterComponent } from './components/admin-footer/admin-footer.com
 import { TrainingListComponent } from './admin/training-list/training-list.component';
 import { AddTrainingComponent } from './admin/add-training/add-training.component';
 import { EditTrainingComponent } from './admin/edit-training/edit-training.component';
-import { FormulaireInscriptionComponent } from './components/formulaire-inscription/formulaire-inscription.component';
 
 
 @NgModule({
@@ -50,8 +49,8 @@ import { FormulaireInscriptionComponent } from './components/formulaire-inscript
     AdminFooterComponent,
     TrainingListComponent,
     AddTrainingComponent,
-    EditTrainingComponent,
-    FormulaireInscriptionComponent
+    EditTrainingComponent
+    
   ],
   imports: [
     BrowserModule,

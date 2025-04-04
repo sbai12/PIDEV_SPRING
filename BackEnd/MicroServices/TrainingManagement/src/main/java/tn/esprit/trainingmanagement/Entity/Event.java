@@ -24,7 +24,7 @@ public class Event {
     List<Student> students;
 
     @ManyToOne
-    Professor professor;
+    Admin admin;
 }
 
 

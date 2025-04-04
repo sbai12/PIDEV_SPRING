@@ -63,6 +63,33 @@
                 <p class="card-text">{{ training.description }}</p>
                 <p><strong>Duration:</strong> {{ training.duration }} hours</p>
                 <p><strong>Max Capacity:</strong> {{ training.maxCapacity }}</p>
+
+                <!-- Display average rating if available -->
+                <p><strong>Average Rating:</strong>
+                  <ng-container *ngIf="training.averageRating !== null; else noRating">
+                    <span>{{ training.averageRating }} / 5</span>
+                  </ng-container>
+                  <ng-template #noRating>
+                    <span>No ratings yet</span>
+                  </ng-template>
+                </p>
+
+                <!-- Rating Form (visible only for registered students) -->
+                <div *ngIf="isRegistered(training)">
+                  <form (ngSubmit)="submitRating(training.id)">
+                    <div class="form-group">
+                      <label for="rating">Your Rating:</label>
+                      <input type="number" id="rating" [(ngModel)]="rating" name="rating" min="1" max="5" required />
+                    </div>
+                    <div class="form-group">
+                      <label for="comment">Your Comment:</label>
+                      <textarea id="comment" [(ngModel)]="comment" name="comment" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit Review</button>
+                  </form>
+                </div>
+
+                <!-- Register button (to simulate registration) -->
                 <button class="btn btn-primary" (click)="onRegister(training.id)">Register</button>
               </div>
             </div>

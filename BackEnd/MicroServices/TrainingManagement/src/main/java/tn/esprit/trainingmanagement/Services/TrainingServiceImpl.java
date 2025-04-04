@@ -3,15 +3,12 @@ package tn.esprit.trainingmanagement.Services;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tn.esprit.trainingmanagement.Entity.Student;
 import tn.esprit.trainingmanagement.Entity.Training;
 import tn.esprit.trainingmanagement.Repository.StudentRepo;
 import tn.esprit.trainingmanagement.Repository.TrainingRepo;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -21,11 +18,7 @@ public class TrainingServiceImpl implements ITrainingService{
 
     @Autowired
     TrainingRepo trainingRepo;
-    @Autowired
-    EmailService emailService;
 
-    @Autowired
-    StudentRepo studentRepo;
 
     @Override
     public Training SaveTraining(Training training) {
@@ -72,12 +65,5 @@ public class TrainingServiceImpl implements ITrainingService{
 
 
 
-    public String genererLienReunion(Long idForm, LocalDateTime dateSession) {
-        Training training = trainingRepo.findById(idForm)
-                .orElseThrow(() -> new RuntimeException("Formation non trouvée"));
-        String baseLink = "https://meet.example.com/join?meeting=" + idForm + "-" + System.currentTimeMillis();
-        training.setMeetingLink(baseLink);
-        trainingRepo.save(training);
-        return baseLink;
-    }
+
     }

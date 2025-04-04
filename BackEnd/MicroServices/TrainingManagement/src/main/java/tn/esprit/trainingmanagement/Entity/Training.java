@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -20,11 +21,12 @@ public class Training {
     int duration;
     int maxCapacity;
      String status;
+     LocalDateTime dateSession;
 
 
     @ManyToOne
     @JoinColumn(name = "professor_id")
-    Professor professor;
+    Admin admin;
 
 
     @OneToMany(mappedBy = "training", cascade = CascadeType.ALL , orphanRemoval = true)

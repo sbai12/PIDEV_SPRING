@@ -2,17 +2,25 @@ package tn.esprit.trainingmanagement.Entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import tn.esprit.trainingmanagement.Entity.FctsAv.AdminType;
 
 import java.util.List;
 
 @Data
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Professor extends User {
+public class Admin extends User {
+
     String specialization;
 
-    @OneToMany(mappedBy = "professor" , cascade = CascadeType.ALL, orphanRemoval = true)
+
+    @Enumerated(EnumType.STRING)
+    AdminType adminType;
+
+    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Training> trainings;
+
+
 }
 
 
