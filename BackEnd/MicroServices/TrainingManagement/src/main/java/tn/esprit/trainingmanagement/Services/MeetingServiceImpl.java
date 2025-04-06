@@ -1,5 +1,7 @@
 package tn.esprit.trainingmanagement.Services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -13,6 +15,7 @@ import java.util.UUID;
 
 @Service
 public class MeetingServiceImpl implements IMeetingService{
+    private static final Logger logger = LoggerFactory.getLogger(MeetingServiceImpl.class);  // Logger pour les logs
 
     @Autowired
     TrainingRepo trainingRepository;
@@ -29,12 +32,12 @@ public class MeetingServiceImpl implements IMeetingService{
         training.setMeetingLink(lien);
         training.setDateSession(dateSession);
         trainingRepository.save(training);
+        logger.info("Lien de réunion généré pour la formation {} : {}", training.getName(), lien);
         return lien;
     }
 
     @Override
     public void envoyerInvitations(Long idFormation, LocalDateTime dateSession) {
-
         Training training = trainingRepository.findById(idFormation)
                 .orElseThrow(() -> new RuntimeException("Formation introuvable"));
 
@@ -45,13 +48,21 @@ public class MeetingServiceImpl implements IMeetingService{
 
         String message = buildMessage(training.getName(), dateSession, lien);
 
-        // Envoi au professeur
-        envoyerEmail(training.getAdmin().getEmail(), "Invitation formation : " + training.getName(), message);
+        try {
+            // Envoi au professeur
+            envoyerEmail(training.getAdmin().getEmail(), "Invitation formation : " + training.getName(), message);
 
-        // Envoi aux étudiants confirmés
-        training.getEnrollments().stream()
-                .filter(e -> e.getStatus() == EnrollmentStatus.CONFIRMED)
-                .forEach(e -> envoyerEmail(e.getStudent().getEmail(), "Invitation formation : " + training.getName(), message));
+            // Envoi aux étudiants confirmés
+            training.getEnrollments().stream()
+                    .filter(e -> e.getStatus() == EnrollmentStatus.CONFIRMED)
+                    .forEach(e -> envoyerEmail(e.getStudent().getEmail(), "Invitation formation : " + training.getName(), message));
+
+            logger.info("Les invitations ont été envoyées pour la formation {}", training.getName());
+
+        } catch (Exception e) {
+            logger.error("Erreur lors de l'envoi des invitations pour la formation {} : {}", training.getName(), e.getMessage());
+            throw new RuntimeException("Erreur lors de l'envoi des invitations", e);
+        }
     }
 
     private String buildMessage(String nomFormation, LocalDateTime date, String lien) {
@@ -64,7 +75,12 @@ public class MeetingServiceImpl implements IMeetingService{
         msg.setTo(to);
         msg.setSubject(subject);
         msg.setText(content);
-        mailSender.send(msg);
-    }
-}
 
+        try {
+            mailSender.send(msg);
+            logger.info("E-mail envoyé à : " + to);  // Log pour confirmer l'envoi
+        } catch (Exception e) {
+            logger.error("Erreur lors de l'envoi de l'e-mail à " + to + ": " + e.getMessage());
+            throw new RuntimeException("Erreur lors de l'envoi de l'e-mail", e);
+        }
+    }}
