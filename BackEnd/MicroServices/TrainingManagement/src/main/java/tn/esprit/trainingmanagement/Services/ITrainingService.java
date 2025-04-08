@@ -12,5 +12,7 @@ public interface ITrainingService {
     Training updateTraining(Long id, Training trainingDetails);
     void deleteTraining(Long id);
      Training getTrainingById(Long id) ;
+     Training assignProfessorToTraining(Long trainingId, Long professorId) ;
 
-}
+
+    }

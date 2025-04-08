@@ -21,6 +21,9 @@ import java.util.Map;
 public class TrainingController {
     @Autowired
     TrainingServiceImpl serviceImpl;
+
+
+
     @GetMapping("/exists/{name}")
     public ResponseEntity<Map<String, Boolean>> checkIfTrainingExists(@PathVariable String name) {
         boolean exists = serviceImpl.existsByName(name);
@@ -62,8 +65,14 @@ public class TrainingController {
         serviceImpl.deleteTraining(id);
     }
 
-
-
-
+    @PutMapping("/{trainingId}/assign-professor/{professorId}")
+    public ResponseEntity<Training> assignProfessorToTraining(@PathVariable Long trainingId,
+                                                              @PathVariable Long professorId) {
+        try {
+            Training updatedTraining = serviceImpl.assignProfessorToTraining(trainingId, professorId);
+            return ResponseEntity.ok(updatedTraining);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(null); // Error if specialization doesn't match
+        }
+    }
 }
-
