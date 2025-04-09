@@ -87,4 +87,10 @@ public class TrainingController {
         return serviceImpl.getEnrolledTrainings(email);
     }
 
+    @GetMapping("/available")
+    public List<Training> getAvailableTrainings(@AuthenticationPrincipal Jwt jwt) {
+        String email = jwt.getClaimAsString("email");  // Récupère l'email de l'étudiant depuis le token JWT
+        return serviceImpl.getAvailableTrainings(email);  // Appel du service pour récupérer les formations non inscrites
+    }
+
 }

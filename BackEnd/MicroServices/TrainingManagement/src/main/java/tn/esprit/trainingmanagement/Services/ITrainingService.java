@@ -15,6 +15,7 @@ public interface ITrainingService  {
      Training assignProfessorToTraining(Long trainingId, Long professorId) ;
 
     List<Training> getEnrolledTrainings(String username);
+     List<Training> getAvailableTrainings(String email);
 
 
 }
