@@ -87,4 +87,9 @@ public class TrainingServiceImpl implements ITrainingService{
             throw new RuntimeException("The professor's specialization does not match the training name");
         }
     }
+
+    @Override
+    public List<Training> getEnrolledTrainings(String email) {
+        return trainingRepo.findTrainingsEnrolledByStudentEmail(email);
+    }
 }

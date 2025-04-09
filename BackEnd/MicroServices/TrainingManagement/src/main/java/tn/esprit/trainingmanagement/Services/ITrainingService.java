@@ -5,7 +5,7 @@ import tn.esprit.trainingmanagement.Entity.Training;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface ITrainingService {
+public interface ITrainingService  {
 
     Training SaveTraining(Training training);
     List<Training> getAllTrainings();
@@ -14,5 +14,7 @@ public interface ITrainingService {
      Training getTrainingById(Long id) ;
      Training assignProfessorToTraining(Long trainingId, Long professorId) ;
 
+    List<Training> getEnrolledTrainings(String username);
 
-    }
+
+}

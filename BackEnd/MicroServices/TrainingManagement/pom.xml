@@ -42,22 +42,16 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
-        <!-- Spring Boot Starter Data JPA -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-
-        <!-- Spring Boot Starter JDBC -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
-        </dependency>
-
         <!-- Spring Boot Starter Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Starter Data JPA -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
         <!-- MySQL Connector -->
@@ -67,17 +61,17 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Spring Boot Starter Mail (Utilisation de Jakarta Mail uniquement) -->
+        <!-- Spring Boot Starter Mail -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
-        <!-- Jakarta Mail (remplacer javax.mail et com.sun.mail) -->
+        <!-- Jakarta Mail (facultatif si non utilisé directement) -->
         <dependency>
             <groupId>jakarta.mail</groupId>
             <artifactId>jakarta.mail-api</artifactId>
-            <version>2.1.2</version> <!-- Utilise la dernière version compatible -->
+            <version>2.1.2</version>
         </dependency>
 
         <!-- Spring Boot Starter Test -->
@@ -87,18 +81,30 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Lombok pour simplification du code -->
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
 
-        <!-- Spring Boot Actuator pour la gestion -->
+        <!-- Spring Boot Actuator -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+
+        <!-- ✅ Sécurité complète avec support JWT -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+        </dependency>
+
     </dependencies>
 
 
