@@ -1,181 +1,161 @@
-<!-- Navigation -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - Mentor Bootstrap Template</title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
-
-
+  <title>View All Posts</title>
 </head>
-  
+
 <body class="index-page">
 
+  <!-- Header and Navigation -->
   <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
-
       <a href="index.html" class="logo d-flex align-items-center me-auto">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
         <h1 class="sitename">Mentor</h1>
       </a>
-
+     
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a routerLink="/" routerLinkActive="active" href="index.html">Home<br></a></li>
-          <li><a routerLink="/about" routerLinkActive="active" href="about.html" class="active">About</a></li>
-          <li><a routerLink="/courses" routerLinkActive="active" href="courses.html">Courses</a></li>
-          <li><a routerLink="/Trainers" routerLinkActive="active"  href="trainers.html">Trainers</a></li>
-          <li><a routerLink="/Events" routerLinkActive="active" href="events.html">Events</a></li>
-          <li><a routerLink="/pricing" routerLinkActive="active" href="pricing.html">Pricing</a></li>
-          <li><a routerLink="/viewall" routerLinkActive="active" href="post.html">Post</a></li>
+          <li><a routerLink="/courses" routerLinkActive="active" href="courses.html"></a></li>
+          <li><a routerLink="/Trainers" routerLinkActive="active" href="trainers.html">Course Space</a></li>
+          <li><a routerLink="/Events" routerLinkActive="active" href="events.html">Training Management</a></li>
+          <li><a routerLink="/pricing" routerLinkActive="active" href="pricing.html">Internship-Offers</a></li>
+
+          <li class="dropdown"><a routerLink="/Dropdown" routerLinkActive="active" href="#">
+            <span>Posts</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a routerLink="/video-call" >Formation</a></li>
+              <li><a routerLink="/viewall" >View Posts</a></li>
+              <li><a routerLink="" >Add a post</a></li>
+              <li><a href="#">Dropdown 4</a></li>
+            </ul>
+          </li>
           <li><a routerLink="/Contact" routerLinkActive="active" href="contact.html">Contact</a></li>
+          <li><a routerLink="/about" routerLinkActive="active" href="about.html" class="active">About</a></li>
+
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
-    
-
       <a class="btn-getstarted" href="courses.html">Get Started</a>
-
     </div>
   </header>
 
+  <!-- Main Content -->
   <main class="main">
-
-    <!-- Hero Section -->
     <section id="hero" class="hero section dark-background">
-
       <img src="assets/img/hero-bg.jpg" alt="" data-aos="fade-in">
-
       <div class="container">
         <h2 data-aos="fade-up" data-aos-delay="100">Learning Today,<br>Leading Tomorrow</h2>
-        <p data-aos="fade-up" data-aos-delay="200">We are team of talented designers making websites with Bootstrap</p>
+        <p data-aos="fade-up" data-aos-delay="200">We are a team of talented designers making websites with Bootstrap</p>
         <div class="d-flex mt-4" data-aos="fade-up" data-aos-delay="300">
           <a href="courses.html" class="btn-get-started">Get Started</a>
         </div>
       </div>
+    </section>
 
-    </section><!-- /Hero Section -->
-
-    <!-- About Section -->
-
-
-    <!-- Counts Section -->
+    <!-- Count Section -->
     <section id="counts" class="section counts light-background">
-
       <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <!-- Create New Post Button (placed below the navbar) -->
+        <div class="create-post-container">
+          <button class="create-post-btn" routerLink="/create-post">Create New Post</button>
+        </div>
 
-       <!-- Create New Post Button (placed below the navbar) -->
-<div class="create-post-container">
-  <button class="create-post-btn" routerLink="/">
-    Create New Post
-  </button>
-</div>
+        <!-- Advanced Search Bar -->
+        <div class="search-container">
+          <label for="search-input" class="search-label">Rechercher un post:</label>
+          <input
+            type="text"
+            id="search-input"
+            [(ngModel)]="searchQuery"
+            (input)="filterPosts()"
+            placeholder="Entrez un mot-clé"
+            class="search-input"
+          />
+        </div>
 
-<!-- Advanced Search Bar -->
-<div class="search-container">
-  <label for="search-input" class="search-label">Rechercher un post:</label>
-  <input
-    type="text"
-    id="search-input"
-    [(ngModel)]="searchQuery"
-    (input)="filterPosts()"
-    placeholder="Entrez un mot-clé"
-    class="search-input"
-  />
-</div>
-
-<!-- Posts List -->
-<div class="card-container">
-  <div
-    class="modern-post-card"
-    *ngFor="let item of filteredPosts | paginate: { itemsPerPage: pageSize, currentPage: page }"
-  >
-    <!-- Post Header -->
-    <div class="modern-post-header">
-      <div class="modern-avatar"></div>
-      <div>
-        <h2 class="modern-post-title">{{ item.name }}</h2>
-        <div class="modern-post-subtitle">
-          Par {{ item.postedBy }} | {{ item.date | date: 'medium' }}
+        <!-- Display Posts -->
+        <div class="card-container">
+          <div *ngFor="let item of filteredPosts" class="post-card">
+            <div class="modern-post-card">
+              <!-- Post Header with Name and Content -->
+              <div class="modern-post-header">
+                <div class="modern-avatar"></div>
+                <div>
+                  <!-- Display the Name at the Top -->
+                  <h2 class="modern-post-title">{{ item.name || 'No Name' }}</h2>
+        
+                  <!-- Display the Content Below the Name -->
+                  <p class="modern-post-content">{{ item.content || 'No Content Available' }}</p>
+        
+                  <!-- Posted By Information -->
+                  <div class="modern-post-subtitle">
+                    Par {{ item.postedBy || 'Unknown' }} | {{ item.date ? (item.date | date: 'medium') : 'No Date' }}
+                  </div>
+                </div>
+              </div>
+        
+              <!-- Post Image (If Exists) -->
+              <div class="modern-post-content">
+                <div class="post-image-container" *ngIf="item.img">
+                  <img [src]="'http://localhost:8089/uploads/' + item.img" class="modern-post-img" alt="Post Image" />
+                </div>
+              </div>
+        
+              <!-- Post Actions -->
+              <div class="modern-post-actions">
+                <button class="action-button">❤️ {{ item.likeCount || 0 }}</button>
+                <button class="action-button">👁️ {{ item.viewCount || 0 }}</button>
+                <button class="action-button" [routerLink]="['/viewpost', item.id]">
+                  View Post
+                </button>
+                <button class="action-button" [routerLink]="['/editpost', item.id]">
+                  Modifier
+                </button>
+                <button class="action-button" (click)="deletePost(item.id)">
+                  🗑️ Supprimer
+                </button>
+        
+                <button class="icon-button" (click)="readPost(item.content)">
+                  🎤
+                </button>
+                <button class="icon-button" (click)="stopReading()">
+                  ⏹️
+                </button>
+        
+                <button (click)="generateSummary(item.id)" class="summary-button">
+                  Résumé
+                </button>
+                <div *ngIf="item.showSummary" class="summary-alert">
+                  📢 {{ item.summary || 'No Summary Available' }}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Post Content -->
-    <div class="modern-post-content">
-      <div class="post-image-container">
-        <img [src]="item.img" class="modern-post-img" alt="Post Image" />
-      </div>
-      <p class="modern-post-text">
-        {{ item.content.length > 400 ? (item.content | slice:0:400) + '...' : item.content }}
-      </p>
-    </div>
-
-    <!-- Post Actions -->
-    <div class="modern-post-actions">
-      <button class="action-button">
-        ❤️ {{ item.likeCount }}
-      </button>
-      <button class="action-button">
-        👁️ {{ item.viewCount }}
-      </button>
-      <button class="action-button" [routerLink]="['/viewpost', item.id]">
-        View Post
-      </button>
-      <button class="action-button" [routerLink]="['/editpost', item.id]">
-        Modifier
-      </button>
-      <button class="action-button" (click)="deletePost(item.id)">
-        🗑️ Supprimer
-      </button>
-
-      <!-- Voice Reading Buttons -->
-      <button class="icon-button" (click)="readPost(item.content)">
-        🎤
-      </button>
-      <button class="icon-button" (click)="stopReading()">
-        ⏹️
-      </button>
-
-      <!-- Summary Button and Alert -->
-      <div class="summary-container">
-        <button (click)="generateSummary(item.id)" class="summary-button">
-          Résumé
-        </button>
-        <div *ngIf="item.showSummary" class="summary-alert">
-          📢 {{ item.summary }}
+        <!-- Pagination -->
+        <div class="pagination-container">
+          <button (click)="previousPage()" [disabled]="page <= 1" class="pagination-btn">
+            Précédent
+          </button>
+          <span class="page-number">Page {{ page }} / {{ totalPages }}</span>
+          <button (click)="nextPage()" [disabled]="page >= totalPages" class="pagination-btn">
+            Suivant
+          </button>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- Pagination -->
-<div class="pagination-container">
-  <button (click)="previousPage()" [disabled]="page <= 1" class="pagination-btn">
-    Précédent
-  </button>
-  <span class="page-number">Page {{ page }} / {{ totalPages }}</span>
-  <button (click)="nextPage()" [disabled]="page >= totalPages" class="pagination-btn">
-    Suivant
-  </button>
-</div>
-
-<!-- "Chat Now" Button at Bottom Left -->
+        <!-- "Chat Now" Button at Bottom Left -->
+        <!-- "Chat Now" Button at Bottom Left -->
 <div class="chat-now-container">
-  <button (click)="goToUsernamePage()" class="chat-now-btn">
+  <button routerLink="/video-call" class="chat-now-btn">
     Chat Now
   </button>
 </div>
-
-
-      </div>
-
-    </section><!-- /Counts Section -->
 
     <!-- Why Us Section -->
     <section id="why-us" class="section why-us">
@@ -497,7 +477,6 @@
 
     </section><!-- /Trainers Index Section -->
 
-  </main>
 
   <footer id="footer" class="footer position-relative light-background">
 
@@ -577,7 +556,5 @@
   <div id="preloader"></div>
 
 
-</body>
 
-</html>
 

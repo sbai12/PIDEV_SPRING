@@ -179,4 +179,48 @@
     color: #555;
     font-style: italic;
   }
+  .report-button {
+    background-color: #f44336; /* Red background for the report button */
+    color: white; /* White text color */
+    padding: 10px 20px; /* Space inside the button */
+    border: none; /* Remove the default border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition for color and transformation */
+  }
   
+  .report-button:hover {
+    background-color: #d32f2f; /* Darker red when hovering */
+    transform: scale(1.05); /* Slightly larger on hover */
+  }
+  
+  .report-button:focus {
+    outline: none; /* Remove the default focus outline */
+  }
+  
+  .report-button:active {
+    background-color: #c62828; /* Darker red when clicked */
+  }
+  /* QR Code Button Style */
+.btn-generate-qrcode {
+  background-color: #9c7405;  /* Green background */
+  color: white;               /* White text */
+  padding: 12px 20px;         /* Add padding */
+  border: none;               /* Remove borders */
+  border-radius: 5px;         /* Round corners */
+  font-size: 16px;            /* Text size */
+  cursor: pointer;            /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth transition on hover */
+  margin-top: 20px;           /* Space above the button */
+}
+
+.btn-generate-qrcode:hover {
+  background-color: #2e045e;  /* Darker green on hover */
+}
+
+/* Optional: Add some effect when the button is active */
+.btn-generate-qrcode:active {
+  background-color: #380766;  /* Even darker green when clicked */
+  transform: scale(0.98);      /* Button slightly shrinks on click */
+}

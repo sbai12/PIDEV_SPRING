@@ -38,6 +38,9 @@ public class Post {
     @Column(name = "tags")
     private List<String> tags;
 
+
+    private String detectionResult;  // <-- New field to store the image detection result
+
     // Constructeur sans arguments
     public Post() {
         this.date = new Date(); // Initialise la date à la création

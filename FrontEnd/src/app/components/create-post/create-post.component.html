@@ -1,75 +1,73 @@
 <div class="create-post-container">
   <h2>Create New Post</h2>
+  
   <form [formGroup]="postForm" (ngSubmit)="createPost()">
+    
     <!-- Post Name -->
     <div class="form-group">
       <label for="name">Name:</label>
-      <input type="text" id="name" formControlName="name">
+      <input type="text" id="name" formControlName="name" class="form-control">
       <div class="error" *ngIf="postForm.get('name')?.touched && postForm.get('name')?.invalid">
-        <small *ngIf="postForm.get('name')?.errors?.['required']">Le nom est requis.</small>
-        <small *ngIf="postForm.get('name')?.errors?.['minlength']">
-          Le nom doit contenir au moins 3 caractères.
-        </small>
+        <small *ngIf="postForm.get('name')?.errors?.['required']">Name is required.</small>
+        <small *ngIf="postForm.get('name')?.errors?.['minlength']">Minimum 3 characters.</small>
       </div>
     </div>
-    
-    <!-- Image URL -->
-    <div class="form-group">
-      <label for="img">Image URL:</label>
-      <input type="text" id="img" formControlName="img">
-      <div class="error" *ngIf="postForm.get('img')?.touched && postForm.get('img')?.invalid">
-        <small *ngIf="postForm.get('img')?.errors?.['required']">L'URL de l'image est requise.</small>
-      </div>
+
+    <!-- File Upload -->
+    <div class="mb-3">
+      <label for="img" class="form-label">Upload Image</label>
+      <input type="file" id="img" class="form-control" (change)="onFileChange($event)" required>
     </div>
-    
+
     <!-- Content -->
     <div class="form-group">
       <label for="content">Content:</label>
-      <textarea id="content" rows="5" formControlName="content"></textarea>
+      <textarea id="content" rows="5" formControlName="content" class="form-control"></textarea>
       <div class="error" *ngIf="postForm.get('content')?.touched && postForm.get('content')?.invalid">
-        <small *ngIf="postForm.get('content')?.errors?.['required']">Le contenu est requis.</small>
-        <small *ngIf="postForm.get('content')?.errors?.['minlength']">
-          Le contenu doit contenir au moins 5 caractères.
-        </small>
-        <small *ngIf="postForm.get('content')?.errors?.['maxlength']">
-          Le contenu ne peut pas dépasser 5000 caractères.
-        </small>
+        <small *ngIf="postForm.get('content')?.errors?.['required']">Content is required.</small>
+        <small *ngIf="postForm.get('content')?.errors?.['minlength']">Min 5 characters.</small>
+        <small *ngIf="postForm.get('content')?.errors?.['maxlength']">Max 5000 characters.</small>
       </div>
     </div>
-    
+
     <!-- Posted By -->
     <div class="form-group">
       <label for="postedBy">Posted By:</label>
-      <input type="text" id="postedBy" formControlName="postedBy">
+      <input type="text" id="postedBy" formControlName="postedBy" class="form-control">
       <div class="error" *ngIf="postForm.get('postedBy')?.touched && postForm.get('postedBy')?.invalid">
-        <small *ngIf="postForm.get('postedBy')?.errors?.['required']">Le nom est requis.</small>
-        <small *ngIf="postForm.get('postedBy')?.errors?.['pattern']">
-          Le nom ne doit contenir que des lettres et des espaces.
-        </small>
+        <small *ngIf="postForm.get('postedBy')?.errors?.['required']">This field is required.</small>
+        <small *ngIf="postForm.get('postedBy')?.errors?.['pattern']">Only letters and spaces allowed.</small>
       </div>
     </div>
-    
+
     <!-- Tags -->
     <div class="form-group">
       <label>Tags:</label>
       <div class="tag-input">
-        <input type="text" 
-               [(ngModel)]="newTag" 
-               name="newTag" 
-               placeholder="Enter tag" 
-               (keyup.enter)="addTag()">
-        <button type="button" (click)="addTag()">Add Tag</button>
+        <input 
+          type="text" 
+          [(ngModel)]="newTag" 
+          name="newTag" 
+          placeholder="Enter tag" 
+          class="form-control d-inline-block w-auto" 
+          (keyup.enter)="addTag()" 
+          [ngModelOptions]="{standalone: true}">
+        <button type="button" class="btn btn-sm btn-secondary ml-2" (click)="addTag()">Add</button>
       </div>
-      <div class="tags-list">
-        <span *ngFor="let tag of tags" class="tag">
-          {{ tag }} <button type="button" (click)="removeTag(tag)">x</button>
+      <div class="tags-list mt-2">
+        <span *ngFor="let tag of tags" class="badge badge-info mr-2">
+          {{ tag }} 
+          <button type="button" class="btn btn-sm btn-light ml-1" (click)="removeTag(tag)">x</button>
         </span>
       </div>
     </div>
-    
-    <!-- Submit Button -->
-    <div class="form-group">
-      <button type="submit" [disabled]="postForm.invalid">Create New Post</button>
+
+    <!-- Submit -->
+    <div class="form-group mt-4">
+      <button type="submit" class="btn btn-primary" [disabled]="postForm.invalid || !selectedFile">
+        Create Post
+      </button>
     </div>
+
   </form>
 </div>

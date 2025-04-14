@@ -22,6 +22,7 @@ import { AdminViewComponent } from './components/admin-view/admin-view.component
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { NavadminComponent } from './components/navadmin/navadmin.component';
 import { AdminFooterComponent } from './components/admin-footer/admin-footer.component';
+import { VideoCallComponent } from './components/video-call/video-call.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { AdminFooterComponent } from './components/admin-footer/admin-footer.com
     AdminViewComponent,
     PostDetailComponent,
     NavadminComponent,
-    AdminFooterComponent
+    AdminFooterComponent,
+    VideoCallComponent
   ],
   imports: [
     BrowserModule,

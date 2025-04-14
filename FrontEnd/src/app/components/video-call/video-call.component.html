@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Courses - Mentor Bootstrap Template</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  
+  
+</head>
+
+<body class="courses-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="assets/img/logo.png" alt=""> -->
+        <h1 class="sitename">Mentor</h1>
+      </a>
+
+      
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a routerLink="/" routerLinkActive="active" href="index.html">Home<br></a></li>
+          <li><a routerLink="/courses" routerLinkActive="active" href="courses.html"></a></li>
+          <li><a routerLink="/Trainers" routerLinkActive="active" href="trainers.html">Course Space</a></li>
+          <li><a routerLink="/Events" routerLinkActive="active" href="events.html">Training Management</a></li>
+          <li><a routerLink="/pricing" routerLinkActive="active" href="pricing.html">Internship-Offers</a></li>
+
+          <li class="dropdown"><a routerLink="/Dropdown" routerLinkActive="active" href="#">
+            <span>Posts</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a routerLink="/video-call" >Formation</a></li>
+              <li><a routerLink="/viewall" >View Posts</a></li>
+              <li><a routerLink="" >Add a post</a></li>
+              <li><a href="#">Dropdown 4</a></li>
+            </ul>
+          </li>
+          <li><a routerLink="/Contact" routerLinkActive="active" href="contact.html">Contact</a></li>
+          <li><a routerLink="/about" routerLinkActive="active" href="about.html" class="active">About</a></li>
+
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    
+
+      <a class="btn-getstarted" href="courses.html">Get Started</a>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title" data-aos="fade">
+      <div class="heading">
+        <div class="container">
+          <div class="row d-flex justify-content-center text-center">
+            <div class="col-lg-8">
+              <h1>Ready To Start Class?</h1>
+              <p class="mb-0">Welcome</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <nav class="breadcrumbs">
+        <div class="container">
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li class="current">Call</li>
+          </ol>
+        </div>
+      </nav>
+    </div><!-- End Page Title -->
+
+<div class="main-content">
+    <!-- Video container -->
+    <div class="video-container">
+      <div class="video-box">
+        <h3>My Video</h3>
+        <video #myVideo autoplay playsinline></video>
+      </div>
+      <div class="video-box">
+        <h3>Caller Video</h3>
+        <video #peerVideo autoplay playsinline></video>
+      </div>
+    </div>
+  
+    <!-- Chat container -->
+    <div class="chat-column">
+      <div class="chat-box">
+        <h5 class="text-center mb-3">Live Chat</h5>
+        <div class="chat-messages border rounded p-2 mb-3" id="chatMessages" #chatMessages 
+             style="height: 400px; overflow-y: auto; background: #f8f9fa;">
+          <div *ngFor="let msg of messages" class="text-muted small">{{ msg }}</div>
+        </div>
+        <div class="input-group">
+          <input type="text" class="form-control" [(ngModel)]="chatInput"
+                 (keyup.enter)="sendChat()" placeholder="Type your message...">
+          <button class="btn btn-success" (click)="sendChat()">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<!-- Video controls -->
+<div class="controls">
+    <p><strong>My ID:</strong> <span class="peer-id">{{ myPeerId }}</span></p>
+    <input type="text" [(ngModel)]="peerId" placeholder="Enter Caller ID to Call" />
+    <div class="call-controls">
+      <button (click)="callUser()">📞 Call</button>
+      <button (click)="shareScreen()">🖥️ Share Screen</button>
+      <button (click)="toggleMute()">{{ isMuted ? '🔊 Unmute' : '🔇 Mute' }}</button> <!-- Mute/Unmute button -->
+    </div>
+  </div>
+  
+  

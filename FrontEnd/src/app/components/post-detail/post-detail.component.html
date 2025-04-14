@@ -18,10 +18,10 @@
   
       <!-- Image -->
       <img
-        [src]="post.img ? post.img : 'assets/default-image.jpg'"
-        class="post-img"
-        alt="Image du post"
-      />
+      [src]="post.img ? 'http://localhost:8089/uploads/' + post.img : 'assets/default-image.jpg'"
+      class="post-img"
+      alt="Image du post"
+    />
   
       <!-- Content -->
       <div class="post-content">

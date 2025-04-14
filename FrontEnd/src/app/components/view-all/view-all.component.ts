@@ -76,26 +76,24 @@ export class ViewAllComponent implements OnInit {
     }
   }
 
-  deletePost(postId: number) {
-    if (confirm("Voulez-vous vraiment supprimer cet article ?")) {
+  deletePost(postId: number): void {
+    if (confirm('Are you sure you want to delete this post?')) {
       this.postService.deletePost(postId).subscribe(
-        (response: any) => { 
-          if (response === "Post supprimé avec succès") {
-            this.allPosts = this.allPosts.filter((post: any) => post.id !== postId);
-            this.filteredPosts = this.filteredPosts.filter((post: any) => post.id !== postId);
-            alert("Article supprimé avec succès");
-            this.calculateTotalPages();
-          } else {
-            alert("Erreur lors de la suppression");
-          }
+        (response) => {
+          // Log success message
+          console.log('Post deleted successfully');
+          
+          // Reload the page after successful deletion
+          window.location.reload();
         },
-        error => {
-          console.error("Erreur lors de la suppression :", error);
-          alert("Erreur lors de la suppression");
+        (error) => {
+          console.error('Error deleting post:', error);
+          alert('Error deleting post');
         }
       );
     }
   }
+  
 
   goToUsernamePage(): void {
     this.router.navigate(['/client/blog/chat']);

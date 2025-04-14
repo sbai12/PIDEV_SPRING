@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Post } from '../models/post.model';
 
 @Injectable({
@@ -23,10 +24,23 @@ export class PostService {
     return this.http.delete(`http://localhost:8089/api/posts/${postId}`, { responseType: 'text' });
   }
   
-  // Create a new post
-  createPost(post: Post): Observable<Post> {
-    return this.http.post<Post>(`${this.apiUrl}/addPost`, post);
+  addPost(post: Post, selectedFile: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', selectedFile, selectedFile.name);  // Add the file to FormData
+    formData.append('postData', JSON.stringify(post));  // Add the post data as a JSON string
+  
+    // Send the FormData to the backend using POST method
+    return this.http.post(`${this.apiUrl}/addPost`, formData)
+      .pipe(
+        catchError(this.handleError) // Handle any errors here if necessary
+      );
   }
+  private handleError(error: any): Observable<never> {
+    console.error('An error occurred:', error); // Log the error to the console
+    return throwError(() => new Error('Something went wrong; please try again later.'));
+  }
+    
+
 
   // Retrieve all posts
   getAllPosts(): Observable<Post[]> {

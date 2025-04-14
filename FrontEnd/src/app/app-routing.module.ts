@@ -16,7 +16,7 @@ import { AdminStatisticsComponent } from './components/admin-statistics/admin-st
 import { AdminViewComponent } from './components/admin-view/admin-view.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { NavadminComponent } from './components/navadmin/navadmin.component';
-
+import { VideoCallComponent } from './components/video-call/video-call.component';  
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
@@ -30,6 +30,7 @@ const routes: Routes = [
   { path: 'editpost/:id', component: EditPostComponent },
   { path: 'viewall', component: ViewAllComponent },
   { path: 'viewpost/:id', component: ViewPostComponent },
+  { path: 'video-call', component: VideoCallComponent }, // Video call page
   {
     path: 'admin',
     component: NavadminComponent,  // Parent layout for admin pages

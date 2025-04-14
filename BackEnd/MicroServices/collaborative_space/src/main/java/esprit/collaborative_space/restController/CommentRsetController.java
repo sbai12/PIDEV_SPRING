@@ -1,61 +1,106 @@
 package esprit.collaborative_space.restController;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.qrcode.QRCodeWriter;
+import esprit.collaborative_space.entity.Comment;
 import esprit.collaborative_space.service.ICommentsService;
-import esprit.collaborative_space.service.IPostService;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.HashMap;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
-
 
 @RestController
 @RequestMapping("/api/comments")
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:4200")  // Allow CORS for specific controller
 public class CommentRsetController {
 
     @Autowired
     private ICommentsService commentsService;
+
     @PostMapping
-    public ResponseEntity<?>createComment(@RequestParam Long postId,@RequestParam String postedBy,@RequestBody String content) {
-        try{
-            return ResponseEntity.ok(commentsService.createComment(postId,postedBy,content));
-        }catch (Exception e){
+    public ResponseEntity<?> createComment(@RequestParam Long postId, @RequestParam String postedBy, @RequestBody String content) {
+        try {
+            return ResponseEntity.ok(commentsService.createComment(postId, postedBy, content));
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
         }
     }
+
     @DeleteMapping("/comments/{id}")
-    public ResponseEntity<Map<String, String>> deleteComment(@PathVariable Long id) {
+    public ResponseEntity<?> deleteComment(@PathVariable Long id) {
         try {
             commentsService.deleteComment(id);
-            Map<String, String> response = new HashMap<>();
-            response.put("message", "Commentaire supprimé avec succès");
-            return ResponseEntity.ok(response);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(Collections.singletonMap("error", "Commentaire non trouvé"));
+            return ResponseEntity.ok("Commentaire supprimé avec succès");
         } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Collections.singletonMap("error", "Erreur interne lors de la suppression du commentaire"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur interne lors de la suppression du commentaire");
         }
     }
-    @GetMapping("comments/{postId}")
+
+    @GetMapping("/comments/{postId}")
     public ResponseEntity<?> getCommentsByPostId(@PathVariable Long postId) {
-        try{
+        try {
             return ResponseEntity.ok(commentsService.getCommentsByPostId(postId));
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong.");
         }
     }
 
-    @GetMapping("/comments-per-post")
-    public List<Object[]> getCommentsPerPost() {
-        return commentsService.getCommentsPerPost();
+    // New Endpoint to generate the QR Code
+    @GetMapping("/qr-code/{postId}")
+    public ResponseEntity<byte[]> generateQRCode(@PathVariable Long postId) {
+        try {
+            // Fetch comments for the given post
+            List<Comment> comments = commentsService.getCommentsByPostId(postId);
+
+            // If no comments are found, return an error response
+            if (comments.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+
+            // Build a string containing the comment's content and postedBy
+            StringBuilder commentDetails = new StringBuilder();
+            for (Comment comment : comments) {
+                commentDetails.append("Content: ").append(comment.getContent())
+                        .append("\nPosted By: ").append(comment.getPostedBy())
+                        .append("\n\n");
+            }
+
+            // Generate QR Code with comment content
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            Hashtable<EncodeHintType, Object> hints = new Hashtable<>();
+            hints.put(EncodeHintType.MARGIN, 1); // Optional: set margin
+            BufferedImage qrImage = generateQRCodeImage(commentDetails.toString(), qrCodeWriter, hints);
+
+            // Convert BufferedImage to byte array
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(qrImage, "PNG", baos);
+            byte[] qrCodeImage = baos.toByteArray();
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_PNG)
+                    .body(qrCodeImage);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    private BufferedImage generateQRCodeImage(String text, QRCodeWriter qrCodeWriter, Hashtable<EncodeHintType, Object> hints) throws Exception {
+        int size = 300;
+        com.google.zxing.common.BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, size, size, hints);
+        BufferedImage image = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
+        for (int x = 0; x < size; x++) {
+            for (int y = 0; y < size; y++) {
+                image.setRGB(x, y, bitMatrix.get(x, y) ? 0x000000 : 0xFFFFFF); // Black and white pixels
+            }
+        }
+        return image;
     }
 }

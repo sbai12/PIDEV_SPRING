@@ -40,4 +40,13 @@ export class CommentService {
   deleteComment(commentId: number): Observable<any> {
     return this.http.delete(`http://localhost:8089/api/comments/comments/${commentId}`);
   }
+
+  // Generate QR code for the given URL (will be used for post comments)
+  generateQRCode(postId: number): Observable<Blob> {
+    // Construct the URL for the QR code API call
+    const qrCodeUrl = `${this.apiUrl}/qr-code/${postId}`;
+    
+    // Return the QR code as a Blob (binary data)
+    return this.http.get(qrCodeUrl, { responseType: 'blob' });
+  }
 }
