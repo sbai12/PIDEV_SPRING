@@ -1,6 +1,5 @@
 package tn.esprit.trainingmanagement.Services;
 
-
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tn.esprit.trainingmanagement.Entity.EnrollmentStatus;
@@ -18,28 +17,22 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class EvalServiceImpl  implements IEvalService{
+public class EvalServiceImpl implements IEvalService {
 
     public final EvaluRep evaluationRepository;
     public final StudentRepo studentRepository;
     public final TrainingRepo trainingRepository;
     public final TrainingEnrollmentRepo trainingEnrollmentRepository;
 
-
-
-
-
     // Liste simulée des étudiants ayant payé (à remplacer par une vraie logique de paiement plus tard)
     public final List<Long> etudiantsAyantPaye = List.of(1L, 2L, 3L); // TEMPORAIRE
 
-
-
     @Override
     public Evaluation ajouterEvaluation(Long idEtudiant, Long idFormation, int nombreEtoiles, String commentaire) {
-        // Vérifier si l'étudiant a payé (simulé)
-        if (!etudiantsAyantPaye.contains(idEtudiant)) {
-            throw new RuntimeException("L’étudiant n’a pas encore payé cette formation.");
-        }
+        // Désactiver la vérification de paiement pour tester
+        //if (!etudiantsAyantPaye.contains(idEtudiant)) {
+        //    throw new RuntimeException("L’étudiant n’a pas encore payé cette formation.");
+        //}
 
         // Récupérer l'étudiant et la formation
         Student student = studentRepository.findById(idEtudiant)
@@ -67,8 +60,6 @@ public class EvalServiceImpl  implements IEvalService{
         return evaluationRepository.save(evaluation);
     }
 
-
-
     @Override
     public double calculerMoyenneEtoiles(Long idFormation) {
         // Récupérer la formation
@@ -85,7 +76,8 @@ public class EvalServiceImpl  implements IEvalService{
         double total = evaluations.stream().mapToInt(Evaluation::getNombreEtoiles).sum();
 
         // Calculer la moyenne
-        return total / evaluations.size();}
+        return total / evaluations.size();
+    }
 
     @Override
     public List<Evaluation> getEvaluationsByFormation(Long idFormation) {
@@ -95,4 +87,5 @@ public class EvalServiceImpl  implements IEvalService{
 
         // Récupérer toutes les évaluations pour cette formation
         return evaluationRepository.findByTraining(training);
-    }}
+    }
+}

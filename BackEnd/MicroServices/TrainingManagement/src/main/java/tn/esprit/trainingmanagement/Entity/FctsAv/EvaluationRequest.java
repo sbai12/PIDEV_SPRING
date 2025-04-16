@@ -1,6 +1,7 @@
 package tn.esprit.trainingmanagement.Entity.FctsAv;
 
-public class EvaluationRequest {public Long idEtudiant;
+public class EvaluationRequest {
+    public Long idEtudiant;
     public Long idFormation;
     public int nombreEtoiles;
     public String commentaire;

@@ -27,6 +27,7 @@ import { AddTrainingComponent } from './admin/add-training/add-training.componen
 import { EditTrainingComponent } from './admin/edit-training/edit-training.component';
 import { LoginComponent } from './login/login.component';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { RatingStarsComponent } from './components/rating-stars/rating-stars.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { SignInComponent } from './sign-in/sign-in.component';
     AddTrainingComponent,
     EditTrainingComponent,
     LoginComponent,
-    SignInComponent
+    SignInComponent,
+    RatingStarsComponent
     
   ],
   imports: [

@@ -1,56 +1,89 @@
-<!-- Enrolled Trainings -->
-<h3 class="text-center mt-5">Your Trainings</h3>
+<!-- ========================= -->
+<!-- Trainings Enrolled By Student -->
+<!-- ========================= -->
+<h3 class="text-center mt-5">Your Enrolled Trainings</h3>
 <div class="row">
   <div class="col-md-6" *ngFor="let training of enrolledTrainings">
-    <div class="card mb-4">
+    <div class="card mb-4 shadow-sm">
       <div class="card-body">
         <h5 class="card-title">{{ training.name }}</h5>
         <p class="fst-italic text-center">{{ training.date }}</p>
         <p>{{ training.description }}</p>
         <p><strong>Duration:</strong> {{ training.duration }} hours</p>
         <p><strong>Max Capacity:</strong> {{ training.maxCapacity }}</p>
-        <p><strong>Average Rating:</strong> 
+
+        <p><strong>Average Rating:</strong>
           <ng-container *ngIf="training.averageRating !== null; else noRating">
-            <span>{{ training.averageRating }} / 5</span>
+            <app-rating-stars [rating]="training.averageRating" [readOnly]="true"></app-rating-stars>
+            <span class="ms-2">({{ training.averageRating }} / 5)</span>
           </ng-container>
-          <ng-template #noRating><span>No ratings yet</span></ng-template>
+          <ng-template #noRating>
+            <span>No ratings yet</span>
+          </ng-template>
         </p>
 
+        <!-- Show Rating Form Button -->
+        <button class="btn btn-outline-success mb-2" (click)="openRatingForm(training.id)">
+          Rate this Training
+        </button>
+
         <!-- Rating Form -->
-        <form (ngSubmit)="submitRating(training.id)">
-          <div class="form-group">
-            <label for="rating">Your Rating:</label>
-            <input type="number" id="rating" [(ngModel)]="rating" name="rating" min="1" max="5" required />
-          </div>
-          <div class="form-group">
-            <label for="comment">Your Comment:</label>
-            <textarea id="comment" [(ngModel)]="comment" name="comment" rows="4" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-success mt-2">Submit Review</button>
-        </form>
+        <div *ngIf="selectedTrainingId === training.id">
+          <form (ngSubmit)="submitRating(training.id)" #form="ngForm">
+            <!-- Stars input -->
+            <label class="form-label">Your Rating:</label>
+            <app-rating-stars [(rating)]="rating"></app-rating-stars>
+
+            <!-- Comment -->
+            <div class="form-group mb-2 mt-2">
+              <label for="comment">Your Comment:</label>
+              <textarea
+                id="comment"
+                [(ngModel)]="comment"
+                name="comment"
+                class="form-control"
+                rows="3"
+                required
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100 mt-2">
+              Submit Review
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Other Trainings -->
-<h3 class="text-center mt-5">Available Trainings</h3>
+<!-- ========================= -->
+<!-- Other Trainings Available -->
+<!-- ========================= -->
+<h3 class="text-center mt-5">Other Available Trainings</h3>
 <div class="row">
   <div class="col-md-6" *ngFor="let training of otherTrainings">
-    <div class="card mb-4">
+    <div class="card mb-4 shadow-sm">
       <div class="card-body">
         <h5 class="card-title">{{ training.name }}</h5>
         <p class="fst-italic text-center">{{ training.date }}</p>
         <p>{{ training.description }}</p>
         <p><strong>Duration:</strong> {{ training.duration }} hours</p>
         <p><strong>Max Capacity:</strong> {{ training.maxCapacity }}</p>
-        <p><strong>Average Rating:</strong> 
+
+        <p><strong>Average Rating:</strong>
           <ng-container *ngIf="training.averageRating !== null; else noRating2">
-            <span>{{ training.averageRating }} / 5</span>
+            <app-rating-stars [rating]="training.averageRating" [readOnly]="true"></app-rating-stars>
+            <span class="ms-2">({{ training.averageRating }} / 5)</span>
           </ng-container>
-          <ng-template #noRating2><span>No ratings yet</span></ng-template>
+          <ng-template #noRating2>
+            <span>No ratings yet</span>
+          </ng-template>
         </p>
-        <button class="btn btn-primary" (click)="onRegister(training.id)">Register</button>
+
+        <button class="btn btn-primary w-100" (click)="onRegister(training.id)">
+          Register
+        </button>
       </div>
     </div>
   </div>

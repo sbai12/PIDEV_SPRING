@@ -13,18 +13,17 @@ import java.time.LocalDateTime;
 public class Evaluation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-     Long id;
+    Long id;
 
     @ManyToOne
     @JoinColumn(name = "idEtudiant", nullable = false)
-     public Student student;
+    public Student student;
 
     @ManyToOne
     @JoinColumn(name = "idFormation", nullable = false)
-     public Training training; // Référence à l'entité Training
+    public Training training; // Référence à l'entité Training
 
     public int nombreEtoiles;
     public String commentaire;
     public LocalDateTime dateEvaluation;
 }
-

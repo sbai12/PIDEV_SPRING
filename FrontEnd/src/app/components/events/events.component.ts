@@ -1,75 +1,99 @@
 import { Component, OnInit } from '@angular/core';
-import { TrainingService } from 'src/app/services/training.service';  
-import { Router } from '@angular/router'; // Pour la navigation entre pages
-import { EvaluationService } from 'src/app/services/evaluation.service'; // Service pour les évaluations
+import { Router } from '@angular/router';
+import { TrainingService } from 'src/app/services/training.service';
+import { EvaluationService } from 'src/app/services/evaluation.service';
 
 @Component({
-
-  selector: 'app-events', // Le nom du composant
+  selector: 'app-events',
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.css']
 })
 export class EventsComponent implements OnInit {
 
- 
   enrolledTrainings: any[] = [];
   otherTrainings: any[] = [];
-  rating: number = 0;
-  comment: string = '';
+
   studentId: number = 0;
 
+  // Evaluation form
+  rating: number = 0;
+  comment: string = '';
+  selectedTrainingId: number | null = null;
+
   constructor(
-    private trainingService: TrainingService, 
-    private router: Router, 
+    private trainingService: TrainingService,
+    private router: Router,
     private evaluationService: EvaluationService
   ) {}
 
   ngOnInit(): void {
     const id = localStorage.getItem('user_id');
-    if (id) {
-      this.studentId = +id;
-      this.trainingService.getStudentTrainings(this.studentId).subscribe({
-        next: (data) => {
-          this.enrolledTrainings = data.enrolledTrainings;
-          this.otherTrainings = data.otherTrainings;
-
-          [...this.enrolledTrainings, ...this.otherTrainings].forEach(t => {
-            this.getAverageRating(t.id);
-          });
-        },
-        error: (err) => {
-          console.error('Error fetching trainings:', err);
-        }
-      });
+    if (!id) {
+      alert("You must be logged in.");
+      return;
     }
-  }
 
-  getAverageRating(trainingId: number) {
-    this.evaluationService.getAverageRating(trainingId).subscribe(average => {
-      const training = [...this.enrolledTrainings, ...this.otherTrainings].find(t => t.id === trainingId);
-      if (training) {
-        training.averageRating = average;
+    this.studentId = +id;
+
+    this.trainingService.getStudentTrainings(this.studentId).subscribe({
+      next: (data) => {
+        this.enrolledTrainings = data.enrolledTrainings || [];
+        this.otherTrainings = data.otherTrainings || [];
+
+        const allTrainings = [...this.enrolledTrainings, ...this.otherTrainings];
+
+        allTrainings.forEach(training => {
+          this.getAverageRating(training.id);
+        });
+      },
+      error: (err) => {
+        console.error('Error loading trainings:', err);
       }
     });
   }
 
+  // Fetch average rating for a training
+  getAverageRating(trainingId: number) {
+    this.evaluationService.getAverageRating(trainingId).subscribe({
+      next: (average) => {
+        const allTrainings = [...this.enrolledTrainings, ...this.otherTrainings];
+        const training = allTrainings.find(t => t.id === trainingId);
+        if (training) {
+          training.averageRating = average;
+        }
+      },
+      error: () => {
+        console.warn(`Failed to load average rating for training ${trainingId}`);
+      }
+    });
+  }
+
+  // Check if a student is enrolled in the training
   isRegistered(training: any): boolean {
     return this.enrolledTrainings.some(t => t.id === training.id);
   }
 
+  // Redirect to payment/registration page
   onRegister(trainingId: number): void {
-    console.log(`Registering student ${this.studentId} for training ${trainingId}`);
-    // ici tu peux appeler un vrai service d'inscription à une formation si tu veux
     this.router.navigate(['/pricing', { trainingId }]);
   }
 
+  // Open the evaluation form for a specific training
+  openRatingForm(trainingId: number) {
+    this.selectedTrainingId = trainingId;
+    this.rating = 0;
+    this.comment = '';
+  }
+
+  // Submit a rating for a training
   submitRating(trainingId: number) {
     if (this.rating < 1 || this.rating > 5) {
-      alert('Please provide a rating between 1 and 5.');
+      alert('Please choose a rating between 1 and 5.');
       return;
     }
 
     const evaluation = {
+      idEtudiant: this.studentId,
       idFormation: trainingId,
       nombreEtoiles: this.rating,
       commentaire: this.comment
@@ -77,11 +101,15 @@ export class EventsComponent implements OnInit {
 
     this.evaluationService.submitEvaluation(evaluation).subscribe({
       next: () => {
-        alert('Review submitted!');
-        this.ngOnInit();
+        alert('Your review has been submitted!');
+        this.rating = 0;
+        this.comment = '';
+        this.selectedTrainingId = null;
+        this.getAverageRating(trainingId); // Refresh average after submission
       },
-      error: () => {
-        alert('Failed to submit review.');
+      error: (err) => {
+        console.error('Evaluation error:', err);
+        alert(err?.error?.message || 'An error occurred while submitting your review.');
       }
     });
   }
