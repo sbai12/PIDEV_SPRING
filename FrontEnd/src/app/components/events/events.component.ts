@@ -35,16 +35,14 @@ export class EventsComponent implements OnInit {
 
     this.studentId = +id;
 
+    // Fetch student's enrolled and other available trainings
     this.trainingService.getStudentTrainings(this.studentId).subscribe({
       next: (data) => {
         this.enrolledTrainings = data.enrolledTrainings || [];
         this.otherTrainings = data.otherTrainings || [];
 
-        const allTrainings = [...this.enrolledTrainings, ...this.otherTrainings];
-
-        allTrainings.forEach(training => {
-          this.getAverageRating(training.id);
-        });
+        // Get the average ratings for all trainings (both enrolled and available)
+        this.fetchAverageRatingsForTrainings();
       },
       error: (err) => {
         console.error('Error loading trainings:', err);
@@ -52,12 +50,21 @@ export class EventsComponent implements OnInit {
     });
   }
 
-  // Fetch average rating for a training
+  // Fetch average rating for all enrolled and available trainings
+  fetchAverageRatingsForTrainings() {
+    const allTrainings = [...this.enrolledTrainings, ...this.otherTrainings];
+    allTrainings.forEach(training => {
+      if (training.idForm) {
+        this.getAverageRating(training.idForm);
+      }
+    });
+  }
+
+  // Fetch average rating for a specific training
   getAverageRating(trainingId: number) {
     this.evaluationService.getAverageRating(trainingId).subscribe({
       next: (average) => {
-        const allTrainings = [...this.enrolledTrainings, ...this.otherTrainings];
-        const training = allTrainings.find(t => t.id === trainingId);
+        const training = this.findTrainingById(trainingId);
         if (training) {
           training.averageRating = average;
         }
@@ -68,27 +75,40 @@ export class EventsComponent implements OnInit {
     });
   }
 
-  // Check if a student is enrolled in the training
-  isRegistered(training: any): boolean {
-    return this.enrolledTrainings.some(t => t.id === training.id);
+  // Helper method to find a training by its ID
+  findTrainingById(trainingId: number) {
+    return [
+      ...this.enrolledTrainings,
+      ...this.otherTrainings
+    ].find(t => t.idForm === trainingId);  // Use idForm for training identification
   }
 
-  // Redirect to payment/registration page
+  // Check if a student is enrolled in the training
+  isRegistered(training: any): boolean {
+    return this.enrolledTrainings.some(t => t.idForm === training.idForm); // Using idForm to match
+  }
+
+  // Navigate to the pricing/registration page
   onRegister(trainingId: number): void {
     this.router.navigate(['/pricing', { trainingId }]);
   }
 
-  // Open the evaluation form for a specific training
+  // Open the rating form for a specific training
   openRatingForm(trainingId: number) {
     this.selectedTrainingId = trainingId;
     this.rating = 0;
     this.comment = '';
   }
 
-  // Submit a rating for a training
+  // Submit the evaluation for a training
   submitRating(trainingId: number) {
     if (this.rating < 1 || this.rating > 5) {
       alert('Please choose a rating between 1 and 5.');
+      return;
+    }
+
+    if (!this.comment || this.comment.trim() === '') {
+      alert('Please add a comment.');
       return;
     }
 
@@ -102,9 +122,7 @@ export class EventsComponent implements OnInit {
     this.evaluationService.submitEvaluation(evaluation).subscribe({
       next: () => {
         alert('Your review has been submitted!');
-        this.rating = 0;
-        this.comment = '';
-        this.selectedTrainingId = null;
+        this.resetForm();
         this.getAverageRating(trainingId); // Refresh average after submission
       },
       error: (err) => {
@@ -112,5 +130,12 @@ export class EventsComponent implements OnInit {
         alert(err?.error?.message || 'An error occurred while submitting your review.');
       }
     });
+  }
+
+  // Reset the rating form after submission
+  resetForm() {
+    this.rating = 0;
+    this.comment = '';
+    this.selectedTrainingId = null;
   }
 }
