@@ -23,16 +23,16 @@
         </p>
 
         <!-- Show Rating Form Button -->
-        <button class="btn btn-outline-success mb-2" (click)="openRatingForm(training.id)">
+        <button class="btn btn-outline-success mb-2" (click)="openRatingForm(training.idForm)">
           Rate this Training
         </button>
 
         <!-- Rating Form -->
-        <div *ngIf="selectedTrainingId === training.id">
-          <form (ngSubmit)="submitRating(training.id)" #form="ngForm">
+        <div *ngIf="selectedTrainingId === training.idForm">
+          <form (ngSubmit)="submitRating(training.idForm)" #form="ngForm">
             <!-- Stars input -->
-            <label class="form-label">Your Rating:</label>
-            <app-rating-stars [(rating)]="rating"></app-rating-stars>
+            <label class="form-label" for="rating">Your Rating:</label>
+            <app-rating-stars [(rating)]="rating" id="rating"></app-rating-stars>
 
             <!-- Comment -->
             <div class="form-group mb-2 mt-2">
@@ -47,9 +47,14 @@
               ></textarea>
             </div>
 
-            <button type="submit" class="btn btn-success w-100 mt-2">
+            <button type="submit" class="btn btn-success w-100 mt-2" [disabled]="!form.valid">
               Submit Review
             </button>
+
+            <!-- Display error message if submission fails -->
+            <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+              {{ errorMessage }}
+            </div>
           </form>
         </div>
       </div>
@@ -81,7 +86,7 @@
           </ng-template>
         </p>
 
-        <button class="btn btn-primary w-100" (click)="onRegister(training.id)">
+        <button class="btn btn-primary w-100" (click)="onRegister(training.idForm)">
           Register
         </button>
       </div>

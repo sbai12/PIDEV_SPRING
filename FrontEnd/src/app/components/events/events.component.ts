@@ -20,6 +20,9 @@ export class EventsComponent implements OnInit {
   comment: string = '';
   selectedTrainingId: number | null = null;
 
+  // Error message for failed evaluation submission
+  errorMessage: string = '';  // Declare errorMessage here
+
   constructor(
     private trainingService: TrainingService,
     private router: Router,
@@ -46,6 +49,7 @@ export class EventsComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error loading trainings:', err);
+        this.errorMessage = 'Failed to load training data.';
       }
     });
   }
@@ -55,7 +59,7 @@ export class EventsComponent implements OnInit {
     const allTrainings = [...this.enrolledTrainings, ...this.otherTrainings];
     allTrainings.forEach(training => {
       if (training.idForm) {
-        this.getAverageRating(training.idForm);
+        this.getAverageRating(training.idForm);  // Call API to get average rating
       }
     });
   }
@@ -95,6 +99,7 @@ export class EventsComponent implements OnInit {
 
   // Open the rating form for a specific training
   openRatingForm(trainingId: number) {
+    console.log(`Opening rating form for training ID: ${trainingId}`); // Debug log
     this.selectedTrainingId = trainingId;
     this.rating = 0;
     this.comment = '';
@@ -102,6 +107,12 @@ export class EventsComponent implements OnInit {
 
   // Submit the evaluation for a training
   submitRating(trainingId: number) {
+    // Ensure trainingId is valid
+    if (!trainingId || trainingId === null) {
+      alert('Invalid training ID');
+      return;
+    }
+
     if (this.rating < 1 || this.rating > 5) {
       alert('Please choose a rating between 1 and 5.');
       return;
@@ -112,12 +123,15 @@ export class EventsComponent implements OnInit {
       return;
     }
 
+    // Log the evaluation object for debugging
     const evaluation = {
       idEtudiant: this.studentId,
-      idFormation: trainingId,
+      idFormation: trainingId,  // Ensure this is the correct ID for the training
       nombreEtoiles: this.rating,
       commentaire: this.comment
     };
+
+    console.log('Sending evaluation:', evaluation);  // Debug log
 
     this.evaluationService.submitEvaluation(evaluation).subscribe({
       next: () => {
@@ -127,7 +141,7 @@ export class EventsComponent implements OnInit {
       },
       error: (err) => {
         console.error('Evaluation error:', err);
-        alert(err?.error?.message || 'An error occurred while submitting your review.');
+        this.errorMessage = err?.error?.message || 'An error occurred while submitting your review.';  // Display error message
       }
     });
   }
@@ -137,5 +151,6 @@ export class EventsComponent implements OnInit {
     this.rating = 0;
     this.comment = '';
     this.selectedTrainingId = null;
+    this.errorMessage = ''; // Clear the error message after submission
   }
 }
