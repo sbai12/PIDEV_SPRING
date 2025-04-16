@@ -1,0 +1,42 @@
+<!-- Company Selection Modal -->
+<div class="modal fade show d-block" *ngIf="isVisible">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Assign Company</h5>
+          <button type="button" class="btn-close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Search Input -->
+          <input type="text" class="form-control mb-3" [(ngModel)]="searchTerm" placeholder="Search companies..." />
+  
+          <!-- Company Table -->
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Description</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let company of filteredCompanies()">
+                <td>{{ company.id_company }}</td>
+                <td>{{ company.phone }}</td>
+                <td>{{ company.address }}</td>
+                <td>{{ company.description }}</td>
+                <td>
+                  <button class="btn btn-success btn-sm" (click)="assignCompany(company.id_company)">
+                    Select
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  

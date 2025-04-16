@@ -9,6 +9,14 @@ import { EventsComponent } from './components/events/events.component';
 import { PricingComponent } from './components/pricing/pricing.component';
 import { TrainersComponent } from './components/trainers/trainers.component';
 import { PostComponent } from './components/post/post.component';
+import { CompanyComponent } from './components/admin/company/company.component';
+import { EncadrementComponent } from './components/admin/encadrement/encadrement.component';
+import { InternshipOfferComponent } from './components/admin/internship-offer/internship-offer/internship-offer.component';
+import { UserComponent } from './components/admin/user/user/user.component';
+import { InternshipOfferUserComponent } from './internship/internship-offer/internship-offer.component';
+import { PostulerComponent } from './internship/postuler/postuler.component';
+import { NavadminComponent } from './components/navadmin/navadmin.component';
+import { AdminViewComponent } from './components/admin-view/admin-view.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,7 +27,31 @@ const routes: Routes = [
   { path: 'Events', component: EventsComponent },
   { path: 'pricing', component: PricingComponent },
   { path: 'Trainers', component: TrainersComponent },
-  { path: 'post', component: PostComponent }
+  { path: 'post', component: PostComponent },
+  { path: 'company', component: CompanyComponent },
+  { path: 'encadrement', component: EncadrementComponent },
+  { path: 'internship-offer', component: InternshipOfferComponent },
+  { path: 'user', component: UserComponent },
+  { path: 'user/internship-offer', component: InternshipOfferUserComponent },
+  { path: 'postuler/:id', component: PostulerComponent },
+  
+  {
+    path: 'admin',
+    component: NavadminComponent,  // Parent layout for admin pages
+    children: [
+      { path: 'user', component: UserComponent },
+      { path: 'company', component: CompanyComponent },
+      { path: 'internship-offer', component: InternshipOfferComponent },
+      { path: 'encadrement', component: UserComponent },
+      
+     
+    ]
+  },
+
+  { path: '**', redirectTo: '' }
+
+
+
 
 ];
 

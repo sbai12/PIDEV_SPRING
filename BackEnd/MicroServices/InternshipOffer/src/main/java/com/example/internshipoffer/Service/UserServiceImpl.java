@@ -1,6 +1,7 @@
 package com.example.internshipoffer.Service;
 
 
+import com.example.internshipoffer.Entity.Role;
 import com.example.internshipoffer.Entity.User;
 
 import com.example.internshipoffer.Repository.UserRepository;
@@ -39,7 +40,16 @@ public class UserServiceImpl {
             user.setCompetence(userDetails.getCompetence());
             user.setNiveau(userDetails.getNiveau());
             user.setRole(userDetails.getRole());
+            user.setStatus(userDetails.getStatus());
             return userRepository.save(user);
         }).orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    public List<User> getUsersByRole(Role role) {
+        return userRepository.findByRole(role);
+    }
+
+    public List<User> getCandidates() {
+        return userRepository.findByRole(Role.Candidate);
     }
 }

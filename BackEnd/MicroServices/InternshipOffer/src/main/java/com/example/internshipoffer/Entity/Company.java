@@ -1,4 +1,5 @@
 package com.example.internshipoffer.Entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.List;
@@ -16,6 +17,7 @@ public class Company {
     String description;
 
     @ManyToMany(mappedBy = "companies")
+    @JsonIgnore
     List<InternshipOffer> internshipOffers;
 
 }

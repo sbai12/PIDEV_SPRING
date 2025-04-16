@@ -1,0 +1,14 @@
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px; /* Adds space between buttons */
+    justify-content: center; /* Centers buttons */
+  }
+  
+  .action-buttons button {
+    flex: 1; 
+    min-width: 50px;
+    height: 38px !important; /* Set a fixed height */
+
+  }
+  

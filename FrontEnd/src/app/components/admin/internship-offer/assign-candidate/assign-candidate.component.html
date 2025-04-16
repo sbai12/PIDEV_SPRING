@@ -1,0 +1,61 @@
+<!-- Candidate Selection Modal -->
+<div class="modal fade show d-block" *ngIf="isVisible">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Assign Candidate</h5>
+          <button type="button" class="btn-close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+            <div class="d-flex mb-3">
+                <!-- Search Input -->
+                <input type="text" class="form-control me-2" [(ngModel)]="searchTerm" (input)="onSearchChange()" placeholder="Search candidates..." />
+              
+                <!-- Competence Dropdown -->
+                <select class="form-select" [(ngModel)]="selectedCompetence" (change)="onCompetenceChange()">
+                  <option value="">All Competences</option>
+                  <option *ngFor="let competence of uniqueCompetences" [value]="competence">
+                    {{ competence }}
+                  </option>
+                </select>
+              </div>
+              
+
+          <!-- Show loading indicator -->
+          <div *ngIf="loading" class="text-center">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+
+          <!-- Show table when data is available -->
+          <table class="table table-striped" *ngIf="!loading && filteredCandidates.length > 0">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Competence</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let candidate of filteredCandidates">
+                <td>{{ candidate.id }}</td>
+                <td>{{ candidate.firstname }} {{ candidate.lastname }}</td>
+                <td>{{ candidate.competence }}</td>
+                <td>
+                  <button class="btn btn-success btn-sm me-1" (click)="acceptCandidate(candidate.id!)">Accepter</button>
+                  <button class="btn btn-danger btn-sm" (click)="rejectCandidate(candidate.id!)">Refuser</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Show message if no candidates found -->
+          <p class="text-center text-muted" *ngIf="!loading && filteredCandidates.length === 0">
+            No candidates available.
+          </p>
+        </div>
+      </div>
+    </div>
+</div>

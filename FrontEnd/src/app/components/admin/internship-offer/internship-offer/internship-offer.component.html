@@ -1,0 +1,167 @@
+
+
+<div class="container mt-5">
+  <h2 class="text-center">Internship Offers</h2>
+
+  <!-- Search Bar -->
+  <div class="d-flex justify-content-between mb-3">
+    <input
+      type="text"
+      class="form-control w-50"
+      placeholder="Search internship offers..."
+      [(ngModel)]="searchTerm"
+    />
+    <button class="btn btn-info mb-3" (click)="openChartModal()">
+      Show Internship Chart
+    </button>
+
+    <app-internship-chart
+      [isVisible]="showChartModal"
+      (close)="closeChartModal()"
+    >
+    </app-internship-chart>
+
+    <button class="btn btn-success" (click)="openModal()">
+      Add Internship Offer
+    </button>
+  </div>
+
+  <!-- Internship Offers Table -->
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered">
+      <thead class="table-success">
+        <tr></tr>
+        <tr>
+          <th style="width: 5%">ID</th>
+          <th style="width: 20%">Description</th>
+          <th style="width: 15%">Competence</th>
+          <th style="width: 10%">Duration</th>
+          <th style="width: 5%">Type</th>
+          <th style="width: 15%">Status</th>
+          <th style="width: 30%">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let offer of filteredOffers()">
+          <td>{{ offer.id_offer }}</td>
+          <td>{{ offer.description }}</td>
+          <td>{{ offer.competence }}</td>
+          <td>{{ offer.duration }}</td>
+          <td>{{ offer.type }}</td>
+          <td>
+            <select
+              class="form-select"
+              [(ngModel)]="offer.status"
+              (change)="updateStatus(offer)"
+            >
+              <option *ngFor="let status of statusOptions" [value]="status">
+                {{ status }}
+              </option>
+            </select>
+          </td>
+          <td class="action-buttons">
+            <button class="btn btn-primary btn-sm" (click)="openModal(offer)">
+              Edit
+            </button>
+            <button
+              class="btn btn-danger btn-sm"
+              (click)="deleteOffer(offer.id_offer, offer.description)"
+            >
+              Delete
+            </button>
+            <button
+              class="btn btn-info btn-sm"
+              *ngIf="offer.id_offer"
+              (click)="openCandidateModal(offer.id_offer!)"
+            >
+              Candidate
+            </button>
+            <button
+              class="btn btn-warning btn-sm"
+              (click)="openCompanyModal(offer.id_offer)"
+            >
+              Company
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal for Adding/Editing Internship Offer -->
+<div *ngIf="showModal" class="modal fade show d-block" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          {{ isEditMode ? "Edit Internship Offer" : "Add Internship Offer" }}
+        </h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <label>Description:</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="selectedOffer.description"
+        />
+
+        <label>Competence:</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="selectedOffer.competence"
+        />
+
+        <label>Duration:</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="selectedOffer.duration"
+        />
+
+        <label>Type:</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="selectedOffer.type"
+        />
+
+        <label>Status:</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="selectedOffer.status"
+        />
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+        <button class="btn btn-success" (click)="saveOffer()">
+          {{ isEditMode ? "Update" : "Save" }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for assigning candidate  -->
+
+<app-assign-candidate
+  *ngIf="showCandidateModal"
+  [isVisible]="showCandidateModal"
+  [offerId]="selectedOfferId!"
+  (close)="closeCandidateModal()"
+  (assigned)="loadInternshipOffers()"
+>
+</app-assign-candidate>
+
+<!-- Modal for assigning candidate -->
+<app-assign-company
+  *ngIf="showCompanyModal"
+  [isVisible]="showCompanyModal"
+  [offerId]="selectedOfferId!"
+  (close)="closeCompanyModal()"
+  (assigned)="loadInternshipOffers()"
+>
+</app-assign-company>

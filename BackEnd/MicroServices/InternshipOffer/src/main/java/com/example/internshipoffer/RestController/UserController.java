@@ -1,5 +1,6 @@
 package com.example.internshipoffer.RestController;
 
+import com.example.internshipoffer.Entity.Role;
 import com.example.internshipoffer.Entity.User;
 import com.example.internshipoffer.Service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-
     @Autowired
     UserServiceImpl userService;
 
@@ -31,4 +31,27 @@ public class UserController {
     public User updateUser(@PathVariable Long id, @RequestBody User user) {
         return userService.updateUser(id, user);
     }
+    @GetMapping("/role/{role}")
+    public List<User> getUsersByRole(@PathVariable String role) {
+        try {
+            Role userRole = Role.valueOf(role);
+            return userService.getUsersByRole(userRole);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("Invalid role: " + role);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+    }
+
+
+    @GetMapping("/candidates")
+    public List<User> getCandidates() {
+        return userService.getCandidates();
+    }
+
+
+
 }

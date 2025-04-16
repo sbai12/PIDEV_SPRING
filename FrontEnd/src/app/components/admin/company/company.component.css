@@ -1,0 +1,30 @@
+/* Fix MatDialog to be properly centered */
+.cdk-overlay-container {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  /* Fix the dialog inside the overlay */
+  .cdk-overlay-pane {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    max-width: 90vw;
+    min-height: 150px;
+  }
+  
+  /* Make sure the dialog content looks good */
+  .mat-dialog-container {
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  

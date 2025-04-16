@@ -1,0 +1,35 @@
+<!-- Navbar Component -->
+<header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <h1 class="sitename">CodingFactory</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a routerLink="/" routerLinkActive="active">Home</a></li>
+          <li class="dropdown">
+            <a href="#">
+              <span>Admin</span> <i class="bi bi-chevron-down toggle-dropdown"></i>
+            </a>
+            <ul>
+              <li><a routerLink="/user" routerLinkActive="active">User</a></li>
+              <li><a routerLink="/company" routerLinkActive="active">Company</a></li>
+              <li><a routerLink="/internship-offer" routerLinkActive="active">Internship Offer</a></li>
+              <li><a routerLink="/encadrement" routerLinkActive="active">Encadrement</a></li>
+              
+            </ul>
+          </li>
+          <li><a routerLink="/user/internship-offer" routerLinkActive="active">Internship</a></li>
+          <li><a routerLink="/about" routerLinkActive="active">About</a></li>
+          <li><a routerLink="/courses" routerLinkActive="active">Courses</a></li>
+          <li><a routerLink="/trainers" routerLinkActive="active">Trainers</a></li>
+          <li><a routerLink="/events" routerLinkActive="active">Events</a></li>
+          <li><a routerLink="/pricing" routerLinkActive="active">Pricing</a></li>
+          <li><a routerLink="/contact" routerLinkActive="active">Contact</a></li>
+        </ul>
+      </nav>
+
+      <a class="btn-getstarted" href="courses.html">Get Started</a>
+    </div>
+</header>

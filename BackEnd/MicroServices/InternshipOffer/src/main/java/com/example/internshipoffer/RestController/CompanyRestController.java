@@ -1,4 +1,5 @@
 package com.example.internshipoffer.RestController;
+import com.example.internshipoffer.Dto.CompanyInternshipCountDTO;
 import com.example.internshipoffer.Entity.Company;
 import com.example.internshipoffer.Service.CompanyServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,10 @@ public class CompanyRestController {
     @DeleteMapping("/{id}")
     public void deleteCompany(@PathVariable Long id) {
         companyServiceImpl.deleteCompany(id);
+    }
+
+    @GetMapping("/internship-counts")
+    public List<CompanyInternshipCountDTO> getInternshipCounts() {
+        return companyServiceImpl.getInternshipCountsPerCompany();
     }
 }

@@ -1,4 +1,5 @@
 package com.example.internshipoffer.Entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.List;
@@ -20,6 +21,7 @@ public class User {
     String competence;
     String niveau;
      String phone;
+    String status;
 
     @Enumerated(EnumType.STRING)
      Role role;
@@ -33,6 +35,7 @@ public class User {
     @OneToMany(mappedBy = "Representant")
     List<InternshipOffer>internshipOffers;
     @ManyToMany(mappedBy = "candidates")
+            @JsonIgnore
     List<InternshipOffer> offres;
 
 

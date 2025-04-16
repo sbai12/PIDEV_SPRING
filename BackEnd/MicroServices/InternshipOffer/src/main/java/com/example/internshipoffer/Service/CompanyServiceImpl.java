@@ -1,5 +1,6 @@
 package com.example.internshipoffer.Service;
 
+import com.example.internshipoffer.Dto.CompanyInternshipCountDTO;
 import com.example.internshipoffer.Entity.Company;
 import com.example.internshipoffer.Repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CompanyServiceImpl {
@@ -37,4 +39,19 @@ public class CompanyServiceImpl {
     public void deleteCompany(Long id) {
         companyRepository.deleteById(id);
     }
+
+
+    public List<CompanyInternshipCountDTO> getInternshipCountsPerCompany() {
+        List<Company> companies = companyRepository.findAll();
+
+        return companies.stream()
+                .map(company -> new CompanyInternshipCountDTO(
+                        company.getDescription(), // Assuming description is company name
+                        (long) company.getInternshipOffers().size()
+                ))
+                .collect(Collectors.toList());
+    }
+
+
+
 }

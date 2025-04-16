@@ -1,0 +1,21 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { PostulerComponent } from './postuler.component';
+
+describe('PostulerComponent', () => {
+  let component: PostulerComponent;
+  let fixture: ComponentFixture<PostulerComponent>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [PostulerComponent]
+    });
+    fixture = TestBed.createComponent(PostulerComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
