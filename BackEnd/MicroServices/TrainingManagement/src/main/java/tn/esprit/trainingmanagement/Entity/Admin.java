@@ -1,5 +1,6 @@
 package tn.esprit.trainingmanagement.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import tn.esprit.trainingmanagement.Entity.FctsAv.AdminType;
@@ -18,6 +19,7 @@ public class Admin extends User {
     AdminType adminType;
 
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     List<Training> trainings;
 
 

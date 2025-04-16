@@ -42,4 +42,9 @@ public class UserServiceImpl implements IUserService {
         userRepo.deleteById(id);
 
     }
+
+    @Override
+    public User findByEmail(String email) {
+        return userRepo.findByEmail(email);
+    }
 }

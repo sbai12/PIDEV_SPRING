@@ -5,4 +5,5 @@ import java.time.LocalDateTime;
 public interface IMeetingService {
     String genererLienReunion(Long idFormation, LocalDateTime dateSession);
     void envoyerInvitations(Long idFormation, LocalDateTime dateSession);
+    void envoyerEmail(String to, String subject, String content);
 }

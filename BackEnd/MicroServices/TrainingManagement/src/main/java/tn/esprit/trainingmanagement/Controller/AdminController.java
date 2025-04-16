@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.trainingmanagement.Entity.Admin;
+import tn.esprit.trainingmanagement.Repository.AdminRepo;
 import tn.esprit.trainingmanagement.Services.IAdminService;
 
 import java.util.List;
@@ -14,6 +15,9 @@ import java.util.List;
 public class AdminController {
     @Autowired
     private IAdminService adminService;
+
+    @Autowired
+    private AdminRepo adminRepository;
 
     // Récupérer tous les admins
     @GetMapping
@@ -58,5 +62,11 @@ public class AdminController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+
+    @PostMapping("/register")
+    public Admin registerAdmin(@RequestBody Admin admin) {
+        return adminRepository.save(admin);
     }
 }

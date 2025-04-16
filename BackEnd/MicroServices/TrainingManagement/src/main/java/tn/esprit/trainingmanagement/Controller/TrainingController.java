@@ -4,8 +4,6 @@ package tn.esprit.trainingmanagement.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.trainingmanagement.Entity.Training;
 import tn.esprit.trainingmanagement.Repository.TrainingRepo;
@@ -23,8 +21,6 @@ import java.util.Map;
 public class TrainingController {
     @Autowired
     TrainingServiceImpl serviceImpl;
-
-
 
 
 
@@ -79,18 +75,4 @@ public class TrainingController {
             return ResponseEntity.badRequest().body(null); // Error if specialization doesn't match
         }
     }
-
-
-    @GetMapping("/enrolled")
-    public List<Training> getEnrolledTrainings(@AuthenticationPrincipal Jwt jwt) {
-        String email = jwt.getClaimAsString("email"); // Récupère l’email du token JWT
-        return serviceImpl.getEnrolledTrainings(email);
-    }
-
-    @GetMapping("/available")
-    public List<Training> getAvailableTrainings(@AuthenticationPrincipal Jwt jwt) {
-        String email = jwt.getClaimAsString("email");  // Récupère l'email de l'étudiant depuis le token JWT
-        return serviceImpl.getAvailableTrainings(email);  // Appel du service pour récupérer les formations non inscrites
-    }
-
 }

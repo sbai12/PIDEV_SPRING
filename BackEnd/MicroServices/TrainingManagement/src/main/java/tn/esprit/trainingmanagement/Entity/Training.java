@@ -1,5 +1,6 @@
 package tn.esprit.trainingmanagement.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -26,6 +27,7 @@ public class Training {
 
     @ManyToOne
     @JoinColumn(name = "professor_id")
+    @JsonBackReference
     Admin admin;
 
 

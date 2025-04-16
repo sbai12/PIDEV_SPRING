@@ -31,29 +31,23 @@ public class MeetingController {
     @PostMapping("/send-invitations")
     public ResponseEntity<Void> sendInvitations(@RequestParam Long idFormation,
                                                 @RequestParam String date) {
-        // Nettoyage de la chaîne de date
         date = date.trim();  // Retirer les espaces superflus
 
-        // Utiliser un DateTimeFormatter pour assurer que la conversion fonctionne
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         LocalDateTime dateSession;
         try {
-            dateSession = LocalDateTime.parse(date, formatter);  // Conversion manuelle
+            dateSession = LocalDateTime.parse(date, formatter);
         } catch (Exception e) {
             System.out.println("Erreur de conversion de la date : " + e.getMessage());
-            return ResponseEntity.status(400).body(null);  // Retourner une réponse d'erreur appropriée
+            return ResponseEntity.status(400).body(null);
         }
-
-        System.out.println("idFormation: " + idFormation);
-        System.out.println("Date: " + dateSession);
 
         try {
-            // Appel au service pour envoyer les invitations
             meetingService.envoyerInvitations(idFormation, dateSession);
-            System.out.println("Les invitations ont été envoyées.");
-            return ResponseEntity.ok().build();  // Retourner 200 OK si tout fonctionne
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             System.out.println("Erreur lors de l'envoi des invitations : " + e.getMessage());
-            return ResponseEntity.status(500).body(null);  // Retourner une réponse 500 si une erreur survient
+            return ResponseEntity.status(500).body(null);
         }
-    }}
+    }
+}

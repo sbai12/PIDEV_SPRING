@@ -20,6 +20,10 @@ import { AddTrainingComponent } from './admin/add-training/add-training.componen
 import { TrainingListComponent } from './admin/training-list/training-list.component';
 import { EditTrainingComponent } from './admin/edit-training/edit-training.component';
 
+
+import { LoginComponent } from './login/login.component';
+import { SignInComponent } from './sign-in/sign-in.component';
+
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
@@ -33,6 +37,14 @@ const routes: Routes = [
   { path: 'editpost/:id', component: EditPostComponent },
   { path: 'viewall', component: ViewAllComponent },
   { path: 'viewpost/:id', component: ViewPostComponent },
+  
+  { path: 'login', component: LoginComponent },
+  { path: 'sign-in', component: SignInComponent },
+  
+  
+  
+  
+  
   {
     path: 'admin',
     component: NavadminComponent,  // Parent layout pour l'administration
@@ -56,6 +68,7 @@ const routes: Routes = [
   },  
 
 
+  { path: '**', redirectTo: '' }
 
   ];
 

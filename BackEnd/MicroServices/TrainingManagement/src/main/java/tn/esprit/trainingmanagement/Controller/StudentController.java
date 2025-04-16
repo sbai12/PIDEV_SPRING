@@ -4,6 +4,7 @@ package tn.esprit.trainingmanagement.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.trainingmanagement.Entity.Student;
+import tn.esprit.trainingmanagement.Repository.StudentRepo;
 import tn.esprit.trainingmanagement.Services.StudentServiceImpl;
 
 import java.util.List;
@@ -14,7 +15,11 @@ import java.util.List;
 public class StudentController {
     @Autowired
     StudentServiceImpl studentService;
-    @PostMapping("/register")
+
+    @Autowired
+    private StudentRepo studentRepository;
+
+    @PostMapping("/registerr")
     public Student SaveStudent(@RequestBody Student student) {
         return studentService.SaveStudent(student);
     }
@@ -34,4 +39,8 @@ public class StudentController {
         studentService.deleteStudent(id);
     }
 
+    @PostMapping("/register")
+    public Student registerStudent(@RequestBody Student student) {
+        return studentRepository.save(student);
+    }
 }

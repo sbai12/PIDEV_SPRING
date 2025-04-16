@@ -25,6 +25,8 @@ import { AdminFooterComponent } from './components/admin-footer/admin-footer.com
 import { TrainingListComponent } from './admin/training-list/training-list.component';
 import { AddTrainingComponent } from './admin/add-training/add-training.component';
 import { EditTrainingComponent } from './admin/edit-training/edit-training.component';
+import { LoginComponent } from './login/login.component';
+import { SignInComponent } from './sign-in/sign-in.component';
 
 
 @NgModule({
@@ -49,7 +51,9 @@ import { EditTrainingComponent } from './admin/edit-training/edit-training.compo
     AdminFooterComponent,
     TrainingListComponent,
     AddTrainingComponent,
-    EditTrainingComponent
+    EditTrainingComponent,
+    LoginComponent,
+    SignInComponent
     
   ],
   imports: [

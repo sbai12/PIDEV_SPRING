@@ -11,7 +11,6 @@ import tn.esprit.trainingmanagement.Repository.TrainingRepo;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -88,25 +87,4 @@ public class TrainingServiceImpl implements ITrainingService{
             throw new RuntimeException("The professor's specialization does not match the training name");
         }
     }
-
-    @Override
-    public List<Training> getEnrolledTrainings(String email) {
-        return trainingRepo.findTrainingsEnrolledByStudentEmail(email);
-    }
-
-    @Override
-    public List<Training> getAvailableTrainings(String email) {
-        // Récupère toutes les formations
-        List<Training> allTrainings = trainingRepo.findAll();
-
-        // Filtrer celles où l'étudiant n'est pas inscrit
-        return allTrainings.stream()
-                .filter(training -> training.getEnrollments().stream()
-                        .noneMatch(enrollment -> enrollment.getStudent().getEmail().equals(email)))
-                .collect(Collectors.toList());
-    }
-
-
-
-
 }
