@@ -35,4 +35,10 @@ getTrainingById(id: number): Observable<Training> {
 updateTraining(id: number, training: Partial<Training>): Observable<Training> {
   return this.http.put<Training>(`${this.apiUrl}/${id}`, training);
 }
+
+getStudentTrainings(studentId: number): Observable<any> {
+  return this.http.get(`http://localhost:8086/students/${studentId}/trainings`);
+}
+
+
 }

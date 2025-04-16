@@ -1,110 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- Enrolled Trainings -->
+<h3 class="text-center mt-5">Your Trainings</h3>
+<div class="row">
+  <div class="col-md-6" *ngFor="let training of enrolledTrainings">
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title">{{ training.name }}</h5>
+        <p class="fst-italic text-center">{{ training.date }}</p>
+        <p>{{ training.description }}</p>
+        <p><strong>Duration:</strong> {{ training.duration }} hours</p>
+        <p><strong>Max Capacity:</strong> {{ training.maxCapacity }}</p>
+        <p><strong>Average Rating:</strong> 
+          <ng-container *ngIf="training.averageRating !== null; else noRating">
+            <span>{{ training.averageRating }} / 5</span>
+          </ng-container>
+          <ng-template #noRating><span>No ratings yet</span></ng-template>
+        </p>
 
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Trainings - Trainings List</title>
-</head>
-
-<body class="trainings-page">
-
-  <header id="header" class="header d-flex align-items-center sticky-top">
-    <div class="container-fluid container-xl position-relative d-flex align-items-center">
-      <a href="index.html" class="logo d-flex align-items-center me-auto">
-        <h1 class="sitename">Trainings List</h1>
-      </a>
-      <nav id="navmenu" class="navmenu">
-        <ul>
-          <li><a routerLink="/" routerLinkActive="active" href="index.html">Home</a></li>
-          <li><a routerLink="/trainings" routerLinkActive="active" class="active">Trainings</a></li>
-          <li><a routerLink="/pricing" routerLinkActive="active" href="pricing.html">Pricing</a></li>
-          <li><a routerLink="/contact" routerLinkActive="active" href="contact.html">Contact</a></li>
-        </ul>
-      </nav>
+        <!-- Rating Form -->
+        <form (ngSubmit)="submitRating(training.id)">
+          <div class="form-group">
+            <label for="rating">Your Rating:</label>
+            <input type="number" id="rating" [(ngModel)]="rating" name="rating" min="1" max="5" required />
+          </div>
+          <div class="form-group">
+            <label for="comment">Your Comment:</label>
+            <textarea id="comment" [(ngModel)]="comment" name="comment" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-success mt-2">Submit Review</button>
+        </form>
+      </div>
     </div>
-  </header>
+  </div>
+</div>
 
-  <main class="main">
-
-    <!-- Page Title -->
-    <div class="page-title" data-aos="fade">
-      <div class="heading">
-        <div class="container">
-          <div class="row d-flex justify-content-center text-center">
-            <div class="col-lg-8">
-              <h1>Available Trainings</h1>
-              <p class="mb-0">Browse our available trainings and enroll to enhance your skills.</p>
-            </div>
-          </div>
-        </div>
+<!-- Other Trainings -->
+<h3 class="text-center mt-5">Available Trainings</h3>
+<div class="row">
+  <div class="col-md-6" *ngFor="let training of otherTrainings">
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title">{{ training.name }}</h5>
+        <p class="fst-italic text-center">{{ training.date }}</p>
+        <p>{{ training.description }}</p>
+        <p><strong>Duration:</strong> {{ training.duration }} hours</p>
+        <p><strong>Max Capacity:</strong> {{ training.maxCapacity }}</p>
+        <p><strong>Average Rating:</strong> 
+          <ng-container *ngIf="training.averageRating !== null; else noRating2">
+            <span>{{ training.averageRating }} / 5</span>
+          </ng-container>
+          <ng-template #noRating2><span>No ratings yet</span></ng-template>
+        </p>
+        <button class="btn btn-primary" (click)="onRegister(training.id)">Register</button>
       </div>
-      <nav class="breadcrumbs">
-        <div class="container">
-          <ol>
-            <li><a href="index.html">Home</a></li>
-            <li class="current">Trainings</li>
-          </ol>
-        </div>
-      </nav>
-    </div><!-- End Page Title -->
-
-    <!-- Trainings Section -->
-    <section id="trainings" class="trainings section">
-
-      <div class="container" data-aos="fade-up">
-        <div class="row">
-          <!-- Loop through the trainings here -->
-          <div class="col-md-6 d-flex align-items-stretch" *ngFor="let training of trainings">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title"><a href="">{{ training.name }}</a></h5>
-                <p class="fst-italic text-center">{{ training.date }}</p>
-                <p class="card-text">{{ training.description }}</p>
-                <p><strong>Duration:</strong> {{ training.duration }} hours</p>
-                <p><strong>Max Capacity:</strong> {{ training.maxCapacity }}</p>
-
-                <!-- Display average rating if available -->
-                <p><strong>Average Rating:</strong>
-                  <ng-container *ngIf="training.averageRating !== null; else noRating">
-                    <span>{{ training.averageRating }} / 5</span>
-                  </ng-container>
-                  <ng-template #noRating>
-                    <span>No ratings yet</span>
-                  </ng-template>
-                </p>
-
-                <!-- Rating Form (visible only for registered students) -->
-                <div *ngIf="isRegistered(training)">
-                  <form (ngSubmit)="submitRating(training.id)">
-                    <div class="form-group">
-                      <label for="rating">Your Rating:</label>
-                      <input type="number" id="rating" [(ngModel)]="rating" name="rating" min="1" max="5" required />
-                    </div>
-                    <div class="form-group">
-                      <label for="comment">Your Comment:</label>
-                      <textarea id="comment" [(ngModel)]="comment" name="comment" rows="4" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-success">Submit Review</button>
-                  </form>
-                </div>
-
-                <!-- Register button (to simulate registration) -->
-                <button class="btn btn-primary" (click)="onRegister(training.id)">Register</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </section><!-- /Trainings Section -->
-
-  </main>
-
-  <footer id="footer" class="footer position-relative light-background">
-    <!-- Footer content here -->
-  </footer>
-
-</body>
-
-</html>
+    </div>
+  </div>
+</div>
