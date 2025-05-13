@@ -11,8 +11,11 @@ This project is a web-based platform designed to support programming education a
 - 🧑‍🏫 **Course Space**: Access structured programming courses, quizzes, and video content.
 - 🤝 **Internship Management**: View internship offers, apply online, and track application status.
 - 👨‍💻 **Collaborative Workspaces**: Work in teams, share files, and collaborate on real-world projects.
-- 🔐 **Secure Authentication**: Role-based access (Admin, Student, Company).
+- 💳 **Payment Management**: Secure and transparent handling of student payments and subscriptions.
+- 📚 **Training Management**: Administer training programs, track progress, and assign instructors.
+- 🔐 **Secure Authentication**: Role-based access (Admin, Student, Company,teacher).
 - 📈 **Scalable Architecture**: Designed to support many users with stable performance.
+
 
 ---
 
